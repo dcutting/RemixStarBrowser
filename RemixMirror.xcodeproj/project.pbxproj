@@ -13,6 +13,8 @@
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
 		C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */; };
 		C8DF4B361FBDE49200066C3B /* RemixMirrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B351FBDE49200066C3B /* RemixMirrorTests.swift */; };
+		C8DF4B411FBDE4D900066C3B /* StarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B401FBDE4D900066C3B /* StarBrowser.swift */; };
+		C8DF4B431FBE36B800066C3B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B421FBE36B800066C3B /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		C8DF4B311FBDE49200066C3B /* RemixMirrorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemixMirrorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B351FBDE49200066C3B /* RemixMirrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemixMirrorTests.swift; sourceTree = "<group>"; };
 		C8DF4B371FBDE49200066C3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8DF4B401FBDE4D900066C3B /* StarBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StarBrowser.swift; path = Source/StarBrowser.swift; sourceTree = "<group>"; };
+		C8DF4B421FBE36B800066C3B /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = Source/Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				C8DF4B271FBDE49200066C3B /* Assets.xcassets */,
 				C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */,
 				C8DF4B2C1FBDE49200066C3B /* Info.plist */,
+				C8DF4B401FBDE4D900066C3B /* StarBrowser.swift */,
+				C8DF4B421FBE36B800066C3B /* Utility.swift */,
 			);
 			path = RemixMirror;
 			sourceTree = "<group>";
@@ -201,6 +207,8 @@
 			files = (
 				C8DF4B231FBDE49200066C3B /* ViewController.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
+				C8DF4B411FBDE4D900066C3B /* StarBrowser.swift in Sources */,
+				C8DF4B431FBE36B800066C3B /* Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
