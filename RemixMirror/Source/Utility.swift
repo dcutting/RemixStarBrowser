@@ -1,8 +1,4 @@
-//  Copyright © 2017 Schibsted. All rights reserved.
-
 import Foundation
-
-// Identifier
 
 struct Identifier<T>: Hashable {
 
@@ -21,17 +17,16 @@ struct Identifier<T>: Hashable {
     }
 }
 
-// Result
-
 enum Result<T> {
     case success(T)
-    case error(Error)
+    case error
 }
 
-// Wireframe
+typealias AsyncResult<T> = (Result<T>) -> Void
 
 protocol Navigatable: class {}
 
 protocol NavigationWireframe {
     func push(_ navigatable: Navigatable)
+    func pop()
 }
