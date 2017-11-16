@@ -38,7 +38,7 @@ protocol StarListViewFactory: class {
 
 
 
-class StarLoadingView: Navigatable {
+protocol StarLoadingView: Navigatable {
 }
 
 protocol StarLoadingViewFactory: class {
