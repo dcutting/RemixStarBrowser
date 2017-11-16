@@ -89,7 +89,7 @@
 			children = (
 				C8DF4B201FBDE49200066C3B /* AppDelegate.swift */,
 				C8DF4B221FBDE49200066C3B /* ViewController.swift */,
-				C8DF4B471FBE3D5200066C3B /* Source */,
+				C8DF4B471FBE3D5200066C3B /* Core */,
 				C8DF4B241FBDE49200066C3B /* Main.storyboard */,
 				C8DF4B271FBDE49200066C3B /* Assets.xcassets */,
 				C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */,
@@ -107,7 +107,7 @@
 			path = RemixMirrorTests;
 			sourceTree = "<group>";
 		};
-		C8DF4B471FBE3D5200066C3B /* Source */ = {
+		C8DF4B471FBE3D5200066C3B /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				C8DF4B4A1FBE3D5200066C3B /* Flows.swift */,
@@ -116,7 +116,7 @@
 				C8DF4B491FBE3D5200066C3B /* Services.swift */,
 				C8DF4B481FBE3D5200066C3B /* Utility.swift */,
 			);
-			path = Source;
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
