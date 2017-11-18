@@ -1,7 +1,3 @@
-protocol StarGateway {
-    func loadAll(completion: AsyncResult<[Star]>)
-}
-
 class StarService {
 
     private let gateway: StarGateway
