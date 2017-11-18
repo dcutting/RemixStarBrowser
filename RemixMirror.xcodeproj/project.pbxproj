@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38298CAB11A21295BCF12681 /* Pods_RemixMirror.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B231FBDE49200066C3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B221FBDE49200066C3B /* ViewController.swift */; };
 		C8DF4B261FBDE49200066C3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B241FBDE49200066C3B /* Main.storyboard */; };
@@ -31,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemixMirror.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixMirror.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror.release.xcconfig"; sourceTree = "<group>"; };
+		A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixMirror.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror.debug.xcconfig"; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8DF4B221FBDE49200066C3B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38298CAB11A21295BCF12681 /* Pods_RemixMirror.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +71,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01BE27B2D878A378E0BF6615 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */,
+				27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		25F569CE08877F8ED17ED0A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C8DF4B141FBDE49200066C3B = {
 			isa = PBXGroup;
 			children = (
 				C8DF4B1F1FBDE49200066C3B /* RemixMirror */,
 				C8DF4B341FBDE49200066C3B /* RemixMirrorTests */,
 				C8DF4B1E1FBDE49200066C3B /* Products */,
+				01BE27B2D878A378E0BF6615 /* Pods */,
+				25F569CE08877F8ED17ED0A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,9 +150,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C8DF4B3A1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixMirror" */;
 			buildPhases = (
+				A1D63629C741744143A13436 /* [CP] Check Pods Manifest.lock */,
 				C8DF4B191FBDE49200066C3B /* Sources */,
 				C8DF4B1A1FBDE49200066C3B /* Frameworks */,
 				C8DF4B1B1FBDE49200066C3B /* Resources */,
+				CE7CF15991CDD30BEDDFC270 /* [CP] Embed Pods Frameworks */,
+				5BC484EB8CCF0B4581666FBD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -216,6 +243,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5BC484EB8CCF0B4581666FBD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1D63629C741744143A13436 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RemixMirror-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE7CF15991CDD30BEDDFC270 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Layout/Layout.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Layout.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C8DF4B191FBDE49200066C3B /* Sources */ = {
@@ -379,6 +460,7 @@
 		};
 		C8DF4B3B1FBDE49200066C3B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -394,6 +476,7 @@
 		};
 		C8DF4B3C1FBDE49200066C3B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
