@@ -1,4 +1,4 @@
-class AppFlow {
+class RootFlow {
 
     struct Dependencies {
         let navigationWireframe: NavigationWireframe
@@ -32,7 +32,7 @@ class AppFlow {
     }
 }
 
-extension AppFlow: StarBrowserFlowDelegate {
+extension RootFlow: StarBrowserFlowDelegate {
     func didFinish() {
     }
 }

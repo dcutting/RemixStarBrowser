@@ -26,10 +26,30 @@
 		C84CA7151FC0EF67004BBF8C /* ObservableStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */; };
 		C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */; };
-		C84CA72C1FC0F183004BBF8C /* FixtureExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA72B1FC0F183004BBF8C /* FixtureExample.swift */; };
-		C84CA7301FC0F183004BBF8C /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = C84CA72F1FC0F183004BBF8C /* Empty.xib */; };
 		C84CA7361FC0F30A004BBF8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7351FC0F30A004BBF8C /* main.m */; };
-		C877852E1FC0EA2400616B15 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* AppFlow.swift */; };
+		C84CA7391FC0F65E004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
+		C84CA73D1FC0F697004BBF8C /* NavigationWireframeDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigationWireframeDouble.swift */; };
+		C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */; };
+		C84CA7421FC0F812004BBF8C /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* RootFlow.swift */; };
+		C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */; };
+		C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
+		C84CA7451FC0F81B004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
+		C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */; };
+		C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */; };
+		C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7021FC0EC84004BBF8C /* StarListViewSpy.swift */; };
+		C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */; };
+		C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */; };
+		C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */; };
+		C84CA74C1FC0F822004BBF8C /* ObservableStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */; };
+		C84CA74D1FC0F822004BBF8C /* ViewStarUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B501FBE442F00066C3B /* ViewStarUseCase.swift */; };
+		C84CA74E1FC0F828004BBF8C /* StarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B491FBE3D5200066C3B /* StarService.swift */; };
+		C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
+		C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
+		C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
+		C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
+		C84CA7541FC0F834004BBF8C /* NavigationWireframeDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigationWireframeDouble.swift */; };
+		C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
+		C877852E1FC0EA2400616B15 /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* RootFlow.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
 		C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */; };
@@ -76,13 +96,14 @@
 		C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGateway.swift; sourceTree = "<group>"; };
 		C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcceptanceTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTests.m; sourceTree = "<group>"; };
-		C84CA72B1FC0F183004BBF8C /* FixtureExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureExample.swift; sourceTree = "<group>"; };
 		C84CA72D1FC0F183004BBF8C /* SlimTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlimTables.h; sourceTree = "<group>"; };
 		C84CA72E1FC0F183004BBF8C /* AcceptanceTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AcceptanceTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		C84CA72F1FC0F183004BBF8C /* Empty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 		C84CA7311FC0F183004BBF8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C84CA7351FC0F30A004BBF8C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C877852D1FC0EA2400616B15 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframe.swift; sourceTree = "<group>"; };
+		C84CA73C1FC0F697004BBF8C /* NavigationWireframeDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframeDouble.swift; sourceTree = "<group>"; };
+		C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerWireframe.swift; sourceTree = "<group>"; };
+		C877852D1FC0EA2400616B15 /* RootFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlow.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8DF4B271FBDE49200066C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -225,7 +246,6 @@
 			children = (
 				C84CA7351FC0F30A004BBF8C /* main.m */,
 				C84CA7311FC0F183004BBF8C /* Info.plist */,
-				C84CA72A1FC0F183004BBF8C /* Fixtures */,
 				C84CA7271FC0F183004BBF8C /* Supporting Files */,
 			);
 			path = AcceptanceTests;
@@ -237,17 +257,42 @@
 				C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */,
 				C84CA72D1FC0F183004BBF8C /* SlimTables.h */,
 				C84CA72E1FC0F183004BBF8C /* AcceptanceTests-Bridging-Header.h */,
-				C84CA72F1FC0F183004BBF8C /* Empty.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C84CA72A1FC0F183004BBF8C /* Fixtures */ = {
+		C84CA7371FC0F649004BBF8C /* Wireframes */ = {
 			isa = PBXGroup;
 			children = (
-				C84CA72B1FC0F183004BBF8C /* FixtureExample.swift */,
+				C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */,
+				C84CA73A1FC0F66C004BBF8C /* Test */,
+				C84CA73B1FC0F672004BBF8C /* Live */,
 			);
-			name = Fixtures;
+			path = Wireframes;
+			sourceTree = "<group>";
+		};
+		C84CA73A1FC0F66C004BBF8C /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA73C1FC0F697004BBF8C /* NavigationWireframeDouble.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		C84CA73B1FC0F672004BBF8C /* Live */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */,
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
+		C84CA7401FC0F6F9004BBF8C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C8DF4B481FBE3D5200066C3B /* Utility.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		C877852B1FC0E9F800616B15 /* Live */ = {
@@ -261,12 +306,12 @@
 			path = Live;
 			sourceTree = "<group>";
 		};
-		C877852C1FC0EA1800616B15 /* App */ = {
+		C877852C1FC0EA1800616B15 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				C877852D1FC0EA2400616B15 /* AppFlow.swift */,
+				C877852D1FC0EA2400616B15 /* RootFlow.swift */,
 			);
-			path = App;
+			path = Root;
 			sourceTree = "<group>";
 		};
 		C877852F1FC0EA9400616B15 /* Resources */ = {
@@ -305,11 +350,12 @@
 			isa = PBXGroup;
 			children = (
 				C8DF4B201FBDE49200066C3B /* AppDelegate.swift */,
-				C8DF4B481FBE3D5200066C3B /* Utility.swift */,
-				C877852C1FC0EA1800616B15 /* App */,
+				C877852C1FC0EA1800616B15 /* Root */,
 				C8DF4B471FBE3D5200066C3B /* StarBrowser */,
 				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
 				C84CA71D1FC0F050004BBF8C /* Entity */,
+				C84CA7371FC0F649004BBF8C /* Wireframes */,
+				C84CA7401FC0F6F9004BBF8C /* Utility */,
 				C877852F1FC0EA9400616B15 /* Resources */,
 			);
 			path = RemixMirror;
@@ -447,7 +493,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C84CA7301FC0F183004BBF8C /* Empty.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,9 +638,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C84CA72C1FC0F183004BBF8C /* FixtureExample.swift in Sources */,
+				C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */,
+				C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */,
+				C84CA7421FC0F812004BBF8C /* RootFlow.swift in Sources */,
+				C84CA7541FC0F834004BBF8C /* NavigationWireframeDouble.swift in Sources */,
+				C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */,
+				C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */,
+				C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */,
+				C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */,
+				C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */,
+				C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */,
+				C84CA74E1FC0F828004BBF8C /* StarService.swift in Sources */,
+				C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */,
+				C84CA74C1FC0F822004BBF8C /* ObservableStarsUseCase.swift in Sources */,
 				C84CA7361FC0F30A004BBF8C /* main.m in Sources */,
+				C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */,
+				C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */,
+				C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */,
+				C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */,
+				C84CA74D1FC0F822004BBF8C /* ViewStarUseCase.swift in Sources */,
 				C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */,
+				C84CA7451FC0F81B004BBF8C /* StarLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C877852E1FC0EA2400616B15 /* AppFlow.swift in Sources */,
+				C877852E1FC0EA2400616B15 /* RootFlow.swift in Sources */,
 				C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */,
 				C84CA6F91FC0EB25004BBF8C /* StarDetailViewController.swift in Sources */,
 				C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */,
@@ -616,15 +679,18 @@
 				C8DF4B511FBE442F00066C3B /* ViewStarUseCase.swift in Sources */,
 				C84CA7091FC0ECA7004BBF8C /* StarDetailViewSpy.swift in Sources */,
 				C84CA7031FC0EC84004BBF8C /* StarListViewSpy.swift in Sources */,
+				C84CA73D1FC0F697004BBF8C /* NavigationWireframeDouble.swift in Sources */,
 				C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */,
 				C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
 				C84CA7011FC0EC6F004BBF8C /* NasaStarGateway.swift in Sources */,
+				C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,
 				C8DF4B4C1FBE3D5200066C3B /* StarService.swift in Sources */,
 				C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */,
 				C84CA7051FC0EC91004BBF8C /* StarLoadingViewSpy.swift in Sources */,
 				C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */,
+				C84CA7391FC0F65E004BBF8C /* NavigationWireframe.swift in Sources */,
 				C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,7 +739,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcceptanceTests/AcceptanceTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -691,7 +757,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcceptanceTests/AcceptanceTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

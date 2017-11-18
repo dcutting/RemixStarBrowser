@@ -23,10 +23,3 @@ enum Result<T> {
 }
 
 typealias AsyncResult<T> = (Result<T>) -> Void
-
-protocol Navigatable: class {}
-
-protocol NavigationWireframe {
-    func push(_ navigatable: Navigatable)
-    func pop()
-}
