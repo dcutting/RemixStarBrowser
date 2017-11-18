@@ -295,6 +295,13 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		C84CA7561FC0F9F3004BBF8C /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		C877852B1FC0E9F800616B15 /* Live */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */,
+				C84CA7561FC0F9F3004BBF8C /* Fixtures */,
 				C84CA7161FC0EF8A004BBF8C /* Views */,
 				C84CA7171FC0EF92004BBF8C /* UseCases */,
 				C84CA71C1FC0F03C004BBF8C /* Services */,
