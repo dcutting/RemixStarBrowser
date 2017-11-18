@@ -125,7 +125,6 @@
 				C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */,
 				C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */,
 				C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */,
-				C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -137,6 +136,8 @@
 				C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */,
 				C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */,
 				C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */,
+				C84CA6F71FC0EB01004BBF8C /* Test */,
+				C877852B1FC0E9F800616B15 /* Live */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,8 +155,42 @@
 			isa = PBXGroup;
 			children = (
 				C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */,
+				C84CA71F1FC0F085004BBF8C /* Test */,
+				C84CA71E1FC0F07B004BBF8C /* Live */,
 			);
 			path = Gateways;
+			sourceTree = "<group>";
+		};
+		C84CA71C1FC0F03C004BBF8C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C8DF4B491FBE3D5200066C3B /* StarService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C84CA71D1FC0F050004BBF8C /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		C84CA71E1FC0F07B004BBF8C /* Live */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA7001FC0EC6F004BBF8C /* NasaStarGateway.swift */,
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
+		C84CA71F1FC0F085004BBF8C /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		C877852B1FC0E9F800616B15 /* Live */ = {
@@ -165,7 +200,6 @@
 				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
 				C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */,
 				C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */,
-				C84CA7001FC0EC6F004BBF8C /* NasaStarGateway.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -215,8 +249,8 @@
 				C8DF4B481FBE3D5200066C3B /* Utility.swift */,
 				C877852C1FC0EA1800616B15 /* App */,
 				C8DF4B471FBE3D5200066C3B /* StarBrowser */,
-				C877852B1FC0E9F800616B15 /* Live */,
-				C84CA6F71FC0EB01004BBF8C /* Test */,
+				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
+				C84CA71D1FC0F050004BBF8C /* Entity */,
 				C877852F1FC0EA9400616B15 /* Resources */,
 			);
 			path = RemixMirror;
@@ -237,9 +271,7 @@
 				C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */,
 				C84CA7161FC0EF8A004BBF8C /* Views */,
 				C84CA7171FC0EF92004BBF8C /* UseCases */,
-				C8DF4B491FBE3D5200066C3B /* StarService.swift */,
-				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
-				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
+				C84CA71C1FC0F03C004BBF8C /* Services */,
 			);
 			path = StarBrowser;
 			sourceTree = "<group>";
