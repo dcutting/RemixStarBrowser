@@ -1,10 +1,5 @@
-struct Star {
-
-    typealias ID = Identifier<Star>
-
-    let id: ID
-    let name: String
-    let description: String
+protocol StarGateway {
+    func loadAll(completion: AsyncResult<[Star]>)
 }
 
 class StarService {
@@ -30,8 +25,4 @@ class StarService {
             }
         }
     }
-}
-
-protocol StarGateway {
-    func loadAll(completion: AsyncResult<[Star]>)
 }
