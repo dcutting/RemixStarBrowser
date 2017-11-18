@@ -1,14 +1,20 @@
 PODS:
+  - cslim (1.1.5)
   - Layout (0.6.3):
     - Layout/Core (= 0.6.3)
   - Layout/Core (0.6.3)
+  - OCSlimProject (1.3):
+    - cslim
 
 DEPENDENCIES:
   - Layout
+  - OCSlimProject
 
 SPEC CHECKSUMS:
+  cslim: 75bc8dc738cdc5b7d51303f94544dad486bd9d3c
   Layout: 717e8ca9ad8af9865df8ec5b632d820c5c7181d4
+  OCSlimProject: a24337484ec168d7983ef507f75624bb8de21c15
 
-PODFILE CHECKSUM: 19ee72b89585c03845482995615fa70b0a6dcf87
+PODFILE CHECKSUM: 44c961dd2e876f6d99d326aa5f22c7c316aaddb7
 
 COCOAPODS: 1.3.1
