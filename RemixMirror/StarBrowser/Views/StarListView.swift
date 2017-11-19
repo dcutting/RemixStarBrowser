@@ -31,7 +31,3 @@ protocol StarListView: Navigatable {
     var viewData: StarListViewData { get set }
     var delegate: StarListViewDelegate? { get set }
 }
-
-protocol StarListViewFactory: class {
-    func make() -> StarListView
-}

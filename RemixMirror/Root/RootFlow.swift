@@ -2,27 +2,17 @@ class RootFlow {
 
     struct Dependencies {
         let navigationWireframe: NavigationWireframe
-        let starListViewFactory: StarListViewFactory
-        let starLoadingViewFactory: StarLoadingViewFactory
-        let starErrorViewFactory: StarErrorViewFactory
-        let starDetailViewFactory: StarDetailViewFactory
-        let starsGateway: StarGateway
+        let starBrowserViewFactory: StarBrowserViewFactory
+        let starGateway: StarGateway
     }
 
     let browser: StarBrowserFlow
 
     init(deps: Dependencies) {
 
-        let starService = StarService(gateway: deps.starsGateway)
-        let observableStarsUseCase = ObservableStarsUseCase(service: starService)
-        let viewStarUseCase = ViewStarUseCase(service: starService)
         let starBrowserDeps = StarBrowserFlow.Dependencies(navigationWireframe: deps.navigationWireframe,
-                                                           starListViewFactory: deps.starListViewFactory,
-                                                           starLoadingViewFactory: deps.starLoadingViewFactory,
-                                                           starErrorViewFactory: deps.starErrorViewFactory,
-                                                           starDetailViewFactory: deps.starDetailViewFactory,
-                                                           observableStarsUseCase: observableStarsUseCase,
-                                                           viewStarUseCase: viewStarUseCase)
+                                                           starBrowserViewFactory: deps.starBrowserViewFactory,
+                                                           starGateway: deps.starGateway)
         browser = StarBrowserFlow(deps: starBrowserDeps)
     }
 

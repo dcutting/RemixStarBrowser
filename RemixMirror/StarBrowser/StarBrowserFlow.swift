@@ -6,24 +6,27 @@ class StarBrowserFlow {
 
     struct Dependencies {
         let navigationWireframe: NavigationWireframe
-        let starListViewFactory: StarListViewFactory
-        let starLoadingViewFactory: StarLoadingViewFactory
-        let starErrorViewFactory: StarErrorViewFactory
-        let starDetailViewFactory: StarDetailViewFactory
-        let observableStarsUseCase: ObservableStarsUseCase
-        let viewStarUseCase: ViewStarUseCase
+        let starBrowserViewFactory: StarBrowserViewFactory
+        let starGateway: StarGateway
     }
     private let deps: Dependencies
     weak var delegate: StarBrowserFlowDelegate?
+
+    let starService: StarService
+    let observableStarsUseCase: ObservableStarsUseCase
+    let viewStarUseCase: ViewStarUseCase
 
     private var listView: StarListView?
 
     init(deps: Dependencies) {
         self.deps = deps
+        starService = StarService(gateway: deps.starGateway)
+        observableStarsUseCase = ObservableStarsUseCase(service: starService)
+        viewStarUseCase = ViewStarUseCase(service: starService)
     }
 
     func start() {
-        let view = deps.starListViewFactory.make()
+        let view = deps.starBrowserViewFactory.makeListView()
         deps.navigationWireframe.push(view)
         listView = view
 
@@ -31,7 +34,7 @@ class StarBrowserFlow {
     }
 
     private func subscribeForStars() {
-        deps.observableStarsUseCase.subscribe { stars in
+        observableStarsUseCase.subscribe { stars in
             self.listView?.viewData = StarListViewFormatter().prepare(stars: stars)
         }
     }
@@ -41,12 +44,12 @@ extension StarBrowserFlow: StarListViewDelegate {
 
     func didSelectStar(withID id: Star.ID) {
         loadStar(withID: id)
-        let view = deps.starLoadingViewFactory.make()
+        let view = deps.starBrowserViewFactory.makeLoadingView()
         deps.navigationWireframe.push(view)
     }
 
     private func loadStar(withID id: Star.ID) {
-        deps.viewStarUseCase.fetchStar(withID: id) { result in
+        viewStarUseCase.fetchStar(withID: id) { result in
             deps.navigationWireframe.pop()
             switch result {
             case .success(let star):
@@ -58,13 +61,13 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     private func show(star: Star) {
-        let view = deps.starDetailViewFactory.make()
+        let view = deps.starBrowserViewFactory.makeDetailView()
         view.viewData = StarDetailViewFormatter().prepare(star: star)
         deps.navigationWireframe.push(view)
     }
 
     private func showError() {
-        let view = deps.starErrorViewFactory.make()
+        let view = deps.starBrowserViewFactory.makeErrorView()
         deps.navigationWireframe.push(view)
     }
 
@@ -73,7 +76,7 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     private func finish() {
-        deps.observableStarsUseCase.unsubscribe()
+        observableStarsUseCase.unsubscribe()
         delegate?.didFinish()
     }
 }
