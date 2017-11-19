@@ -18,10 +18,6 @@ class ThenTheBrowserListsTheseStars: NSObject {
         return convertForFitNesse(entries: listView.viewData.entries)
     }
 
-    private func wait(seconds: TimeInterval) {
-        RunLoop.current.run(until: Date() + seconds)
-    }
-
     private func convertForFitNesse(entries: [StarListViewData.Entry]) -> [[[String]]] {
         let names = entries.map { entry in
             [["name", entry.name]]
