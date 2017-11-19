@@ -6,8 +6,8 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |FK5 245|Canopus |Canopus is the brightest star in the southern constellation of Carina.             |
 |GJ 541 |Arcturus|Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
 
-|Query: the star browser lists these stars|
-|name                                     |
-|Sirius                                   |
-|Canopus                                  |
-|Arcturus                                 |
+|Ordered query: then the browser lists these stars|
+|name                                             |
+|Sirius                                           |
+|Canopus                                          |
+|Arcturus                                         |

@@ -1,5 +1,5 @@
-@objc(TheStarBrowserListsTheseStars)
-class TheStarBrowserListsTheseStars: NSObject {
+@objc(ThenTheBrowserListsTheseStars)
+class ThenTheBrowserListsTheseStars: NSObject {
 
     @objc func query() -> [[[String]]] {
 
