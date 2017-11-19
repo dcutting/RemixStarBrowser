@@ -26,12 +26,7 @@ class TheStarDetailScreenShowsInformationAboutTheStar: NSObject {
 
         flow.start()
 
-        let entries = listView.viewData.entries
-
-        guard let row = selectedRow?.intValue, (0..<entries.count).contains(row) else { return }
-
-        let starID = listView.viewData.entries[row].id
-        listView.delegate?.didSelectStar(withID: starID)
+        listView.select(row: selectedRow)
 
         detailScreenTitle = detailView.viewData.title
         detailScreenText = detailView.viewData.text
