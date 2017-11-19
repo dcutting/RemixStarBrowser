@@ -1,4 +1,6 @@
 import Layout
 
-class StarListViewController: LayoutController, StarListView {
+class StarListViewController: LayoutViewController, StarListView {
+    var viewData = StarListViewData.empty
+    var delegate: StarListViewDelegate?
 }
