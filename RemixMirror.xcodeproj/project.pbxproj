@@ -52,7 +52,7 @@
 		C86753841FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753831FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift */; };
 		C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift */; };
 		C867538B1FC220CE00F036CD /* WhenTheStarSuccessfullyLoads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753891FC2209D00F036CD /* WhenTheStarSuccessfullyLoads.swift */; };
-		C867538D1FC2316900F036CD /* LiveStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538C1FC2316900F036CD /* LiveStarGateway.swift */; };
+		C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538C1FC2316900F036CD /* NASAStarGateway.swift */; };
 		C877852E1FC0EA2400616B15 /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* RootFlow.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
@@ -115,7 +115,7 @@
 		C86753831FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenThereIsANetworkErrorLoadingTheStar.swift; sourceTree = "<group>"; };
 		C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheStarDetailScreenShowsInformationAboutTheStar.swift; sourceTree = "<group>"; };
 		C86753891FC2209D00F036CD /* WhenTheStarSuccessfullyLoads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhenTheStarSuccessfullyLoads.swift; sourceTree = "<group>"; };
-		C867538C1FC2316900F036CD /* LiveStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveStarGateway.swift; sourceTree = "<group>"; };
+		C867538C1FC2316900F036CD /* NASAStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAStarGateway.swift; sourceTree = "<group>"; };
 		C877852D1FC0EA2400616B15 /* RootFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlow.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		C84CA71E1FC0F07B004BBF8C /* Live */ = {
 			isa = PBXGroup;
 			children = (
-				C867538C1FC2316900F036CD /* LiveStarGateway.swift */,
+				C867538C1FC2316900F036CD /* NASAStarGateway.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -711,7 +711,7 @@
 				C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */,
 				C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */,
 				C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
-				C867538D1FC2316900F036CD /* LiveStarGateway.swift in Sources */,
+				C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */,
 				C84CA7151FC0EF67004BBF8C /* ObservableStarsUseCase.swift in Sources */,
 				C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */,
 				C8DF4B511FBE442F00066C3B /* ViewStarUseCase.swift in Sources */,
