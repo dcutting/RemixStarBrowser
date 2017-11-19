@@ -58,7 +58,7 @@
 		C86753821FC1C6A700F036CD /* WhenISelectAStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753811FC1C6A700F036CD /* WhenISelectAStar.swift */; };
 		C86753841FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753831FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift */; };
 		C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift */; };
-		C86753881FC21F5200F036CD /* WhenLoadingTheStarSucceeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753871FC21F5200F036CD /* WhenLoadingTheStarSucceeds.swift */; };
+		C867538B1FC220CE00F036CD /* WhenTheStarSuccessfullyLoads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753891FC2209D00F036CD /* WhenTheStarSuccessfullyLoads.swift */; };
 		C877852E1FC0EA2400616B15 /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* RootFlow.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
@@ -121,7 +121,7 @@
 		C86753811FC1C6A700F036CD /* WhenISelectAStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenISelectAStar.swift; sourceTree = "<group>"; };
 		C86753831FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenThereIsANetworkErrorLoadingTheStar.swift; sourceTree = "<group>"; };
 		C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheStarDetailScreenShowsInformationAboutTheStar.swift; sourceTree = "<group>"; };
-		C86753871FC21F5200F036CD /* WhenLoadingTheStarSucceeds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhenLoadingTheStarSucceeds.swift; sourceTree = "<group>"; };
+		C86753891FC2209D00F036CD /* WhenTheStarSuccessfullyLoads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhenTheStarSuccessfullyLoads.swift; sourceTree = "<group>"; };
 		C877852D1FC0EA2400616B15 /* RootFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlow.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				C86753781FC0FF4100F036CD /* TheStarBrowserListsTheseStars.swift */,
 				C86753811FC1C6A700F036CD /* WhenISelectAStar.swift */,
 				C86753831FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift */,
-				C86753871FC21F5200F036CD /* WhenLoadingTheStarSucceeds.swift */,
+				C86753891FC2209D00F036CD /* WhenTheStarSuccessfullyLoads.swift */,
 				C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift */,
 			);
 			path = Fixtures;
@@ -678,6 +678,7 @@
 				C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */,
 				C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */,
 				C84CA7421FC0F812004BBF8C /* RootFlow.swift in Sources */,
+				C867538B1FC220CE00F036CD /* WhenTheStarSuccessfullyLoads.swift in Sources */,
 				C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */,
 				C86753821FC1C6A700F036CD /* WhenISelectAStar.swift in Sources */,
 				C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */,
@@ -686,7 +687,6 @@
 				C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */,
 				C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsInformationAboutTheStar.swift in Sources */,
 				C86753771FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift in Sources */,
-				C86753881FC21F5200F036CD /* WhenLoadingTheStarSucceeds.swift in Sources */,
 				C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */,
 				C86753841FC1C74600F036CD /* WhenThereIsANetworkErrorLoadingTheStar.swift in Sources */,
 				C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */,

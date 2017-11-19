@@ -1,5 +1,5 @@
-@objc(WhenLoadingTheStarSucceeds)
-class WhenLoadingTheStarSucceeds: NSObject {
+@objc(WhenTheStarSuccessfullyLoads)
+class WhenTheStarSuccessfullyLoads: NSObject {
 
     @objc var theDetailScreenIsShown = false
 

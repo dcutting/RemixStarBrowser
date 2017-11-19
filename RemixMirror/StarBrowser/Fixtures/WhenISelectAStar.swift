@@ -27,5 +27,6 @@ class WhenISelectAStar: NSObject {
 }
 
 func any() -> Star.ID {
-    return Star.ID(value: "1")
+    guard let star = stubbedStars.first else { return Star.ID.make() }
+    return star.id
 }

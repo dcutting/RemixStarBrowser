@@ -18,8 +18,8 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |Script: When there is a network error loading the star|
 |ensure           |the error screen is shown           |
 
-|Script: When loading the star succeeds|
-|ensure   |the detail screen is shown  |
+|Script: When the star successfully loads|
+|ensure    |the detail screen is shown   |
 
 |The star detail screen shows information about the star                                                              |
 |selected row|detail screen title?|detail screen text?                                                                |
