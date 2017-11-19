@@ -7,6 +7,6 @@ class WhenThereIsANetworkErrorLoadingTheStar: StarBrowserFixture {
         gateway.behaviour = .success(stubbedStars)
         flow.start()
         gateway.behaviour = .error
-        views.listView.selectAnyRow()
+        views.list.selectAnyRow()
     }
 }

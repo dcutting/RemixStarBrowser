@@ -7,6 +7,6 @@ class WhenISelectAStar: StarBrowserFixture {
         gateway.behaviour = .success(stubbedStars)
         flow.start()
         gateway.behaviour = .loading
-        views.listView.selectAnyRow()
+        views.list.selectAnyRow()
     }
 }

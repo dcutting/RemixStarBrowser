@@ -1,5 +1,5 @@
 @objc(TheStarDetailScreenShowsInformationAboutTheStar)
-class TheStarDetailScreenShowsInformationAboutTheStar: NSObject {
+class TheStarDetailScreenShowsInformationAboutTheStar: StarBrowserFixture {
 
     @objc var selectedRow: NSNumber?
     @objc var detailScreenTitle: String?
@@ -13,22 +13,12 @@ class TheStarDetailScreenShowsInformationAboutTheStar: NSObject {
 
     @objc func execute() {
 
-        let wireframe = NavigationWireframeFake()
-        let listView = StarListViewSpy()
-        let detailView = StarDetailViewSpy()
-        let viewFactory = StarBrowserViewDoubleFactory(listView: listView, detailView: detailView)
-        let gateway = StarGatewayStub(.success(stubbedStars))
-
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
-                                                starBrowserViewFactory: viewFactory,
-                                                starGateway: gateway)
-        let flow = StarBrowserFlow(deps: deps)
-
+        gateway.behaviour = .success(stubbedStars)
         flow.start()
 
-        listView.select(row: selectedRow)
+        views.list.select(row: selectedRow)
 
-        detailScreenTitle = detailView.viewData.title
-        detailScreenText = detailView.viewData.text
+        detailScreenTitle = views.detail.viewData.title
+        detailScreenText = views.detail.viewData.text
     }
 }

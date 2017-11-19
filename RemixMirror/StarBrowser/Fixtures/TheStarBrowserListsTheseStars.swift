@@ -1,21 +1,11 @@
 @objc(ThenTheBrowserListsTheseStars)
-class ThenTheBrowserListsTheseStars: NSObject {
+class ThenTheBrowserListsTheseStars: StarBrowserFixture {
 
     @objc func query() -> [[[String]]] {
 
-        let wireframe = NavigationWireframeFake()
-        let listView = StarListViewSpy()
-        let viewFactory = StarBrowserViewDoubleFactory(listView: listView)
-        let gateway = StarGatewayStub(.success(stubbedStars))
-
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
-                                                starBrowserViewFactory: viewFactory,
-                                                starGateway: gateway)
-        let flow = StarBrowserFlow(deps: deps)
-
+        gateway.behaviour = .success(stubbedStars)
         flow.start()
-
-        return convertForFitNesse(entries: listView.viewData.entries)
+        return convertForFitNesse(entries: views.list.viewData.entries)
     }
 
     private func convertForFitNesse(entries: [StarListViewData.Entry]) -> [[[String]]] {

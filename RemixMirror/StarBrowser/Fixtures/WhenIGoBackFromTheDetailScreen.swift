@@ -6,7 +6,7 @@ class WhenIGoBackFromTheDetailScreen: StarBrowserFixture {
 
         gateway.behaviour = .success(stubbedStars)
         flow.start()
-        views.listView.selectAnyRow()
+        views.list.selectAnyRow()
         nav.pop()
     }
 }
