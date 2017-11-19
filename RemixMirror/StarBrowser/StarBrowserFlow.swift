@@ -54,10 +54,10 @@ extension StarBrowserFlow: StarListViewDelegate {
         viewStarUseCase.fetchStar(withID: id) { result in
             self.deps.navigationWireframe.pop()
             switch result {
-            case .success(let star):
-                self.show(star: star)
             case .error:
                 self.showError()
+            case .success(let star):
+                self.show(star: star)
             }
         }
     }
@@ -67,18 +67,18 @@ extension StarBrowserFlow: StarListViewDelegate {
         deps.navigationWireframe.push(view)
     }
 
+    private func showError() {
+        let view = deps.starBrowserViewFactory.makeErrorView()
+        deps.navigationWireframe.push(view)
+    }
+
     private func show(star: Star) {
         let view = deps.starBrowserViewFactory.makeDetailView()
         view.viewData = StarDetailViewFormatter().prepare(star: star)
         deps.navigationWireframe.push(view)
     }
 
-    private func showError() {
-        let view = deps.starBrowserViewFactory.makeErrorView()
-        deps.navigationWireframe.push(view)
-    }
-
     func didTapDone() {
-        delegate?.didFinish()
+//        delegate?.didFinish()
     }
 }

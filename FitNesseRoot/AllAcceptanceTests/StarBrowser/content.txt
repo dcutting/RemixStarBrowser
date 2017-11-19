@@ -1,13 +1,13 @@
 The Star Browser displays a list of stars from a service and lets the user select one for more detail.
 
+|Script: When I start the star browser|
+|check  |the visible screen is  |list |
+
 |Given the web service returns these stars                                                   |
 |name    |summary                                                                            |
 |Sirius  |Sirius is a star system and the brightest star in the Earth's night sky.           |
 |Canopus |Canopus is the brightest star in the southern constellation of Carina.             |
 |Arcturus|Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
-
-|Script: When I start the star browser|
-|ensure   |the list screen is shown   |
 
 |Ordered query: then the browser lists these stars|
 |name                                             |
@@ -15,17 +15,20 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |Canopus                                          |
 |Arcturus                                         |
 
-|Script: When I select a star      |
-|ensure|the loading screen is shown|
+|Script: When I select a star       |
+|check|the visible screen is|loading|
 
 |Script: When there is a network error loading the star|
-|ensure           |the error screen is shown           |
+|check       |the visible screen is       |error       |
 
 |Script: When the star successfully loads|
-|ensure    |the detail screen is shown   |
+|check  |the visible screen is  |detail  |
 
 |The star detail screen shows information about the star                                                              |
 |selected row|detail screen title?|detail screen text?                                                                |
 |0           |SIRIUS              |Sirius is a star system and the brightest star in the Earth's night sky.           |
 |2           |ARCTURUS            |Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
 |1           |CANOPUS             |Canopus is the brightest star in the southern constellation of Carina.             |
+
+|Script: When I go back from the detail screen|
+|check     |the visible screen is    |list    |

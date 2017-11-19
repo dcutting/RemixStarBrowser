@@ -1,10 +1,9 @@
 @objc(WhenIStartTheStarBrowser)
 class WhenIStartTheStarBrowser: NSObject {
-    
-    @objc var theListScreenIsShown = false
+
+    @objc var theVisibleScreenIs: String?
 
     override init() {
-
         let wireframe = NavigationWireframeFake()
         let listView = StarListViewSpy()
         let viewFactory = StarBrowserViewDoubleFactory(listView: listView)
@@ -17,6 +16,9 @@ class WhenIStartTheStarBrowser: NSObject {
 
         flow.start()
 
-        theListScreenIsShown = listView.isOnTop(of: wireframe)
+        theVisibleScreenIs = wireframe.topScreenName
+    }
+
+    open func test() {
     }
 }

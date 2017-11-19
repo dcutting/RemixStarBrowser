@@ -17,6 +17,11 @@ class NavigationWireframeFake: NavigationWireframe {
         _ = navigatables.popLast()
     }
 
+    var topScreenName: String? {
+        let screenNameable = navigatables.last as? ScreenNameable
+        return screenNameable?.screenName
+    }
+
     var top: Navigatable? {
         return navigatables.last
     }

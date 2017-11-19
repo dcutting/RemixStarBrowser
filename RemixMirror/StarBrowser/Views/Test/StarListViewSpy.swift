@@ -20,3 +20,9 @@ class StarListViewSpy: StarListView {
         select(row: 0)
     }
 }
+
+extension StarListViewSpy: ScreenNameable {
+    var screenName: String {
+        return "list"
+    }
+}

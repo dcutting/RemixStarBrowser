@@ -1,7 +1,7 @@
 @objc(WhenISelectAStar)
 class WhenISelectAStar: NSObject {
     
-    @objc var theLoadingScreenIsShown = false
+    @objc var theVisibleScreenIs: String?
 
     override init() {
 
@@ -22,6 +22,6 @@ class WhenISelectAStar: NSObject {
         gateway.behaviour = .loading
         listView.selectAnyRow()
 
-        theLoadingScreenIsShown = loadingView.isOnTop(of: wireframe)
+        theVisibleScreenIs = wireframe.topScreenName
     }
 }

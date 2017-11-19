@@ -1,7 +1,7 @@
 @objc(WhenTheStarSuccessfullyLoads)
 class WhenTheStarSuccessfullyLoads: NSObject {
 
-    @objc var theDetailScreenIsShown = false
+    @objc var theVisibleScreenIs: String?
 
     override init() {
 
@@ -20,6 +20,6 @@ class WhenTheStarSuccessfullyLoads: NSObject {
 
         listView.selectAnyRow()
 
-        theDetailScreenIsShown = detailView.isOnTop(of: wireframe)
+        theVisibleScreenIs = wireframe.topScreenName
     }
 }
