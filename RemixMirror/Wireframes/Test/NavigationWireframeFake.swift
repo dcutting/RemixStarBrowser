@@ -1,3 +1,10 @@
+extension Navigatable {
+
+    func isOnTop(of wireframe: NavigationWireframeFake) -> Bool {
+        return wireframe.top === self
+    }
+}
+
 class NavigationWireframeFake: NavigationWireframe {
 
     var navigatables = [Navigatable]()
@@ -8,5 +15,9 @@ class NavigationWireframeFake: NavigationWireframe {
 
     func pop() {
         _ = navigatables.popLast()
+    }
+
+    var top: Navigatable? {
+        return navigatables.last
     }
 }

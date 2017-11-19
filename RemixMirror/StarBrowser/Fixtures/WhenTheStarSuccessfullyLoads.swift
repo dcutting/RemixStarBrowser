@@ -18,10 +18,8 @@ class WhenTheStarSuccessfullyLoads: NSObject {
 
         flow.start()
 
-        listView.delegate?.didSelectStar(withID: any())
+        listView.selectAnyRow()
 
-        let topView = wireframe.navigatables.last
-
-        theDetailScreenIsShown = topView === detailView
+        theDetailScreenIsShown = detailView.isOnTop(of: wireframe)
     }
 }

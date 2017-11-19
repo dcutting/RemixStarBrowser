@@ -18,10 +18,8 @@ class WhenThereIsANetworkErrorLoadingTheStar: NSObject {
 
         flow.start()
 
-        listView.delegate?.didSelectStar(withID: any())
+        listView.selectAnyRow()
 
-        let topView = wireframe.navigatables.last
-
-        theErrorScreenIsShown = topView === errorView
+        theErrorScreenIsShown = errorView.isOnTop(of: wireframe)
     }
 }

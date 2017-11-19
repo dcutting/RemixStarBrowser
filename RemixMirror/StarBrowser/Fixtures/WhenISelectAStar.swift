@@ -18,15 +18,8 @@ class WhenISelectAStar: NSObject {
 
         flow.start()
 
-        listView.delegate?.didSelectStar(withID: any())
+        listView.selectAnyRow()
 
-        let topView = wireframe.navigatables.last
-
-        theLoadingScreenIsShown = topView === loadingView
+        theLoadingScreenIsShown = loadingView.isOnTop(of: wireframe)
     }
-}
-
-func any() -> Star.ID {
-    guard let star = stubbedStars.first else { return Star.ID.make() }
-    return star.id
 }
