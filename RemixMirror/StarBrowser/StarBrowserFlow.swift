@@ -79,6 +79,6 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     func didTapDone() {
-//        delegate?.didFinish()
+        delegate?.didFinish()
     }
 }
