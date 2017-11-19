@@ -1,5 +1,5 @@
-@objc(TheStarDetailScreenIsShownWhenLoadingSucceeds)
-class TheStarDetailScreenIsShownWhenLoadingSucceeds: NSObject {
+@objc(TheStarDetailScreenShowsInformationAboutTheStar)
+class TheStarDetailScreenShowsInformationAboutTheStar: NSObject {
 
     @objc var selectedRow: NSNumber?
     @objc var detailScreenTitle: String?

@@ -18,7 +18,10 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |Script: When there is a network error loading the star|
 |ensure           |the error screen is shown           |
 
-|The star detail screen is shown when loading succeeds                                                                |
+|Script: When loading the star succeeds|
+|ensure   |the detail screen is shown  |
+
+|The star detail screen shows information about the star                                                              |
 |selected row|detail screen title?|detail screen text?                                                                |
 |0           |SIRIUS              |Sirius is a star system and the brightest star in the Earth's night sky.           |
 |2           |ARCTURUS            |Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
