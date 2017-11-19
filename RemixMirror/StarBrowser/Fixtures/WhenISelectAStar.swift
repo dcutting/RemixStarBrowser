@@ -5,23 +5,22 @@ class WhenISelectAStar: NSObject {
 
     override init() {
 
-        let navigationWireframe = NavigationWireframeFake()
-        let starBrowserViewFactory = StarBrowserViewDoubleFactory()
-        let starGateway = StarGatewayStub(.loading)
+        let wireframe = NavigationWireframeFake()
+        let listView = StarListViewSpy()
+        let loadingView = StarLoadingViewSpy()
+        let viewFactory = StarBrowserViewDoubleFactory(listView: listView, loadingView: loadingView)
+        let gateway = StarGatewayStub(.loading)
 
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: navigationWireframe,
-                                                starBrowserViewFactory: starBrowserViewFactory,
-                                                starGateway: starGateway)
-        let starBrowser = StarBrowserFlow(deps: deps)
+        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
+                                                starBrowserViewFactory: viewFactory,
+                                                starGateway: gateway)
+        let flow = StarBrowserFlow(deps: deps)
 
-        starBrowser.start()
+        flow.start()
 
-        let listView = starBrowserViewFactory.listView
         listView.delegate?.didSelectStar(withID: any())
 
-        let topView = navigationWireframe.navigatables.last
-
-        let loadingView = starBrowserViewFactory.loadingView
+        let topView = wireframe.navigatables.last
 
         theLoadingScreenIsShown = topView === loadingView
     }

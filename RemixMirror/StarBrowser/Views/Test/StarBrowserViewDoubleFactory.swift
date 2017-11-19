@@ -1,9 +1,9 @@
 class StarBrowserViewDoubleFactory: StarBrowserViewFactory {
 
-    let listView: StarListView
-    let loadingView: StarLoadingView
-    let errorView: StarErrorView
-    let detailView: StarDetailView
+    private let listView: StarListView
+    private let loadingView: StarLoadingView
+    private let errorView: StarErrorView
+    private let detailView: StarDetailView
 
     init(listView: StarListView = StarListViewSpy(),
          loadingView: StarLoadingView = StarLoadingViewSpy(),
