@@ -1,3 +1,3 @@
 protocol StarGateway {
-    func loadAll(completion: AsyncResult<[Star]>)
+    func loadAll(completion: @escaping AsyncResult<[Star]>)
 }

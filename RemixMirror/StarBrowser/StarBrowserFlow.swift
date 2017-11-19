@@ -27,6 +27,7 @@ class StarBrowserFlow {
 
     func start() {
         let view = deps.starBrowserViewFactory.makeListView()
+        view.delegate = self
         deps.navigationWireframe.push(view)
         listView = view
 
@@ -43,19 +44,19 @@ class StarBrowserFlow {
 extension StarBrowserFlow: StarListViewDelegate {
 
     func didSelectStar(withID id: Star.ID) {
-        loadStar(withID: id)
         let view = deps.starBrowserViewFactory.makeLoadingView()
         deps.navigationWireframe.push(view)
+        loadStar(withID: id)
     }
 
     private func loadStar(withID id: Star.ID) {
         viewStarUseCase.fetchStar(withID: id) { result in
-            deps.navigationWireframe.pop()
+            self.deps.navigationWireframe.pop()
             switch result {
             case .success(let star):
-                show(star: star)
+                self.show(star: star)
             case .error:
-                showError()
+                self.showError()
             }
         }
     }
