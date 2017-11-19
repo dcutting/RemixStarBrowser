@@ -16,7 +16,3 @@ struct StarDetailViewData {
 protocol StarDetailView: Navigatable {
     var viewData: StarDetailViewData { get set }
 }
-
-protocol StarDetailViewFactory: class {
-    func make() -> StarDetailView
-}
