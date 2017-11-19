@@ -5,10 +5,9 @@ class WhenISelectAStar: NSObject {
 
     override init() {
 
-        let navigationWireframe = NavigationWireframeDouble()
+        let navigationWireframe = NavigationWireframeFake()
         let starBrowserViewFactory = StarBrowserViewDoubleFactory()
-        let starGateway = StarGatewayStub()
-        starGateway.stars = stars
+        let starGateway = StarGatewayStub(.loading)
 
         let deps = StarBrowserFlow.Dependencies(navigationWireframe: navigationWireframe,
                                                 starBrowserViewFactory: starBrowserViewFactory,

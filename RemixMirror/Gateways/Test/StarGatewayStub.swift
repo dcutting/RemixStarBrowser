@@ -2,15 +2,26 @@ import Foundation
 
 class StarGatewayStub: StarGateway {
 
-    var stars: [Star]?
+    enum Behaviour {
+        case loading
+        case error
+        case success(stars: [Star])
+    }
+
+    private let behaviour: Behaviour
+
+    init(_ behaviour: Behaviour) {
+        self.behaviour = behaviour
+    }
 
     func loadAll(completion: @escaping (Result<[Star]>) -> Void) {
-        DispatchQueue.main.async {
-            if let stars = self.stars {
-                completion(.success(stars))
-            } else {
-                completion(.error)
-            }
+        switch behaviour {
+        case .loading:
+            ()
+        case .error:
+            completion(.error)
+        case .success(stars: let stars):
+            completion(.success(stars))
         }
     }
 }

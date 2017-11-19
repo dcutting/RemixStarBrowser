@@ -1,4 +1,4 @@
-var stars = [Star]()
+var stubbedStars = [Star]()
 
 @objc(GivenTheWebServiceReturnsTheseStars)
 class GivenTheWebServiceReturnsTheseStars: NSObject {
@@ -15,6 +15,6 @@ class GivenTheWebServiceReturnsTheseStars: NSObject {
 
     @objc func execute() {
         let star = Star(id: Star.ID(value: id), name: name, description: summary)
-        stars.append(star)
+        stubbedStars.append(star)
     }
 }

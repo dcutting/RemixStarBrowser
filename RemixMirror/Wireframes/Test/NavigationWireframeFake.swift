@@ -1,4 +1,4 @@
-class NavigationWireframeDouble: NavigationWireframe {
+class NavigationWireframeFake: NavigationWireframe {
 
     var navigatables = [Navigatable]()
 

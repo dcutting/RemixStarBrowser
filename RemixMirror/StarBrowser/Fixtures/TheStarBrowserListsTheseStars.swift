@@ -3,21 +3,27 @@ class ThenTheBrowserListsTheseStars: NSObject {
 
     @objc func query() -> [[[String]]] {
 
-        let navigationWireframe = NavigationWireframeDouble()
-        let starBrowserViewFactory = StarBrowserViewDoubleFactory()
-        let starGateway = StarGatewayStub()
-        starGateway.stars = stars
+        let wireframe = NavigationWireframeFake()
+        let listView = StarListViewSpy()
+        let viewFactory = StarBrowserViewDoubleFactory(listView: listView)
+        let gateway = StarGatewayStub(.success(stars: stubbedStars))
 
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: navigationWireframe,
-                                                starBrowserViewFactory: starBrowserViewFactory,
-                                                starGateway: starGateway)
-        let starBrowser = StarBrowserFlow(deps: deps)
+        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
+                                                starBrowserViewFactory: viewFactory,
+                                                starGateway: gateway)
+        let flow = StarBrowserFlow(deps: deps)
 
-        starBrowser.start()
+        flow.start()
 
-        let listView = starBrowserViewFactory.listView
-        let viewData = listView.viewData
-        let names = viewData.entries.map { entry in
+        return convertForFitNesse(entries: listView.viewData.entries)
+    }
+
+    private func wait(seconds: TimeInterval) {
+        RunLoop.current.run(until: Date() + seconds)
+    }
+
+    private func convertForFitNesse(entries: [StarListViewData.Entry]) -> [[[String]]] {
+        let names = entries.map { entry in
             [["name", entry.name]]
         }
         return names
