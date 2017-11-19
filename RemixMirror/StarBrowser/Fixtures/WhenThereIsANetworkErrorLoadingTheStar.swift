@@ -5,5 +5,23 @@ class WhenThereIsANetworkErrorLoadingTheStar: NSObject {
 
     override init() {
 
+        let wireframe = NavigationWireframeFake()
+        let listView = StarListViewSpy()
+        let errorView = StarErrorViewSpy()
+        let viewFactory = StarBrowserViewDoubleFactory(listView: listView, errorView: errorView)
+        let gateway = StarGatewayStub(.error)
+
+        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
+                                                starBrowserViewFactory: viewFactory,
+                                                starGateway: gateway)
+        let flow = StarBrowserFlow(deps: deps)
+
+        flow.start()
+
+        listView.delegate?.didSelectStar(withID: any())
+
+        let topView = wireframe.navigatables.last
+
+        theErrorScreenIsShown = topView === errorView
     }
 }
