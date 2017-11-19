@@ -1,0 +1,13 @@
+The Star Browser displays a list of stars from a service and lets the user select one for more detail.
+
+|Given the web service returns these stars                                                           |
+|id     |name    |summary                                                                            |
+|EGGR 49|Sirius  |Sirius is a star system and the brightest star in the Earth's night sky.           |
+|FK5 245|Canopus |Canopus is the brightest star in the southern constellation of Carina.             |
+|GJ 541 |Arcturus|Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
+
+|Query: the star browser lists these stars|
+|name                                     |
+|Sirius                                   |
+|Canopus                                  |
+|Arcturus                                 |

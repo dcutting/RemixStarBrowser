@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<testResults>
+  <FitNesseVersion>v20160618</FitNesseVersion>
+  <rootPath>AllAcceptanceTests.StarBrowser</rootPath>
+    <executionLog>
+    <testSystem>slim:./OCSlimProjectTestRunner.sh</testSystem>
+    <command>./OCSlimProjectTestRunner.sh 8090</command>
+    <exitCode>0</exitCode>
+    <stdOut>== OCSlimProject: RunSlimTestTargetWithSlimPort~OSX:8090 ==
+Test System Executable Environment: /Users/dcutting/Library/Developer/Xcode/DerivedData/RemixMirror-eylpnqsqrvmguwcpelpdoqlxjkaf/Build/Products/Debug/AcceptanceTests.app/Contents/Resources/OCSlimProject-Mac.bundle/Contents/Resources/env.sh
+Test System Executable Folder Path: /Users/dcutting/Library/Developer/Xcode/DerivedData/RemixMirror-eylpnqsqrvmguwcpelpdoqlxjkaf/Build/Products/Debug/AcceptanceTests.app/Contents/MacOS/AcceptanceTests
+[OCSP_RUN] Slim Test System Exited Abnormally With Reported Errors
+</stdOut>
+    <stdErr>2017-11-18 23:42:04.842 AcceptanceTests[13768:1189546] Unable to load nib file: Empty, exiting
+</stdErr>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>0</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>162</totalRunTimeInMillis>
+</testResults>
+
