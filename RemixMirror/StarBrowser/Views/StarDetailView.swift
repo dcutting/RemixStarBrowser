@@ -1,15 +1,15 @@
 class StarDetailViewFormatter {
     func prepare(star: Star) -> StarDetailViewData {
-        return StarDetailViewData(name: star.name, description: star.description)
+        return StarDetailViewData(title: star.name.uppercased(), text: star.summary)
     }
 }
 
 struct StarDetailViewData {
-    let name: String
-    let description: String
+    let title: String
+    let text: String
 
     static var empty: StarDetailViewData {
-        return StarDetailViewData(name: "", description: "")
+        return StarDetailViewData(title: "", text: "")
     }
 }
 

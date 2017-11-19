@@ -14,7 +14,7 @@ class GivenTheWebServiceReturnsTheseStars: NSObject {
     }
 
     @objc func execute() {
-        let star = Star(id: Star.ID(value: id), name: name, description: summary)
+        let star = Star(id: Star.ID(value: id), name: name, summary: summary)
         stubbedStars.append(star)
     }
 }

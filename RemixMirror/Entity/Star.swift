@@ -4,5 +4,5 @@ struct Star {
 
     let id: ID
     let name: String
-    let description: String
+    let summary: String
 }
