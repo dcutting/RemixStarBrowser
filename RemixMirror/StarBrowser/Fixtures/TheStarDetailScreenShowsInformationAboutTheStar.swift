@@ -17,7 +17,7 @@ class TheStarDetailScreenShowsInformationAboutTheStar: NSObject {
         let listView = StarListViewSpy()
         let detailView = StarDetailViewSpy()
         let viewFactory = StarBrowserViewDoubleFactory(listView: listView, detailView: detailView)
-        let gateway = StarGatewayStub(.success(stars: stubbedStars))
+        let gateway = StarGatewayStub(.success(stubbedStars))
 
         let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
                                                 starBrowserViewFactory: viewFactory,

@@ -6,7 +6,7 @@ class ThenTheBrowserListsTheseStars: NSObject {
         let wireframe = NavigationWireframeFake()
         let listView = StarListViewSpy()
         let viewFactory = StarBrowserViewDoubleFactory(listView: listView)
-        let gateway = StarGatewayStub(.success(stars: stubbedStars))
+        let gateway = StarGatewayStub(.success(stubbedStars))
 
         let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
                                                 starBrowserViewFactory: viewFactory,

@@ -5,12 +5,12 @@ class StarGatewayStub: StarGateway {
     enum Behaviour {
         case loading
         case error
-        case success(stars: [Star])
+        case success([Star])
     }
 
-    private let behaviour: Behaviour
+    var behaviour: Behaviour
 
-    init(_ behaviour: Behaviour) {
+    init(_ behaviour: Behaviour = .loading) {
         self.behaviour = behaviour
     }
 
