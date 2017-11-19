@@ -55,6 +55,7 @@
 		C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538C1FC2316900F036CD /* NASAStarGateway.swift */; };
 		C867538F1FC237C100F036CD /* WhenIStartTheStarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538E1FC237C100F036CD /* WhenIStartTheStarBrowser.swift */; };
 		C86753911FC23AB600F036CD /* WhenIGoBackFromTheDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753901FC23AB600F036CD /* WhenIGoBackFromTheDetailScreen.swift */; };
+		C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753921FC2447200F036CD /* StarBrowserFixture.swift */; };
 		C877852E1FC0EA2400616B15 /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877852D1FC0EA2400616B15 /* RootFlow.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
@@ -120,6 +121,7 @@
 		C867538C1FC2316900F036CD /* NASAStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAStarGateway.swift; sourceTree = "<group>"; };
 		C867538E1FC237C100F036CD /* WhenIStartTheStarBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhenIStartTheStarBrowser.swift; sourceTree = "<group>"; };
 		C86753901FC23AB600F036CD /* WhenIGoBackFromTheDetailScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhenIGoBackFromTheDetailScreen.swift; sourceTree = "<group>"; };
+		C86753921FC2447200F036CD /* StarBrowserFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserFixture.swift; sourceTree = "<group>"; };
 		C877852D1FC0EA2400616B15 /* RootFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlow.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 		C84CA7561FC0F9F3004BBF8C /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				C86753921FC2447200F036CD /* StarBrowserFixture.swift */,
 				C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */,
 				C867538E1FC237C100F036CD /* WhenIStartTheStarBrowser.swift */,
 				C86753781FC0FF4100F036CD /* TheStarBrowserListsTheseStars.swift */,
@@ -698,6 +701,7 @@
 				C84CA7361FC0F30A004BBF8C /* main.m in Sources */,
 				C867537C1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
 				C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */,
+				C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */,
 				C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */,
 				C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */,
 				C867538F1FC237C100F036CD /* WhenIStartTheStarBrowser.swift in Sources */,

@@ -1,26 +1,12 @@
 @objc(WhenIGoBackFromTheDetailScreen)
-class WhenIGoBackFromTheDetailScreen: NSObject {
+class WhenIGoBackFromTheDetailScreen: StarBrowserFixture {
     
-    @objc var theVisibleScreenIs: String?
-
     override init() {
+        super.init()
 
-        let wireframe = NavigationWireframeFake()
-        let listView = StarListViewSpy()
-        let viewFactory = StarBrowserViewDoubleFactory(listView: listView)
-        let gateway = StarGatewayStub(.success(stubbedStars))
-
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
-                                                starBrowserViewFactory: viewFactory,
-                                                starGateway: gateway)
-        let flow = StarBrowserFlow(deps: deps)
-
+        gateway.behaviour = .success(stubbedStars)
         flow.start()
-
-        listView.selectAnyRow()
-
-        wireframe.pop()
-
-        theVisibleScreenIs = wireframe.topScreenName
+        views.listView.selectAnyRow()
+        nav.pop()
     }
 }

@@ -1,25 +1,11 @@
 @objc(WhenTheStarSuccessfullyLoads)
-class WhenTheStarSuccessfullyLoads: NSObject {
-
-    @objc var theVisibleScreenIs: String?
+class WhenTheStarSuccessfullyLoads: StarBrowserFixture {
 
     override init() {
+        super.init()
 
-        let wireframe = NavigationWireframeFake()
-        let listView = StarListViewSpy()
-        let detailView = StarDetailViewSpy()
-        let viewFactory = StarBrowserViewDoubleFactory(listView: listView, detailView: detailView)
-        let gateway = StarGatewayStub(.success(stubbedStars))
-
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: wireframe,
-                                                starBrowserViewFactory: viewFactory,
-                                                starGateway: gateway)
-        let flow = StarBrowserFlow(deps: deps)
-
+        gateway.behaviour = .success(stubbedStars)
         flow.start()
-
-        listView.selectAnyRow()
-
-        theVisibleScreenIs = wireframe.topScreenName
+        views.listView.selectAnyRow()
     }
 }
