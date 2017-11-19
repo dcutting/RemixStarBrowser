@@ -6,6 +6,9 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |Canopus |Canopus is the brightest star in the southern constellation of Carina.             |
 |Arcturus|Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
 
+|Script: When I start the star browser|
+|ensure   |the list screen is shown   |
+
 |Ordered query: then the browser lists these stars|
 |name                                             |
 |Sirius                                           |

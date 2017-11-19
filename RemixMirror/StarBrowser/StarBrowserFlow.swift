@@ -12,7 +12,7 @@ class StarBrowserFlow {
     private let deps: Dependencies
     weak var delegate: StarBrowserFlowDelegate?
 
-    private let observableStarsUseCase: ObservableStarsUseCase
+    private let fetchStarsUseCase: FetchStarsUseCase
     private let viewStarUseCase: ViewStarUseCase
 
     private var listView: StarListView?
@@ -20,21 +20,24 @@ class StarBrowserFlow {
     init(deps: Dependencies) {
         self.deps = deps
         let starService = StarService(gateway: deps.starGateway)
-        observableStarsUseCase = ObservableStarsUseCase(service: starService)
+        fetchStarsUseCase = FetchStarsUseCase(service: starService)
         viewStarUseCase = ViewStarUseCase(service: starService)
     }
 
     func start() {
+        pushListView()
+        fetchStars()
+    }
+
+    private func pushListView() {
         let view = deps.starBrowserViewFactory.makeListView()
         view.delegate = self
         deps.navigationWireframe.push(view)
         listView = view
-
-        subscribeForStars()
     }
 
-    private func subscribeForStars() {
-        observableStarsUseCase.subscribe { stars in
+    private func fetchStars() {
+        fetchStarsUseCase.fetchStars { stars in
             self.listView?.viewData = StarListViewFormatter().prepare(stars: stars)
         }
     }
@@ -76,11 +79,6 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     func didTapDone() {
-        finish()
-    }
-
-    private func finish() {
-        observableStarsUseCase.unsubscribe()
         delegate?.didFinish()
     }
 }

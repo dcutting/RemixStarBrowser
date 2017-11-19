@@ -17,7 +17,7 @@
 		C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
 		C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
 		C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */; };
-		C84CA7151FC0EF67004BBF8C /* ObservableStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */; };
+		C84CA7151FC0EF67004BBF8C /* FetchStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* FetchStarsUseCase.swift */; };
 		C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */; };
 		C84CA7361FC0F30A004BBF8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7351FC0F30A004BBF8C /* main.m */; };
@@ -33,7 +33,7 @@
 		C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */; };
 		C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */; };
 		C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */; };
-		C84CA74C1FC0F822004BBF8C /* ObservableStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */; };
+		C84CA74C1FC0F822004BBF8C /* FetchStarsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7141FC0EF67004BBF8C /* FetchStarsUseCase.swift */; };
 		C84CA74D1FC0F822004BBF8C /* ViewStarUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B501FBE442F00066C3B /* ViewStarUseCase.swift */; };
 		C84CA74E1FC0F828004BBF8C /* StarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B491FBE3D5200066C3B /* StarService.swift */; };
 		C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
@@ -95,7 +95,7 @@
 		C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListView.swift; sourceTree = "<group>"; };
 		C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingView.swift; sourceTree = "<group>"; };
 		C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorView.swift; sourceTree = "<group>"; };
-		C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableStarsUseCase.swift; sourceTree = "<group>"; };
+		C84CA7141FC0EF67004BBF8C /* FetchStarsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStarsUseCase.swift; sourceTree = "<group>"; };
 		C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGateway.swift; sourceTree = "<group>"; };
 		C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcceptanceTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTests.m; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 		C84CA7171FC0EF92004BBF8C /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				C84CA7141FC0EF67004BBF8C /* ObservableStarsUseCase.swift */,
+				C84CA7141FC0EF67004BBF8C /* FetchStarsUseCase.swift */,
 				C8DF4B501FBE442F00066C3B /* ViewStarUseCase.swift */,
 			);
 			path = UseCases;
@@ -687,7 +687,7 @@
 				C84CA74E1FC0F828004BBF8C /* StarService.swift in Sources */,
 				C867537E1FC1020600F036CD /* StarBrowserViewDoubleFactory.swift in Sources */,
 				C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */,
-				C84CA74C1FC0F822004BBF8C /* ObservableStarsUseCase.swift in Sources */,
+				C84CA74C1FC0F822004BBF8C /* FetchStarsUseCase.swift in Sources */,
 				C84CA7361FC0F30A004BBF8C /* main.m in Sources */,
 				C867537C1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
 				C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */,
@@ -712,7 +712,7 @@
 				C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */,
 				C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
 				C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */,
-				C84CA7151FC0EF67004BBF8C /* ObservableStarsUseCase.swift in Sources */,
+				C84CA7151FC0EF67004BBF8C /* FetchStarsUseCase.swift in Sources */,
 				C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */,
 				C8DF4B511FBE442F00066C3B /* ViewStarUseCase.swift in Sources */,
 				C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */,
