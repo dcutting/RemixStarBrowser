@@ -1,0 +1,12 @@
+<UIView backgroundColor="white">
+    <UILabel
+        text="Could not load star"
+        textAlignment="center"
+        font="System heavy 18"
+        top="(100% - height) / 2"
+        left="20"
+        height="auto"
+        width="100% - left * 2"
+    />
+</UIView>
+

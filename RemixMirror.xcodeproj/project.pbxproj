@@ -42,6 +42,7 @@
 		C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
 		C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */; };
 		C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
+		C854ED661FC2F2C7008D580F /* StarErrorView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C854ED651FC2F2C7008D580F /* StarErrorView.xml */; };
 		C86753771FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */; };
 		C86753791FC0FF4100F036CD /* TheStarBrowserListsTheseStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753781FC0FF4100F036CD /* TheStarBrowserListsTheseStars.swift */; };
 		C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */; };
@@ -113,6 +114,7 @@
 		C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframe.swift; sourceTree = "<group>"; };
 		C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframeFake.swift; sourceTree = "<group>"; };
 		C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerWireframe.swift; sourceTree = "<group>"; };
+		C854ED651FC2F2C7008D580F /* StarErrorView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarErrorView.xml; sourceTree = "<group>"; };
 		C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenTheWebServiceReturnsTheseStars.swift; sourceTree = "<group>"; };
 		C86753781FC0FF4100F036CD /* TheStarBrowserListsTheseStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheStarBrowserListsTheseStars.swift; sourceTree = "<group>"; };
 		C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewFactory.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				C86753961FC24DEE00F036CD /* StarListView.xml */,
 				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
 				C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */,
+				C854ED651FC2F2C7008D580F /* StarErrorView.xml */,
 				C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */,
 				C867539B1FC2544E00F036CD /* StarDetailView.xml */,
 			);
@@ -550,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C86753971FC24DEE00F036CD /* StarListView.xml in Resources */,
+				C854ED661FC2F2C7008D580F /* StarErrorView.xml in Resources */,
 				C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */,
 				C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */,
 				C867539C1FC2544E00F036CD /* StarDetailView.xml in Resources */,
