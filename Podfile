@@ -3,7 +3,7 @@ platform :ios, 11
 use_frameworks!
 inhibit_all_warnings!
 
-target 'RemixMirror' do
+target 'RemixStarBrowser' do
   pod 'Layout'
 end
 
