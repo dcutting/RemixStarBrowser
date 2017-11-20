@@ -5,8 +5,6 @@ class StarListViewController: LayoutViewController, StarListView {
     var viewData = StarListViewData.empty
     var delegate: StarListViewDelegate?
 
-    @IBOutlet var tableView: UITableView?
-
     init() {
         super.init(nibName: nil, bundle: nil)
         loadLayout(named: "StarListView.xml")

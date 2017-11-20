@@ -1,18 +1,19 @@
 <UIView backgroundColor="white">
     <UILabel
         text="{title}"
+        textAlignment="center"
         font="System heavy 36"
-        top="safeAreaInsets.top"
         left="20"
-        height="100"
-        width="100% - left * 2"
+        top="safeAreaInsets.top + 20"
+        right="100% - left"
+        height="auto + 20"
     />
     <UITextView
-        font="System bold 24"
-        top="previous.bottom"
-        left="previous.left"
         text="{text}"
+        font="System bold 24"
+        left="previous.left"
+        top="previous.bottom"
+        right="previous.width"
         height="auto"
-        width="previous.width"
     />
 </UIView>

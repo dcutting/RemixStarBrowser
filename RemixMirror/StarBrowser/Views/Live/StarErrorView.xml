@@ -2,12 +2,12 @@
     <UILabel
         text="Could not load star"
         textAlignment="center"
-        font="System heavy 24"
         textColor="gray"
-        top="(100% - height) / 2"
+        font="System heavy 24"
         left="20"
+        top="(100% - height) / 2"
+        right="100% - left"
         height="auto"
-        width="100% - left * 2"
     />
 </UIView>
 
