@@ -26,4 +26,8 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
     @objc func goBack() {
         nav.pop()
     }
+
+    @objc var theVisibleScreenIs: String? {
+        return nav.visibleScreenName
+    }
 }

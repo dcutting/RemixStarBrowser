@@ -8,8 +8,4 @@ class StarBrowserFixture: NSObject {
     private lazy var deps = StarBrowserFlow.Dependencies(navigationWireframe: nav,
                                                          starBrowserViewFactory: views,
                                                          starGateway: gateway)
-
-    @objc var theVisibleScreenIs: String? {
-        return nav.visibleScreenName
-    }
 }
