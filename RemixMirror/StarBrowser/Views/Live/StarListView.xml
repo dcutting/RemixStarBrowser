@@ -1,0 +1,10 @@
+<UITableView
+    outlet="tableView"
+    >
+    <UITableViewCell
+        height="80"
+        textLabel.font="System heavy 30"
+        reuseIdentifier="StarListCell"
+        textLabel.text="{name}"
+    />
+</UITableView>
