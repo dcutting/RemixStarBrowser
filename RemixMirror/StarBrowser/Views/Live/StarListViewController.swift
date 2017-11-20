@@ -2,8 +2,14 @@ import Layout
 
 class StarListViewController: LayoutViewController, StarListView {
 
-    var viewData = StarListViewData.empty
+    var viewData = StarListViewData.empty {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
     var delegate: StarListViewDelegate?
+
+    @IBOutlet var tableView: UITableView?
 
     init() {
         super.init(nibName: nil, bundle: nil)

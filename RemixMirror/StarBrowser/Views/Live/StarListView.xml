@@ -1,4 +1,4 @@
-<UITableView>
+<UITableView outlet="tableView">
     <UITableViewCell
         reuseIdentifier="StarListCell"
         textLabel.text="{name}"
