@@ -1,7 +1,4 @@
-The Star Browser displays a list of stars from a service and lets the user select one for more detail.
-
-|Script: When I start the star browser|
-|check  |the visible screen is  |list |
+The Star Browser displays a list of stars from a web service and lets you select one to see more detail.
 
 |Given the web service returns these stars                                                   |
 |name    |summary                                                                            |
@@ -9,26 +6,32 @@ The Star Browser displays a list of stars from a service and lets the user selec
 |Canopus |Canopus is the brightest star in the southern constellation of Carina.             |
 |Arcturus|Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
 
-|Ordered query: then the browser lists these stars|
-|name                                             |
-|Sirius                                           |
-|Canopus                                          |
-|Arcturus                                         |
+|Ordered query: then the star browser lists these stars|
+|name                                                  |
+|Sirius                                                |
+|Canopus                                               |
+|Arcturus                                              |
 
-|Script: When I select a star       |
-|check|the visible screen is|loading|
+|Script: navigating the star browser           |
+|check           |the visible screen is|list   |
+|when the network|is slow                      |
+|select a star                                 |
+|check           |the visible screen is|loading|
 
-|Script: When there is a network error loading the star|
-|check       |the visible screen is       |error       |
+|Script: navigating the star browser         |
+|when the network|is failing                 |
+|select a star                               |
+|check           |the visible screen is|error|
 
-|Script: When the star successfully loads|
-|check  |the visible screen is  |detail  |
+|Script: navigating the star browser          |
+|when the network|is working properly         |
+|select a star                                |
+|check           |the visible screen is|detail|
+|go back                                      |
+|check           |the visible screen is|list  |
 
-|The star detail screen shows information about the star                                                              |
+|The star detail screen shows more information about the selected star                                                |
 |selected row|detail screen title?|detail screen text?                                                                |
 |0           |SIRIUS              |Sirius is a star system and the brightest star in the Earth's night sky.           |
 |2           |ARCTURUS            |Together with Spica and Denebola, Arcturus is part of the Spring Triangle asterism.|
 |1           |CANOPUS             |Canopus is the brightest star in the southern constellation of Carina.             |
-
-|Script: When I go back from the detail screen|
-|check     |the visible screen is    |list    |

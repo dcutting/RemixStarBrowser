@@ -8,11 +8,7 @@ class StarGatewayStub: StarGateway {
         case success([Star])
     }
 
-    var behaviour: Behaviour
-
-    init(_ behaviour: Behaviour = .loading) {
-        self.behaviour = behaviour
-    }
+    var behaviour = Behaviour.error
 
     func loadAll(completion: @escaping (Result<[Star]>) -> Void) {
         switch behaviour {

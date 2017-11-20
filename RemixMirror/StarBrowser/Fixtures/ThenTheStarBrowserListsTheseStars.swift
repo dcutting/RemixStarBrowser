@@ -1,5 +1,5 @@
-@objc(ThenTheBrowserListsTheseStars)
-class ThenTheBrowserListsTheseStars: StarBrowserFixture {
+@objc(ThenTheStarBrowserListsTheseStars)
+class ThenTheStarBrowserListsTheseStars: StarBrowserFixture {
 
     @objc func query() -> [[[String]]] {
 
