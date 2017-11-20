@@ -211,12 +211,6 @@
 			path = Gateways;
 			sourceTree = "<group>";
 		};
-		C84CA71D1FC0F050004BBF8C /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		C84CA71E1FC0F07B004BBF8C /* Live */ = {
@@ -353,8 +347,6 @@
 			children = (
 				C8DF4B201FBDE49200066C3B /* AppDelegate.swift */,
 				C8DF4B471FBE3D5200066C3B /* StarBrowser */,
-				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
-				C84CA71D1FC0F050004BBF8C /* Entity */,
 				C84CA7371FC0F649004BBF8C /* Wireframes */,
 				C84CA7401FC0F6F9004BBF8C /* Utility */,
 				C877852F1FC0EA9400616B15 /* Resources */,
@@ -375,8 +367,12 @@
 			isa = PBXGroup;
 			children = (
 				C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */,
-				C84CA7561FC0F9F3004BBF8C /* Fixtures */,
+				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
 				C84CA7161FC0EF8A004BBF8C /* Views */,
+				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
+				C84CA7171FC0EF92004BBF8C /* UseCases */,
+				C84CA71C1FC0F03C004BBF8C /* Services */,
+				C84CA7561FC0F9F3004BBF8C /* Fixtures */,
 			);
 			path = StarBrowser;
 			sourceTree = "<group>";
