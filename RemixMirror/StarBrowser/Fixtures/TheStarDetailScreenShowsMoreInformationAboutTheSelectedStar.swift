@@ -5,12 +5,6 @@ class TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar: StarBrowserFi
     @objc var detailScreenTitle: String?
     @objc var detailScreenText: String?
 
-    @objc func reset() {
-        selectedRow = nil
-        detailScreenTitle = nil
-        detailScreenText = nil
-    }
-
     @objc func execute() {
 
         gateway.behaviour = .success(stubbedStars)
