@@ -13,15 +13,15 @@ class StarDetailViewController: LayoutViewController, StarDetailView {
         loadLayout(named: "StarDetailView.xml", state: viewData)
     }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func layoutDidLoad() {
         updateState()
     }
 
     private func updateState() {
         layoutNode?.setState(viewData, animated: true)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

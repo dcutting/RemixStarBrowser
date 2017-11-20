@@ -1,5 +1,3 @@
-import Foundation
-
 class FetchStarsUseCase {
 
     private let service: StarService

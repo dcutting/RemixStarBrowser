@@ -21,7 +21,3 @@ class StarBrowserViewDoubleFactory: StarBrowserViewFactory {
         return detail
     }
 }
-
-protocol ScreenNameable {
-    var screenName: String { get }
-}
