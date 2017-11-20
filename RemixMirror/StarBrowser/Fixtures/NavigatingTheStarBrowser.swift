@@ -8,6 +8,10 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
         flow.start()
     }
 
+    @objc var theVisibleScreenIs: String? {
+        return nav.visibleScreenName
+    }
+
     @objc func whenTheNetwork(_ condition: String) {
         switch condition {
         case "is slow":
@@ -25,9 +29,5 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
 
     @objc func goBack() {
         nav.pop()
-    }
-
-    @objc var theVisibleScreenIs: String? {
-        return nav.visibleScreenName
     }
 }
