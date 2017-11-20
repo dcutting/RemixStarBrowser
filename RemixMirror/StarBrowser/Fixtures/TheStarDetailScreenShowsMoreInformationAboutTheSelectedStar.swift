@@ -1,5 +1,5 @@
-@objc(TheStarDetailScreenShowsInformationAboutTheStar)
-class TheStarDetailScreenShowsInformationAboutTheStar: StarBrowserFixture {
+@objc(TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar)
+class TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar: StarBrowserFixture {
 
     @objc var selectedRow: NSNumber?
     @objc var detailScreenTitle: String?
