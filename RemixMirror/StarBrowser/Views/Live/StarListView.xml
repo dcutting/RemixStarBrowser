@@ -2,8 +2,8 @@
     outlet="tableView"
     >
     <UITableViewCell
-        height="80"
-        textLabel.font="System heavy 30"
+        height="60"
+        textLabel.font="System heavy 24"
         reuseIdentifier="StarListCell"
         textLabel.text="{name}"
     />
