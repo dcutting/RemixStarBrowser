@@ -10,6 +10,6 @@ class StarBrowserFixture: NSObject {
                                                          starGateway: gateway)
 
     @objc var theVisibleScreenIs: String? {
-        return nav.topScreenName
+        return nav.visibleScreenName
     }
 }

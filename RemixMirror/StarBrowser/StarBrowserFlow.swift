@@ -46,25 +46,37 @@ class StarBrowserFlow {
 extension StarBrowserFlow: StarListViewDelegate {
 
     func didSelectStar(withID id: Star.ID) {
-        loadStar(withID: id)
+        presentLoadingView {
+            self.loadStar(withID: id)
+        }
+    }
+
+    private func presentLoadingView(completion: (() -> ())?) {
+        let view = deps.starBrowserViewFactory.makeLoadingView()
+        deps.navigationWireframe.present(view, completion: completion)
     }
 
     private func loadStar(withID id: Star.ID) {
-        showLoading()
         viewStarUseCase.fetchStar(withID: id) { result in
-            self.deps.navigationWireframe.pop()
-            switch result {
-            case .error:
-                self.showError()
-            case .success(let star):
-                self.show(star: star)
+            self.dismissLoadingView {
+                self.show(result: result)
             }
         }
     }
 
-    private func showLoading() {
-        let view = deps.starBrowserViewFactory.makeLoadingView()
-        deps.navigationWireframe.push(view)
+    private func dismissLoadingView(completion: (() -> ())?) {
+        self.deps.navigationWireframe.dismiss {
+            completion?()
+        }
+    }
+
+    private func show(result: Result<Star>) {
+        switch result {
+        case .error:
+            showError()
+        case .success(let star):
+            show(star: star)
+        }
     }
 
     private func showError() {

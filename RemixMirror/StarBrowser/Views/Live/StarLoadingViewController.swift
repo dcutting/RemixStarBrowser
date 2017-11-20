@@ -1,10 +1,14 @@
-import Layout
+import UIKit
 
-class StarLoadingViewController: LayoutViewController, StarLoadingView {
-    
+class StarLoadingViewController: UIAlertController, StarLoadingView {
+
     init() {
         super.init(nibName: nil, bundle: nil)
-        loadLayout(named: "StarLoadingView.xml")
+        title = "Loading"
+    }
+
+    override var preferredStyle: UIAlertControllerStyle {
+        return .alert
     }
 
     required init?(coder aDecoder: NSCoder) {
