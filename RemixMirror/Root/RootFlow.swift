@@ -17,12 +17,6 @@ class RootFlow {
     }
 
     func start() {
-        browser.delegate = self
         browser.start()
-    }
-}
-
-extension RootFlow: StarBrowserFlowDelegate {
-    func didFinish() {
     }
 }

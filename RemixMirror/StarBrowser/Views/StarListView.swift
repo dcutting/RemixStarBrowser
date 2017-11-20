@@ -24,7 +24,6 @@ struct StarListViewData {
 
 protocol StarListViewDelegate: class {
     func didSelectStar(withID id: Star.ID)
-    func didTapDone()
 }
 
 protocol StarListView: Navigatable {

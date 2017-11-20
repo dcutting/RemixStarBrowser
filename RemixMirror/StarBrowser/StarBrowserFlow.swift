@@ -1,7 +1,3 @@
-protocol StarBrowserFlowDelegate: class {
-    func didFinish()
-}
-
 class StarBrowserFlow {
 
     struct Dependencies {
@@ -10,7 +6,6 @@ class StarBrowserFlow {
         let starGateway: StarGateway
     }
     private let deps: Dependencies
-    weak var delegate: StarBrowserFlowDelegate?
 
     private let fetchStarsUseCase: FetchStarsUseCase
     private let viewStarUseCase: ViewStarUseCase
@@ -88,9 +83,5 @@ extension StarBrowserFlow: StarListViewDelegate {
         let view = deps.starBrowserViewFactory.makeDetailView()
         view.viewData = StarDetailViewFormatter().prepare(star: star)
         deps.navigationWireframe.push(view)
-    }
-
-    func didTapDone() {
-        delegate?.didFinish()
     }
 }

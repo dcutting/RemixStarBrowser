@@ -32,6 +32,3 @@ The Star Browser displays a list of stars from a service and lets the user selec
 
 |Script: When I go back from the detail screen|
 |check     |the visible screen is    |list    |
-
-|Script: When I tap Done on the star list view|
-|ensure       |the star browser finishes      |
