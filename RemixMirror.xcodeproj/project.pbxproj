@@ -59,23 +59,12 @@
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
 		C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */; };
-		C8DF4B361FBDE49200066C3B /* RemixMirrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B351FBDE49200066C3B /* RemixMirrorTests.swift */; };
 		C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
 		C8DF4B4C1FBE3D5200066C3B /* StarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B491FBE3D5200066C3B /* StarService.swift */; };
 		C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */; };
 		C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */; };
 		C8DF4B511FBE442F00066C3B /* ViewStarUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B501FBE442F00066C3B /* ViewStarUseCase.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C8DF4B321FBDE49200066C3B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C8DF4B151FBDE49200066C3B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C8DF4B1C1FBDE49200066C3B;
-			remoteInfo = RemixMirror;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		187D09EB2F9BF5D3CC611B7D /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,9 +115,6 @@
 		C8DF4B271FBDE49200066C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8DF4B2A1FBDE49200066C3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8DF4B2C1FBDE49200066C3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C8DF4B311FBDE49200066C3B /* RemixMirrorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemixMirrorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8DF4B351FBDE49200066C3B /* RemixMirrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemixMirrorTests.swift; sourceTree = "<group>"; };
-		C8DF4B371FBDE49200066C3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8DF4B481FBE3D5200066C3B /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C8DF4B491FBE3D5200066C3B /* StarService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarService.swift; sourceTree = "<group>"; };
 		C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBrowserFlow.swift; sourceTree = "<group>"; };
@@ -150,13 +136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				38298CAB11A21295BCF12681 /* Pods_RemixMirror.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8DF4B2E1FBDE49200066C3B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				C8DF4B1F1FBDE49200066C3B /* RemixMirror */,
-				C8DF4B341FBDE49200066C3B /* RemixMirrorTests */,
 				C84CA7261FC0F183004BBF8C /* AcceptanceTests */,
 				C8DF4B1E1FBDE49200066C3B /* Products */,
 				01BE27B2D878A378E0BF6615 /* Pods */,
@@ -360,7 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */,
-				C8DF4B311FBDE49200066C3B /* RemixMirrorTests.xctest */,
 				C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */,
 			);
 			name = Products;
@@ -376,15 +353,6 @@
 				C877852F1FC0EA9400616B15 /* Resources */,
 			);
 			path = RemixMirror;
-			sourceTree = "<group>";
-		};
-		C8DF4B341FBDE49200066C3B /* RemixMirrorTests */ = {
-			isa = PBXGroup;
-			children = (
-				C8DF4B351FBDE49200066C3B /* RemixMirrorTests.swift */,
-				C8DF4B371FBDE49200066C3B /* Info.plist */,
-			);
-			path = RemixMirrorTests;
 			sourceTree = "<group>";
 		};
 		C8DF4B471FBE3D5200066C3B /* StarBrowser */ = {
@@ -445,24 +413,6 @@
 			productReference = C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C8DF4B301FBDE49200066C3B /* RemixMirrorTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C8DF4B3D1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixMirrorTests" */;
-			buildPhases = (
-				C8DF4B2D1FBDE49200066C3B /* Sources */,
-				C8DF4B2E1FBDE49200066C3B /* Frameworks */,
-				C8DF4B2F1FBDE49200066C3B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C8DF4B331FBDE49200066C3B /* PBXTargetDependency */,
-			);
-			name = RemixMirrorTests;
-			productName = RemixMirrorTests;
-			productReference = C8DF4B311FBDE49200066C3B /* RemixMirrorTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -481,11 +431,6 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
-					C8DF4B301FBDE49200066C3B = {
-						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C8DF4B1C1FBDE49200066C3B;
-					};
 				};
 			};
 			buildConfigurationList = C8DF4B181FBDE49200066C3B /* Build configuration list for PBXProject "RemixMirror" */;
@@ -502,7 +447,6 @@
 			projectRoot = "";
 			targets = (
 				C8DF4B1C1FBDE49200066C3B /* RemixMirror */,
-				C8DF4B301FBDE49200066C3B /* RemixMirrorTests */,
 				C84CA7241FC0F183004BBF8C /* AcceptanceTests */,
 			);
 		};
@@ -525,13 +469,6 @@
 				C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */,
 				C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */,
 				C867539C1FC2544E00F036CD /* StarDetailView.xml in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8DF4B2F1FBDE49200066C3B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,23 +658,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8DF4B2D1FBDE49200066C3B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C8DF4B361FBDE49200066C3B /* RemixMirrorTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C8DF4B331FBDE49200066C3B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C8DF4B1C1FBDE49200066C3B /* RemixMirror */;
-			targetProxy = C8DF4B321FBDE49200066C3B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */ = {
@@ -926,40 +847,6 @@
 			};
 			name = Release;
 		};
-		C8DF4B3E1FBDE49200066C3B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3H86HRS574;
-				INFOPLIST_FILE = RemixMirrorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixMirrorTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RemixMirror.app/RemixMirror";
-			};
-			name = Debug;
-		};
-		C8DF4B3F1FBDE49200066C3B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3H86HRS574;
-				INFOPLIST_FILE = RemixMirrorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixMirrorTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RemixMirror.app/RemixMirror";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -986,15 +873,6 @@
 			buildConfigurations = (
 				C8DF4B3B1FBDE49200066C3B /* Debug */,
 				C8DF4B3C1FBDE49200066C3B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C8DF4B3D1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixMirrorTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C8DF4B3E1FBDE49200066C3B /* Debug */,
-				C8DF4B3F1FBDE49200066C3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
