@@ -11,3 +11,8 @@ target 'AcceptanceTests' do
   platform :osx, 10.12
   pod 'OCSlimProject'
 end
+
+target 'AcceptanceUnitTests' do
+  platform :osx, 10.12
+  pod 'OCSlimProjectTestBundleSupport'
+end

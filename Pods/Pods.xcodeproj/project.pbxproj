@@ -7,100 +7,133 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000BAF2F636115176E7C9CD6B9427EF9 /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 6C86FBB973F62D91EAD1B62E7F7AFFA1 /* Info.plist */; };
-		08B35DB8F6AF4FA9B2E2810A736CFEA4 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265EA50247AADB872A0A2E89E90FE2F1 /* LayoutDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		0E197BFF9747F5436C6C133C0808F472 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5132520FE475EDDF8F439062347C09 /* Utilities.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		0E3706EC6B5F2A03935A8D4C9AE3D410 /* SlimConnectionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2D2D38E8DEA7EB3922927A97C4AE96 /* SlimConnectionHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		10CB896452AA26826AB20103ADBE30B0 /* OCSInstanceCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = B12F61C09DF7C108ADD1BE15BA333A98 /* OCSInstanceCreator.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		11AA627083C8F30D17D267442556D143 /* Pods-AcceptanceTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F576F5B753CB2AEC524CC36A8E0461 /* Pods-AcceptanceTests-dummy.m */; };
-		150E54CB2F31CDBEE2E94DAC0DD2FA5E /* SlimUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0F8726DAE4F806DC1952B5AE51DFED /* SlimUtil.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		17F5F8CAE0DB68F37488F5358C0F48B7 /* LayoutLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCB63B9B8E370FFCC23AA5EBA8FFA9 /* LayoutLoader.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		188133322531D016992FDFB77757DF50 /* OCSStatementExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF16B637BA3A9DCDD3E987012118E4 /* OCSStatementExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		189F1F071B41CC0D267B3D556D7CD899 /* OCSStatementExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 61ED790BDA5E3CDA66E5AB8C434DA2F5 /* OCSStatementExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1B791C587AE9CC252D7B3E0473A5186F /* ListExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 455520E9E644960E25265D849B5D865D /* ListExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1C65C3E83B75E39283AFEB402D27AAD5 /* OCSSymbolDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 784F128696D0574D496659C66292254B /* OCSSymbolDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		20BF0C2573F189C48F2931A393345E78 /* UIViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D80D3468DEE848F6AEBB7162379E9A7 /* UIViewController+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		23BD6639968CE490D089CC491FFDC881 /* UICollectionView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF990174FED0770DA598C4E6B220997 /* UICollectionView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2FCC01FF0E3B46A9A236E2E1EE287EDE /* LayoutExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5877CA6010218B319083771EC1C39 /* LayoutExpression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2FCE3488392D6A4246F780AE366C5421 /* OCSException.h in Headers */ = {isa = PBXBuildFile; fileRef = 586F49A78555ECEB0BF83A3AD2296C28 /* OCSException.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		30DF97CB718EFAC1B25B4339D49515E0 /* Pods-RemixStarBrowser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 245A13F70F55CE895F41C67A5F6686C3 /* Pods-RemixStarBrowser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3172E4EF4A2FEFE2D536F2F8C67F09CA /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A6475C4B07CF50297925D0B89C8875 /* UIView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		32565AE8EDBFE28DEE3A056F5D4EF1AE /* OCSReturnValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B12A38DC1404876F1F3062CE4154CFC7 /* OCSReturnValue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		34B0889FCDEFD933834B5BB9A71B6903 /* OCSInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = F325D2C7CD6EB63A00450061F1AF8CAE /* OCSInvocation.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		37424B7EB6C79E9A80C9F62E623FACE4 /* OCSReturnValue.h in Headers */ = {isa = PBXBuildFile; fileRef = F9FF410A98EE25A6E76C7D01B0102C20 /* OCSReturnValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		413966D943B14D9688FC1DA0000C7E88 /* Layout.h in Headers */ = {isa = PBXBuildFile; fileRef = 431614F56F37E02482FD5ED91AAEA9AA /* Layout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		460EFFEE068C5F6CC21BB3B17EE5E249 /* ListExecutor.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6327B2879EC6E8C7E8E3F60F9D6989 /* ListExecutor.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		478E14204464C70B4C052F7794742CAD /* LayoutNode+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC1BEDDA42BBBC7246353D4E86A274C /* LayoutNode+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		49F95B847DB6682D7149BBB7F63486A1 /* SlimListSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 31C44AA095F069D23375CACFB2789D66 /* SlimListSerializer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		50F17A304AE32694599BBDCA9F63862C /* Layout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7617E32DADD373B43087E8FB6040FD8A /* Layout-dummy.m */; };
-		52218A9EA01A8357C59EF865E5EF262C /* RuntimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B545CE3E6B34351B48D7C196CA29521 /* RuntimeType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		545A79F0C25AF58A4B983B1E479B3187 /* OCSObjectiveCtoCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF6D5DF5C74B15B4148DAD2D6A0BA8A /* OCSObjectiveCtoCBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		57CF3C5CE9E1EFB8479CA0AA15224B86 /* LayoutError+LayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C9ECAF2167DF0C5067F855AB8A6AD /* LayoutError+LayoutNode.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		584150391276DECDF0FE18022D6594D9 /* LayoutNode+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57057E7E3AAF52ABC8CD9B2C7DEF4B0 /* LayoutNode+XML.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5990DA4C26C26356E5631DB33BF4C184 /* OCSMethodCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C784EA3FA26A78B3114594BD532918 /* OCSMethodCaller.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5A1FB327439B949D762A32A9FD3C93F0 /* OCSSymbolDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C01A6C5A4A1CBA355EE82A244E445AA /* OCSSymbolDictionary.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5AC380C8D7CE78402DFFAE8721EC5592 /* AnyExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F231A77702AE8711E81AF0439BD2F /* AnyExpression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5CB4B6811E606306B60A9F0E5E377951 /* Optional+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A66BBF14492378D0AF8991CF9EACE1 /* Optional+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5D22BADBDC48035F8103D29A2F9CE318 /* LayoutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC85A470FC4178CD272EB79CE926E1B /* LayoutError.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5F0FD44942E56E1F5CA60E728A081A36 /* LayoutBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7B4ACFF072D9CF34BE9E4170AA166B /* LayoutBacked.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		68BF5143131D0155CFDA04949520B671 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D167D1CC35DE0274257D6C12B3720CD1 /* main.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		6D60D0FE5A17BD84880C40517424A3CB /* TcpComLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABB7F5C81BE5CD1F461A45E14AE80A9 /* TcpComLink.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		72363282A19E54D431D592D1C097FC67 /* Slim.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BE018636AFA142B5B9711E6C5DB218 /* Slim.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7371A188CAD1203DA499211D0E92CF20 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDDAA23DDA8E082FC77E38FA01601C8F /* Cocoa.framework */; };
-		73D4C3A677BD1C5CCEF2BC49038BA6F1 /* Pods-RemixStarBrowser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A75C2964E50478170010FA1D0A5B37 /* Pods-RemixStarBrowser-dummy.m */; };
-		77C55B34B477BA11F114F4FBDF551F0E /* Pods-AcceptanceTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AD04DC1198CB46A79A64F950216438CF /* Pods-AcceptanceTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		79593BB44F70DE0BEEA0D2C78FA28DFD /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DAB8E22DF4BE6A6FFA6626AF091511 /* Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		79F84C6E97633C8B9020BF5AD0CA27FD /* CALayer+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0FFA50D296BEEE8FA928924F18641B /* CALayer+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		7BDC68CD169092986389C4CB51AC1D48 /* UITableView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A9A35818A70F5928A2547E0BB0227 /* UITableView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		7F63F3F530DA77E0C59C49A4BBC2EF6A /* SlimUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = F2B3A960952E898D7759C1774E233467 /* SlimUtil.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		81B57F5590B7F33431AEA222F47C0127 /* StatementExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA1291F91EA7449FF9348301CEA5F3 /* StatementExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		864DF3A4F73D689D4EAC7587481B03AC /* LayoutLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B7E37354BC9F1885C9CCB5F0A02B4 /* LayoutLoading.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		87CAF7B043D8910395A3EAEA8CDFAB88 /* TcpComLink.c in Sources */ = {isa = PBXBuildFile; fileRef = 64B0A52DCA9AD50C1324F6721EDDE823 /* TcpComLink.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		8CE84012D351E6F77BBBB34AEB0D4247 /* SlimConnectionHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = CBBD7B1A43CBD4E4CFC3ECA1D3277789 /* SlimConnectionHandler.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		8E41F334ACD977B3DAE5AD90431AB2A1 /* OCSInstanceCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC6E533C34E797FBDE1ADC4752DF89 /* OCSInstanceCreator.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		8E4869FF77AA3A7D7147AB92309767A1 /* SocketServer.c in Sources */ = {isa = PBXBuildFile; fileRef = D496CD54A756185DFB0CE482F83B8F1B /* SocketServer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		910FC2AB3AE6AD109C8AAF3D81766199 /* Layout+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE69D03AFDB79ED7741976D6928B9FD /* Layout+XML.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		919ABD8833B44D4DCE3C592CF27F1648 /* Fixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 770824B304DF7E2D5DBA579A6BB13A70 /* Fixtures.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		94269A3657BDC450A199EFC82B1EDD83 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A528AD6BA5C1EC68A238001911385FF /* Properties.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		944A32CC5537048FB344AD6E98967259 /* XMLNode+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B4080D1EEFE6655D66AD5192271A53 /* XMLNode+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		95F3D7F5158DB860A649CF377624C0E3 /* OCSObjectiveCtoCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 767E286C003239C1CAA0EDF5D5C9857F /* OCSObjectiveCtoCBridge.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		97AD87902697ED4B468695D52300FF77 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F775DBAB42C4909DB33A12872005B3B /* Expression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		992AB494AD4123F6652CA3074ED80A30 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDDAA23DDA8E082FC77E38FA01601C8F /* Cocoa.framework */; };
-		9E8A9F16CF3B89F9CC77DA2EC74AD4B3 /* cslim-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4611FB312570AD55883438B5005C2460 /* cslim-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A195518DEEC7A956244807BB01A46B2E /* OCSInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F09421C2C1F64A560122801A4EB4A3 /* OCSInvocation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		A43FD68A151B1C5A4241BCD62F7DDCF3 /* SlimListDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B28607D25A334C9AEF73D84E3264E733 /* SlimListDeserializer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A94992238106616EF927552EEFFD5957 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1B28F9E8BE41DA077B36194FAF5BF6 /* XMLParser.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		ACB4AD104E5E4EF10E51ABCBD9D9FAD2 /* UIFont+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E821A7DD3812C5DF46269F127036DB /* UIFont+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		ADE12FA0C57C25789838B904DD3408EF /* SlimListDeserializer.c in Sources */ = {isa = PBXBuildFile; fileRef = FA9CFC0564F91543BD1B46BC1B615848 /* SlimListDeserializer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		AE9199CC1EDD71EE5D8A0665218FEF9B /* TitleTextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163936734013C1343822DF135653BCDB /* TitleTextAttributes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B0C66974111359DCBEB75991161E7F69 /* SlimListSerializer.c in Sources */ = {isa = PBXBuildFile; fileRef = 442F7C6D4974A27D2B7C82C7ED6A67C6 /* SlimListSerializer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B18B5F6A7CB82A25BF1AEE53913F63AA /* SocketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A0481698B45BF171389AACAECAF2A0D /* SocketServer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B3B8CAAE8AF3ECED6DCBD8C0BE290479 /* Fixtures.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C14847F8C07FE24006DD2850A1D0FE5 /* Fixtures.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B622AE67E63487F9F57380364F351639 /* OCSMethodCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B069FC7B0E92797418EA06F4611DD7E /* OCSMethodCaller.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B769781B9562D5DB5C91008A7950B52B /* SlimList.h in Headers */ = {isa = PBXBuildFile; fileRef = 671C1F7E3969F44B944CFFBBBE143E0B /* SlimList.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BAD5A9558717C9B047D4F4873481F8EE /* StatementExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 723E59147BB7C5B7966345EC4F2ADBA0 /* StatementExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		BE4278797014FE5EA58EA94D0730FD14 /* cslim-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A3A2623A4AAA386297AFE1D2989F8F /* cslim-dummy.m */; };
-		C33EAAA8BDCD572B378BCE5DFEF7EE3F /* Layout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D771BC07B8D6D7BD0213DCF21BAB333D /* Layout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5C7EC50D664E35C5C2FE2B10DEEA379 /* LayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E657DB4B71A790358EF54031ED8CB57 /* LayoutViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C886F8A34B781D48A3AC015AA957E7F8 /* OCSException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F9C72DBDAB60B6D2CC9A7420369818 /* OCSException.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C8B52FB78E6D797B567C7F37EF06DA50 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E630F14612D4853BF1299301C0ABF9DF /* StringUtils.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C9B5885171D9AC82A10EA0DAA5E66479 /* LayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA4B721EC404551B31213FC9E562B7E /* LayoutNode.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		CB05A087FE9C1B2E34E52C45A495084A /* RuntimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68D0F17153346D648FED68C6D3712FD /* RuntimeTypes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		CDAA7E0DDCFFB6F0612F62118F36B14C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8E2D632CADFEBE217900FD1D4F3ABF /* Foundation.framework */; };
-		D0D69C81AA5F67932123AD215BE4843D /* OCSSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F770816144BCD097FF26F93A6465D /* OCSSelector.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		DE1A9336BF53C27DE9D56FE482466869 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56243FB7D50A60EBF87EB2DCE3AAC0 /* Files.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		DF691E88255BC52B82F8B790E8B5AEA0 /* OCSSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 60DED8E8E0B684E7DECE0A90B5595D13 /* OCSSelector.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1D43F12372872B709134257A41C6C46 /* OCSlimToObjectiveCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CC27A9295C1192440B0E00439676D8 /* OCSlimToObjectiveCBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E1E1B35E6471783B39C95E9E4AE940BA /* UIScrollView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437200B43269FF287E6B7201413B77F4 /* UIScrollView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E33085F7811003FE5CDB753911AECC4A /* Slim.c in Sources */ = {isa = PBXBuildFile; fileRef = 13CE4A3305978503786DB5F651910E5F /* Slim.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E42CC64FF266FF4CBB18C433574BB376 /* ExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE5D9636D49C5663C3F0D754FCEAA72 /* ExpressionParser.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		F0E9FBFCEB4356A8DBDD1B95CC379E3E /* UIStackView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1248DE6B3BD75129C5552FBA1BD9DD5E /* UIStackView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		F24BD34B7DB6EE24FA9D7C8AD2F0A4C7 /* SlimList.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2EB425C75FAAEE9035EDC1A1CA922 /* SlimList.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		F4FA9545872289A7CDC70E5E251D000D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8E2D632CADFEBE217900FD1D4F3ABF /* Foundation.framework */; };
-		FEE98D39D5539C011870338B6BB96F9F /* OCSlimToObjectiveCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 78820C47C032020A56EE8611A3D70DE1 /* OCSlimToObjectiveCBridge.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		000BAF2F636115176E7C9CD6B9427EF9 /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = FF37A098F3264C57F409486488C07321 /* Info.plist */; };
+		07536BE4433F35B03779AA8740725F10 /* OCSPTestReportReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A606D8E2C5557F1A1DC2C4DBEB2797 /* OCSPTestReportReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		08B35DB8F6AF4FA9B2E2810A736CFEA4 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB210B3DA1F0C4183570A567A46A6AE /* LayoutDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0E197BFF9747F5436C6C133C0808F472 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829157CBCB82DDEE75A68ABD014A0D3 /* Utilities.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0E3706EC6B5F2A03935A8D4C9AE3D410 /* SlimConnectionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C79B0C976D023D94926FDA7A757E43 /* SlimConnectionHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		101C812BBC8E44BF0D3F8614333C5ED2 /* OCSPJUnitXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4A61055F2E403EA19D44E483B94545 /* OCSPJUnitXMLParser.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		10CB896452AA26826AB20103ADBE30B0 /* OCSInstanceCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = D45B32C57E01B1F093ED03DDF18873FA /* OCSInstanceCreator.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		11AA627083C8F30D17D267442556D143 /* Pods-AcceptanceTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1B767F6E14722D2AAC032CC9F85F03 /* Pods-AcceptanceTests-dummy.m */; };
+		1201879C1C55DBB3B43CB1AC9B605A1E /* OCSPAssertRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 294F6268463C1909B708B63FD1644B3C /* OCSPAssertRecorder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1233FB4655A94E201E96BB82E8CC10F9 /* OCSPLocalizedMessageTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C5863B436E5415C97AA88A7B65542804 /* OCSPLocalizedMessageTable.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		150E54CB2F31CDBEE2E94DAC0DD2FA5E /* SlimUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA3BBCD059D5B8C3A519F3CEFBE53C9 /* SlimUtil.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		17F5F8CAE0DB68F37488F5358C0F48B7 /* LayoutLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FA767D444A603F63D6AAE16484022C /* LayoutLoader.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		188133322531D016992FDFB77757DF50 /* OCSStatementExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A6F2B6E4865EB686DC20179157C4B2 /* OCSStatementExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		189F1F071B41CC0D267B3D556D7CD899 /* OCSStatementExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = AC2EA9D2EAE1F8B35E5707BADED2F1EE /* OCSStatementExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B791C587AE9CC252D7B3E0473A5186F /* ListExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D66EB01C2C17C2D128F55A76BEEBABA /* ListExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1C65C3E83B75E39283AFEB402D27AAD5 /* OCSSymbolDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FB32D65A7D8DAB0973619F9BE70D56 /* OCSSymbolDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1CA4D426A576668921EEEBEC7B798C23 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9BC6C1D8D7BEE7F7DDDB7463B8E8F806 /* en.lproj */; };
+		20BF0C2573F189C48F2931A393345E78 /* UIViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01510552409C913DC364A9E4FBEFA1C2 /* UIViewController+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		23BD6639968CE490D089CC491FFDC881 /* UICollectionView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F0AA15248B8B77049642A85EE7465 /* UICollectionView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2B2800855A79C888B742DE527E2BA78B /* OCSPAssertRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = A3A3C6F1F54CA2E983B546DDF076095E /* OCSPAssertRecorder.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2FCC01FF0E3B46A9A236E2E1EE287EDE /* LayoutExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BE379391E9A610BEB5E11A50CDC0A8 /* LayoutExpression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2FCE3488392D6A4246F780AE366C5421 /* OCSException.h in Headers */ = {isa = PBXBuildFile; fileRef = 57F1CDDCB2F1963C4541BFE0B1352BA6 /* OCSException.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		30DF97CB718EFAC1B25B4339D49515E0 /* Pods-RemixStarBrowser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D98812809A2DD9B4CEB1A8DF8B986B5 /* Pods-RemixStarBrowser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3172E4EF4A2FEFE2D536F2F8C67F09CA /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C68E7D91397108FBBF33E2F0DEBCC9 /* UIView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		32565AE8EDBFE28DEE3A056F5D4EF1AE /* OCSReturnValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 23ED3DED1E965FFF6A2A05B3FDB4CD91 /* OCSReturnValue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3283D2E15E9178B2B97B9CEA34235143 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */; };
+		34B0889FCDEFD933834B5BB9A71B6903 /* OCSInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 756CA54F4342DEF1CD4D034371250FBF /* OCSInvocation.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		37424B7EB6C79E9A80C9F62E623FACE4 /* OCSReturnValue.h in Headers */ = {isa = PBXBuildFile; fileRef = AEEC4E9B0DABD6DF40203CF1A1F21B7F /* OCSReturnValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		413966D943B14D9688FC1DA0000C7E88 /* Layout.h in Headers */ = {isa = PBXBuildFile; fileRef = D177EAB922BC5A7484F39F7A393A9114 /* Layout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		460EFFEE068C5F6CC21BB3B17EE5E249 /* ListExecutor.c in Sources */ = {isa = PBXBuildFile; fileRef = D503D95C65F2BE4496CAE09C798974CC /* ListExecutor.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		478E14204464C70B4C052F7794742CAD /* LayoutNode+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF16BF12DDC02DBEC61C4F2DD2DFEC3 /* LayoutNode+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		49F95B847DB6682D7149BBB7F63486A1 /* SlimListSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C1AA7105BA958D648FAFCEA2AD81C4 /* SlimListSerializer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4E12037513A836E20F975C223D286737 /* OCSPPrincipalTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B30896AE3B6E044FA6FB278E8BE628F /* OCSPPrincipalTestObserver.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		50F17A304AE32694599BBDCA9F63862C /* Layout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A863AC0FD0ED2252174C129850F26A34 /* Layout-dummy.m */; };
+		52218A9EA01A8357C59EF865E5EF262C /* RuntimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AE7E7E9F00CDBA0DEB647C50C49169 /* RuntimeType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		545A79F0C25AF58A4B983B1E479B3187 /* OCSObjectiveCtoCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F200A37F6DB8F1E3A3F69E2FDAA4C69E /* OCSObjectiveCtoCBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		54FCF0ADBBE10FF74884EF7D32766FB6 /* OCSPTestCaseReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B61F7E8944CF6AF46DC6E06A53259 /* OCSPTestCaseReport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5662E26882B7639DED7DEEE553BC8884 /* OCSPJUnitXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = E4E6C378527AFC0CE53099DF79EEE2B6 /* OCSPJUnitXMLParser.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		57CF3C5CE9E1EFB8479CA0AA15224B86 /* LayoutError+LayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4358378A7C69F3350D1FAC75AFA8A00 /* LayoutError+LayoutNode.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		584150391276DECDF0FE18022D6594D9 /* LayoutNode+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEC43B6C247AEA48C5E9DF68D1CFCE /* LayoutNode+XML.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5990DA4C26C26356E5631DB33BF4C184 /* OCSMethodCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = B0C63592D530E56DAF49BF29FDABD579 /* OCSMethodCaller.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5A1FB327439B949D762A32A9FD3C93F0 /* OCSSymbolDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D29BA33E79208222152FE0E862F17 /* OCSSymbolDictionary.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5AC380C8D7CE78402DFFAE8721EC5592 /* AnyExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489522FD52341443A98DE960A52222B /* AnyExpression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5CB4B6811E606306B60A9F0E5E377951 /* Optional+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C60F20B8BE432B68B4C4FCD202EABB5 /* Optional+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5D22BADBDC48035F8103D29A2F9CE318 /* LayoutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8509E8B0C7E05F3B48046A7FFBA8DE11 /* LayoutError.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5F0FD44942E56E1F5CA60E728A081A36 /* LayoutBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED689FF74D49AC99BF4E64DBA37A72 /* LayoutBacked.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		68BF5143131D0155CFDA04949520B671 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC35B6E9813F05D7F150FF308D4DEC /* main.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6BC13C8012DEFFEF150A2F10144DB103 /* OCSlimProjectTestBundleSupport-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C1A9F6815AE2D7BEA7B18378DC5A4BD6 /* OCSlimProjectTestBundleSupport-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BC69F3FC26A1599CCEC06BBCD7CC6F9 /* OCSPTestReportReader.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D801D4B26EBE81E64540DC17C0A88 /* OCSPTestReportReader.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6D60D0FE5A17BD84880C40517424A3CB /* TcpComLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 91C98EBBF695C0D0201E430132BB15F0 /* TcpComLink.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		702EB8EF6138EA2723C80B63814678D2 /* OCSPTestDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3047B70FC968CBFC423CBE54A68EFA10 /* OCSPTestDataManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		70E24ECBE632AEADA227BA68018C5B15 /* Pods-AcceptanceUnitTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BA24BB684CBCEC194F4E05440598739 /* Pods-AcceptanceUnitTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72363282A19E54D431D592D1C097FC67 /* Slim.h in Headers */ = {isa = PBXBuildFile; fileRef = F93FEC3CFA84D42B4CD494C05AA66545 /* Slim.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7371A188CAD1203DA499211D0E92CF20 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */; };
+		73D4C3A677BD1C5CCEF2BC49038BA6F1 /* Pods-RemixStarBrowser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808BA51B46D2C23F5AA1EED43B41EFB /* Pods-RemixStarBrowser-dummy.m */; };
+		77C55B34B477BA11F114F4FBDF551F0E /* Pods-AcceptanceTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 20BC5B40254656BACDBA32DEA1EF6970 /* Pods-AcceptanceTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79593BB44F70DE0BEEA0D2C78FA28DFD /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40070B6C377D2FEB1E3B8EC8A68761FC /* Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		79F84C6E97633C8B9020BF5AD0CA27FD /* CALayer+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718A615B27CD1522DF5FD94CF58646FF /* CALayer+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7BDC68CD169092986389C4CB51AC1D48 /* UITableView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D44D87AFE5C5212DE1A930CC1EB1F /* UITableView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7CB475F3894099B7CA78589D73282043 /* Pods-AcceptanceUnitTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 768BA798714EA0F7234925D26FA2632B /* Pods-AcceptanceUnitTests-dummy.m */; };
+		7F63F3F530DA77E0C59C49A4BBC2EF6A /* SlimUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 634D46C6A539C1D1C20CB4FCFB3EE708 /* SlimUtil.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		81B57F5590B7F33431AEA222F47C0127 /* StatementExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B04478D84D26609AEDD2D0148404638 /* StatementExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		845582BDCCDAFA7C7F09698D16268064 /* OCSPTestCaseReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 92FB2730EEF29239B58EE2979DBE0E06 /* OCSPTestCaseReport.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		864DF3A4F73D689D4EAC7587481B03AC /* LayoutLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704751C3525587C3D2313C91B09EC6E0 /* LayoutLoading.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		87CAF7B043D8910395A3EAEA8CDFAB88 /* TcpComLink.c in Sources */ = {isa = PBXBuildFile; fileRef = DAC7B820BBDE7BC802FAAF524FDE652C /* TcpComLink.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8CE84012D351E6F77BBBB34AEB0D4247 /* SlimConnectionHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = D3CCC60C9D4374AD09B7FB6587EE8692 /* SlimConnectionHandler.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8E41F334ACD977B3DAE5AD90431AB2A1 /* OCSInstanceCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 71ACAC6AB942A4A74739718FEF75C488 /* OCSInstanceCreator.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8E4869FF77AA3A7D7147AB92309767A1 /* SocketServer.c in Sources */ = {isa = PBXBuildFile; fileRef = 096F2DC976A2CB9463DA2BEBFB5A1A5E /* SocketServer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		910FC2AB3AE6AD109C8AAF3D81766199 /* Layout+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F033D42B94F3289B7D2CCC186ED761 /* Layout+XML.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		919ABD8833B44D4DCE3C592CF27F1648 /* Fixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE85DC070E7CFFF225F287D89E467E1 /* Fixtures.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		94269A3657BDC450A199EFC82B1EDD83 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D087C780C2EC832CB3CBAC603EADD /* Properties.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		944A32CC5537048FB344AD6E98967259 /* XMLNode+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050841FF307119F10067A850DF2BE /* XMLNode+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		95F3D7F5158DB860A649CF377624C0E3 /* OCSObjectiveCtoCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = A37438C0C200DA954DA83A04C2892865 /* OCSObjectiveCtoCBridge.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		97AD87902697ED4B468695D52300FF77 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9F5AC1D53C9D6E9063A5791EC03689 /* Expression.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		992AB494AD4123F6652CA3074ED80A30 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */; };
+		9E8A9F16CF3B89F9CC77DA2EC74AD4B3 /* cslim-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC7949C2B747D88605C60A1B42C60A4 /* cslim-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0582691A9F71BB8026A26B61BE6003D /* OCSPLocalizedMessageTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B032F43B4A8012E8C2C8EC3B895CC0D /* OCSPLocalizedMessageTable.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A195518DEEC7A956244807BB01A46B2E /* OCSInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF8FFD913969B9365EC2BA8DA704823 /* OCSInvocation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A269106CDF88B57AE9739FC04EAEB5DB /* OCSPTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6ACB17DC97F24A82C1062FB2EC7138 /* OCSPTestSuite.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A43FD68A151B1C5A4241BCD62F7DDCF3 /* SlimListDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 812CE1A28765823D62D91CAABFF137EA /* SlimListDeserializer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A4557B13EF2D303733F7754AF6092B9D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B0A7BBF24839A996508F1FA9F73B4 /* XCTest.framework */; };
+		A94992238106616EF927552EEFFD5957 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5F1C3B37CC1601B126772C5650D75 /* XMLParser.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AA40DF3A7A1012ED344F3651E24C630E /* OCSPTestReportCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = A28B64352B7C4E2904ABF1CFF5511156 /* OCSPTestReportCenter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		ACB4AD104E5E4EF10E51ABCBD9D9FAD2 /* UIFont+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4A68B94379D7EE63E114CF4577E78 /* UIFont+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		ADE12FA0C57C25789838B904DD3408EF /* SlimListDeserializer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4467C2E5956F55068AB47F0BB00BB7A2 /* SlimListDeserializer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AE9199CC1EDD71EE5D8A0665218FEF9B /* TitleTextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8778AAFA9C5ADDBA4E9ECA5227A84FDD /* TitleTextAttributes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B0C66974111359DCBEB75991161E7F69 /* SlimListSerializer.c in Sources */ = {isa = PBXBuildFile; fileRef = DEFB8CC4861CE7062F4D544C92416F9C /* SlimListSerializer.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B18B5F6A7CB82A25BF1AEE53913F63AA /* SocketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B20D6B7566F88C498D30C493CC6AD6 /* SocketServer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B2263EF067A1E41BE409710B0C7CE5F9 /* OCSPTestDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B56FFF76F56DE03779B8ED2B4B81A2 /* OCSPTestDataManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B3B8CAAE8AF3ECED6DCBD8C0BE290479 /* Fixtures.h in Headers */ = {isa = PBXBuildFile; fileRef = 01E9040A954DA60E4FFB0ABFE5F908D4 /* Fixtures.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B622AE67E63487F9F57380364F351639 /* OCSMethodCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3BA15DC19082A2B7CE518E6DC9D15D /* OCSMethodCaller.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B769781B9562D5DB5C91008A7950B52B /* SlimList.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C3E75E0A2C78066B3DE629060676B0 /* SlimList.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BAD5A9558717C9B047D4F4873481F8EE /* StatementExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF5FCCF30671273850569F462C0267C /* StatementExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BE4278797014FE5EA58EA94D0730FD14 /* cslim-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A4947BCE7FB74D958E1ED9BE0B5E97 /* cslim-dummy.m */; };
+		C33EAAA8BDCD572B378BCE5DFEF7EE3F /* Layout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF2BE287F2575A7546F496AE4510AF6 /* Layout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5C7EC50D664E35C5C2FE2B10DEEA379 /* LayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2787F8B105CF672DD0784E4C4A1810 /* LayoutViewController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C655C85AA47B55696A00E9158893EB91 /* OCSPTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB414C51FFB8E63FD80B080FF2D5CE9 /* OCSPTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C886F8A34B781D48A3AC015AA957E7F8 /* OCSException.m in Sources */ = {isa = PBXBuildFile; fileRef = 5276056A0BF6253ED037553B840DB147 /* OCSException.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C8B52FB78E6D797B567C7F37EF06DA50 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB366FA59A0FFBB17723B4CA6B412A /* StringUtils.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C9B5885171D9AC82A10EA0DAA5E66479 /* LayoutNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97837474931CEBFF7B3CA9708173104 /* LayoutNode.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CB05A087FE9C1B2E34E52C45A495084A /* RuntimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF063DF3B6A1AA476C2DD75980911D /* RuntimeTypes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CDAA7E0DDCFFB6F0612F62118F36B14C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33DFDE70F8890A2EE841E061CD964FCD /* Foundation.framework */; };
+		D0D69C81AA5F67932123AD215BE4843D /* OCSSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BD8A9A76A4CA9DDF95F38E70F55E88 /* OCSSelector.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D5A115C9E2F496D8547508B861CDE0EA /* OCSlimProjectTestBundleSupport-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA574BDFD7A80C37877009974E5607 /* OCSlimProjectTestBundleSupport-dummy.m */; };
+		DE1A9336BF53C27DE9D56FE482466869 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E127171BD51B665B1EF7DA13F45B7E9 /* Files.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DF691E88255BC52B82F8B790E8B5AEA0 /* OCSSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 7909FFEECD1C95ACF9D47A4CC68C4B6C /* OCSSelector.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1D43F12372872B709134257A41C6C46 /* OCSlimToObjectiveCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CDB998E4350C7B8EA0010FE068249C /* OCSlimToObjectiveCBridge.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E1E1B35E6471783B39C95E9E4AE940BA /* UIScrollView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710E6EB9DF2CBEF398B0A616F8321648 /* UIScrollView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E33085F7811003FE5CDB753911AECC4A /* Slim.c in Sources */ = {isa = PBXBuildFile; fileRef = 879923B1E9A3FC7FF88B6F00AD4E4FAA /* Slim.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E42CC64FF266FF4CBB18C433574BB376 /* ExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6410323E79CF4A147691B295D8D90817 /* ExpressionParser.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		EE68AB6AFB6C60E0870D5F321988903F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */; };
+		F0E9FBFCEB4356A8DBDD1B95CC379E3E /* UIStackView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E80FC6A14E1A30A8C653272CB7185B /* UIStackView+Layout.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F24BD34B7DB6EE24FA9D7C8AD2F0A4C7 /* SlimList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C77E8070B177A4CFB267943A1E059 /* SlimList.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F4FA9545872289A7CDC70E5E251D000D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33DFDE70F8890A2EE841E061CD964FCD /* Foundation.framework */; };
+		F789ED66C4A94F25B72EA69CD05E8B8C /* OCSPTestReportCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA81A5FF64393E9CEE6B15DB49875 /* OCSPTestReportCenter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FA328DC75B92F7BAB26BECD0E00F8CCC /* OCSPPrincipalTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 39A5622FE27E3C465B911942BD87E22F /* OCSPPrincipalTestObserver.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FEE98D39D5539C011870338B6BB96F9F /* OCSlimToObjectiveCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F32DDB9D30B24472CD34578288C743D /* OCSlimToObjectiveCBridge.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1D63EF8D2C4196870790F97FDA174383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D10015A958692716B67AAF6C9F11759;
+			remoteInfo = OCSlimProjectTestBundleSupport;
+		};
 		AC76A72676E4F24F100B7A7CB80C18B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -118,128 +151,175 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008995DB737B52FAE7530A6EF5D69E88 /* cslim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = cslim.framework; path = cslim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0294D8B46BDCDB5ADA875E9DF054DBD8 /* OCSlimProject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSlimProject.h; path = Pod/Classes/OCSlimProject.h; sourceTree = "<group>"; };
-		08F03EB31E5EB2DB6C3AFD286CB6A719 /* cslim-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "cslim-prefix.pch"; sourceTree = "<group>"; };
-		0B56243FB7D50A60EBF87EB2DCE3AAC0 /* Files.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Files.swift; path = Layout/Shared/Files.swift; sourceTree = "<group>"; };
-		11A75C2964E50478170010FA1D0A5B37 /* Pods-RemixStarBrowser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RemixStarBrowser-dummy.m"; sourceTree = "<group>"; };
-		1239EE6F30659A88BA66937E6732DA74 /* Pods-RemixStarBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RemixStarBrowser.release.xcconfig"; sourceTree = "<group>"; };
-		1248DE6B3BD75129C5552FBA1BD9DD5E /* UIStackView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIStackView+Layout.swift"; path = "Layout/UIStackView+Layout.swift"; sourceTree = "<group>"; };
-		13CE4A3305978503786DB5F651910E5F /* Slim.c */ = {isa = PBXFileReference; includeInIndex = 1; name = Slim.c; path = src/CSlim/Slim.c; sourceTree = "<group>"; };
-		163936734013C1343822DF135653BCDB /* TitleTextAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TitleTextAttributes.swift; path = Layout/TitleTextAttributes.swift; sourceTree = "<group>"; };
-		1995D41156D5C256F8933B8B60EA193B /* Pods-RemixStarBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RemixStarBrowser.debug.xcconfig"; sourceTree = "<group>"; };
-		1A528AD6BA5C1EC68A238001911385FF /* Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Properties.swift; path = Layout/Properties.swift; sourceTree = "<group>"; };
-		1C01A6C5A4A1CBA355EE82A244E445AA /* OCSSymbolDictionary.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSSymbolDictionary.m; path = src/ExecutorObjectiveC/OCSSymbolDictionary.m; sourceTree = "<group>"; };
-		1D7B7E37354BC9F1885C9CCB5F0A02B4 /* LayoutLoading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutLoading.swift; path = Layout/LayoutLoading.swift; sourceTree = "<group>"; };
-		1EF990174FED0770DA598C4E6B220997 /* UICollectionView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionView+Layout.swift"; path = "Layout/UICollectionView+Layout.swift"; sourceTree = "<group>"; };
-		22FA1291F91EA7449FF9348301CEA5F3 /* StatementExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StatementExecutor.h; path = include/CSlim/StatementExecutor.h; sourceTree = "<group>"; };
-		23A3A2623A4AAA386297AFE1D2989F8F /* cslim-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "cslim-dummy.m"; sourceTree = "<group>"; };
-		245A13F70F55CE895F41C67A5F6686C3 /* Pods-RemixStarBrowser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RemixStarBrowser-umbrella.h"; sourceTree = "<group>"; };
-		265EA50247AADB872A0A2E89E90FE2F1 /* LayoutDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutDelegate.swift; path = Layout/LayoutDelegate.swift; sourceTree = "<group>"; };
-		27A6475C4B07CF50297925D0B89C8875 /* UIView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Layout.swift"; path = "Layout/UIView+Layout.swift"; sourceTree = "<group>"; };
-		2C2D2D38E8DEA7EB3922927A97C4AE96 /* SlimConnectionHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimConnectionHandler.h; path = include/CSlim/SlimConnectionHandler.h; sourceTree = "<group>"; };
-		2E6F770816144BCD097FF26F93A6465D /* OCSSelector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSSelector.m; path = src/ExecutorObjectiveC/OCSSelector.m; sourceTree = "<group>"; };
-		31C44AA095F069D23375CACFB2789D66 /* SlimListSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimListSerializer.h; path = include/CSlim/SlimListSerializer.h; sourceTree = "<group>"; };
-		3744787747AC69ED04F569141A2B23AA /* Layout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Layout.framework; path = Layout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B9F231A77702AE8711E81AF0439BD2F /* AnyExpression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyExpression.swift; path = Layout/AnyExpression.swift; sourceTree = "<group>"; };
-		3CF2EB425C75FAAEE9035EDC1A1CA922 /* SlimList.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimList.c; path = src/CSlim/SlimList.c; sourceTree = "<group>"; };
-		431614F56F37E02482FD5ED91AAEA9AA /* Layout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Layout.h; path = Layout/Layout.h; sourceTree = "<group>"; };
-		437200B43269FF287E6B7201413B77F4 /* UIScrollView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIScrollView+Layout.swift"; path = "Layout/UIScrollView+Layout.swift"; sourceTree = "<group>"; };
-		4393011362E7A7FFE1419CE47574C693 /* Pods-RemixStarBrowser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RemixStarBrowser-acknowledgements.markdown"; sourceTree = "<group>"; };
-		442F7C6D4974A27D2B7C82C7ED6A67C6 /* SlimListSerializer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimListSerializer.c; path = src/CSlim/SlimListSerializer.c; sourceTree = "<group>"; };
-		455520E9E644960E25265D849B5D865D /* ListExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ListExecutor.h; path = include/CSlim/ListExecutor.h; sourceTree = "<group>"; };
-		4611FB312570AD55883438B5005C2460 /* cslim-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "cslim-umbrella.h"; sourceTree = "<group>"; };
-		48273A05421B15CEB314F654FC343DCC /* Pods-RemixStarBrowser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RemixStarBrowser-acknowledgements.plist"; sourceTree = "<group>"; };
-		4A0481698B45BF171389AACAECAF2A0D /* SocketServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketServer.h; path = include/Com/SocketServer.h; sourceTree = "<group>"; };
-		4CD5877CA6010218B319083771EC1C39 /* LayoutExpression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutExpression.swift; path = Layout/LayoutExpression.swift; sourceTree = "<group>"; };
-		4D0F8726DAE4F806DC1952B5AE51DFED /* SlimUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimUtil.h; path = include/CSlim/SlimUtil.h; sourceTree = "<group>"; };
-		4D329522B928D77DF01C814D7DDAA175 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E5A5BC802A4EF737EF89C275323DCC1 /* Layout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Layout.modulemap; sourceTree = "<group>"; };
-		586F49A78555ECEB0BF83A3AD2296C28 /* OCSException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSException.h; path = include/ExecutorObjectiveC/OCSException.h; sourceTree = "<group>"; };
-		5CC1BEDDA42BBBC7246353D4E86A274C /* LayoutNode+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutNode+Layout.swift"; path = "Layout/LayoutNode+Layout.swift"; sourceTree = "<group>"; };
-		60DED8E8E0B684E7DECE0A90B5595D13 /* OCSSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSSelector.h; path = include/ExecutorObjectiveC/OCSSelector.h; sourceTree = "<group>"; };
-		61ED790BDA5E3CDA66E5AB8C434DA2F5 /* OCSStatementExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSStatementExecutor.h; path = include/ExecutorObjectiveC/OCSStatementExecutor.h; sourceTree = "<group>"; };
-		64B0A52DCA9AD50C1324F6721EDDE823 /* TcpComLink.c */ = {isa = PBXFileReference; includeInIndex = 1; name = TcpComLink.c; path = src/Com/TcpComLink.c; sourceTree = "<group>"; };
-		66C4C8912B58EE14254933126FD55322 /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AcceptanceTests.framework; path = "Pods-AcceptanceTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		671C1F7E3969F44B944CFFBBBE143E0B /* SlimList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimList.h; path = include/CSlim/SlimList.h; sourceTree = "<group>"; };
-		6B545CE3E6B34351B48D7C196CA29521 /* RuntimeType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuntimeType.swift; path = Layout/RuntimeType.swift; sourceTree = "<group>"; };
-		6C86FBB973F62D91EAD1B62E7F7AFFA1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Layout/Info.plist; sourceTree = "<group>"; };
-		6D80D3468DEE848F6AEBB7162379E9A7 /* UIViewController+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+Layout.swift"; path = "Layout/UIViewController+Layout.swift"; sourceTree = "<group>"; };
-		6E55012FFB5F7C7D2BA0637EBDF3FE4D /* Layout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Layout-prefix.pch"; sourceTree = "<group>"; };
-		6EC85A470FC4178CD272EB79CE926E1B /* LayoutError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutError.swift; path = Layout/LayoutError.swift; sourceTree = "<group>"; };
-		6EEE59944D64538B766F05A277CE77AD /* Pods-AcceptanceTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AcceptanceTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		71A9A9470F42D1FFE8C5C0D6AACE56DC /* Pods_RemixStarBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RemixStarBrowser.framework; path = "Pods-RemixStarBrowser.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		723E59147BB7C5B7966345EC4F2ADBA0 /* StatementExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StatementExecutor.m; path = src/ExecutorObjectiveC/StatementExecutor.m; sourceTree = "<group>"; };
-		74CC27A9295C1192440B0E00439676D8 /* OCSlimToObjectiveCBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSlimToObjectiveCBridge.m; path = src/ExecutorObjectiveC/OCSlimToObjectiveCBridge.m; sourceTree = "<group>"; };
-		7617E32DADD373B43087E8FB6040FD8A /* Layout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Layout-dummy.m"; sourceTree = "<group>"; };
-		767E286C003239C1CAA0EDF5D5C9857F /* OCSObjectiveCtoCBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSObjectiveCtoCBridge.h; path = include/ExecutorObjectiveC/OCSObjectiveCtoCBridge.h; sourceTree = "<group>"; };
-		770824B304DF7E2D5DBA579A6BB13A70 /* Fixtures.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Fixtures.m; path = src/ExecutorObjectiveC/Fixtures.m; sourceTree = "<group>"; };
-		784F128696D0574D496659C66292254B /* OCSSymbolDictionary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSSymbolDictionary.h; path = include/ExecutorObjectiveC/OCSSymbolDictionary.h; sourceTree = "<group>"; };
-		78820C47C032020A56EE8611A3D70DE1 /* OCSlimToObjectiveCBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSlimToObjectiveCBridge.h; path = include/ExecutorObjectiveC/OCSlimToObjectiveCBridge.h; sourceTree = "<group>"; };
-		7ABB7F5C81BE5CD1F461A45E14AE80A9 /* TcpComLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TcpComLink.h; path = include/Com/TcpComLink.h; sourceTree = "<group>"; };
-		7B069FC7B0E92797418EA06F4611DD7E /* OCSMethodCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSMethodCaller.m; path = src/ExecutorObjectiveC/OCSMethodCaller.m; sourceTree = "<group>"; };
-		7C839AA20B445CC7A497A5A896D48AEC /* Pods-AcceptanceTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AcceptanceTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		7CF266024C484600C40EF95F36DD71B0 /* Pods-RemixStarBrowser-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RemixStarBrowser-resources.sh"; sourceTree = "<group>"; };
-		7CFC6E533C34E797FBDE1ADC4752DF89 /* OCSInstanceCreator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSInstanceCreator.m; path = src/ExecutorObjectiveC/OCSInstanceCreator.m; sourceTree = "<group>"; };
-		7D0C9ECAF2167DF0C5067F855AB8A6AD /* LayoutError+LayoutNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutError+LayoutNode.swift"; path = "Layout/LayoutError+LayoutNode.swift"; sourceTree = "<group>"; };
-		7D719971711299D006E128474FE29241 /* Layout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Layout.xcconfig; sourceTree = "<group>"; };
-		7EE5D9636D49C5663C3F0D754FCEAA72 /* ExpressionParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpressionParser.swift; path = Layout/Shared/ExpressionParser.swift; sourceTree = "<group>"; };
-		86E821A7DD3812C5DF46269F127036DB /* UIFont+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIFont+Layout.swift"; path = "Layout/UIFont+Layout.swift"; sourceTree = "<group>"; };
-		89C784EA3FA26A78B3114594BD532918 /* OCSMethodCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSMethodCaller.h; path = include/ExecutorObjectiveC/OCSMethodCaller.h; sourceTree = "<group>"; };
-		8C14847F8C07FE24006DD2850A1D0FE5 /* Fixtures.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fixtures.h; path = include/CSlim/Fixtures.h; sourceTree = "<group>"; };
-		8E657DB4B71A790358EF54031ED8CB57 /* LayoutViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutViewController.swift; path = Layout/LayoutViewController.swift; sourceTree = "<group>"; };
-		91DAB8E22DF4BE6A6FFA6626AF091511 /* Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Layout.swift; path = Layout/Layout.swift; sourceTree = "<group>"; };
+		009BF67E67F805E1E32BBFB71F512BF3 /* Pods-AcceptanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		01510552409C913DC364A9E4FBEFA1C2 /* UIViewController+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+Layout.swift"; path = "Layout/UIViewController+Layout.swift"; sourceTree = "<group>"; };
+		01E9040A954DA60E4FFB0ABFE5F908D4 /* Fixtures.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fixtures.h; path = include/CSlim/Fixtures.h; sourceTree = "<group>"; };
+		096F2DC976A2CB9463DA2BEBFB5A1A5E /* SocketServer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SocketServer.c; path = src/Com/SocketServer.c; sourceTree = "<group>"; };
+		0A3BA15DC19082A2B7CE518E6DC9D15D /* OCSMethodCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSMethodCaller.m; path = src/ExecutorObjectiveC/OCSMethodCaller.m; sourceTree = "<group>"; };
+		0AFB366FA59A0FFBB17723B4CA6B412A /* StringUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringUtils.swift; path = Layout/Shared/StringUtils.swift; sourceTree = "<group>"; };
+		0B032F43B4A8012E8C2C8EC3B895CC0D /* OCSPLocalizedMessageTable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPLocalizedMessageTable.h; path = Pod/TestClasses/OCSPLocalizedMessageTable.h; sourceTree = "<group>"; };
+		0BAF9D8D2903FFD341B45DF953602439 /* Pods_RemixStarBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RemixStarBrowser.framework; path = "Pods-RemixStarBrowser.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C9613F2A85705A720504B11373A3ECD /* Pods-RemixStarBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RemixStarBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+		0CEF063DF3B6A1AA476C2DD75980911D /* RuntimeTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuntimeTypes.swift; path = Layout/RuntimeTypes.swift; sourceTree = "<group>"; };
+		0DFA574BDFD7A80C37877009974E5607 /* OCSlimProjectTestBundleSupport-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OCSlimProjectTestBundleSupport-dummy.m"; sourceTree = "<group>"; };
+		1433B396EC2DC530B54C4398AA48763C /* Pods-RemixStarBrowser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-RemixStarBrowser.modulemap"; sourceTree = "<group>"; };
+		17CDF98A1298CBE3E786539163ACE63D /* Pods-RemixStarBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RemixStarBrowser.release.xcconfig"; sourceTree = "<group>"; };
+		195D29BA33E79208222152FE0E862F17 /* OCSSymbolDictionary.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSSymbolDictionary.m; path = src/ExecutorObjectiveC/OCSSymbolDictionary.m; sourceTree = "<group>"; };
+		1A6ACB17DC97F24A82C1062FB2EC7138 /* OCSPTestSuite.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPTestSuite.m; path = Pod/TestClasses/OCSPTestSuite.m; sourceTree = "<group>"; };
+		1AC7949C2B747D88605C60A1B42C60A4 /* cslim-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "cslim-umbrella.h"; sourceTree = "<group>"; };
+		1B4E0063567CF7D58A51A81446F6602B /* cslim.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = cslim.xcconfig; sourceTree = "<group>"; };
+		1FEC35B6E9813F05D7F150FF308D4DEC /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/ExecutorObjectiveC/main.m; sourceTree = "<group>"; };
+		20BC5B40254656BACDBA32DEA1EF6970 /* Pods-AcceptanceTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AcceptanceTests-umbrella.h"; sourceTree = "<group>"; };
+		23A050841FF307119F10067A850DF2BE /* XMLNode+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "XMLNode+Layout.swift"; path = "Layout/Shared/XMLNode+Layout.swift"; sourceTree = "<group>"; };
+		23ED3DED1E965FFF6A2A05B3FDB4CD91 /* OCSReturnValue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSReturnValue.m; path = src/ExecutorObjectiveC/OCSReturnValue.m; sourceTree = "<group>"; };
+		286F0AA15248B8B77049642A85EE7465 /* UICollectionView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionView+Layout.swift"; path = "Layout/UICollectionView+Layout.swift"; sourceTree = "<group>"; };
+		294F6268463C1909B708B63FD1644B3C /* OCSPAssertRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPAssertRecorder.m; path = Pod/TestClasses/OCSPAssertRecorder.m; sourceTree = "<group>"; };
+		2AAA59E025C438461D0D88DCEA6EDF7B /* Pods-RemixStarBrowser-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RemixStarBrowser-resources.sh"; sourceTree = "<group>"; };
+		2B1B767F6E14722D2AAC032CC9F85F03 /* Pods-AcceptanceTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AcceptanceTests-dummy.m"; sourceTree = "<group>"; };
+		2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		2C4C77E8070B177A4CFB267943A1E059 /* SlimList.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimList.c; path = src/CSlim/SlimList.c; sourceTree = "<group>"; };
+		3047B70FC968CBFC423CBE54A68EFA10 /* OCSPTestDataManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPTestDataManager.m; path = Pod/TestClasses/OCSPTestDataManager.m; sourceTree = "<group>"; };
+		31E7346FF14B0812E20735F04C13843B /* OCSlimProjectTestBundleSupport.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = OCSlimProjectTestBundleSupport.modulemap; sourceTree = "<group>"; };
+		33DFDE70F8890A2EE841E061CD964FCD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		33F033D42B94F3289B7D2CCC186ED761 /* Layout+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Layout+XML.swift"; path = "Layout/Layout+XML.swift"; sourceTree = "<group>"; };
+		356003C042ED1A8BE7F685F0FB31EA7D /* Pods-AcceptanceUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		35B87F9D723ABFC4DFE3C0F3EC1FFF68 /* Pods-AcceptanceUnitTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AcceptanceUnitTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		3696DEE8CF4ED1FA57CB8796ECA432B2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3808BA51B46D2C23F5AA1EED43B41EFB /* Pods-RemixStarBrowser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RemixStarBrowser-dummy.m"; sourceTree = "<group>"; };
+		3973B303745608A2359256661D732FFA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39A5622FE27E3C465B911942BD87E22F /* OCSPPrincipalTestObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPPrincipalTestObserver.h; path = Pod/TestClasses/OCSPPrincipalTestObserver.h; sourceTree = "<group>"; };
+		3C423B83600F5015E274B234EA7CBA07 /* Pods-AcceptanceUnitTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-AcceptanceUnitTests.modulemap"; sourceTree = "<group>"; };
+		3E127171BD51B665B1EF7DA13F45B7E9 /* Files.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Files.swift; path = Layout/Shared/Files.swift; sourceTree = "<group>"; };
+		40070B6C377D2FEB1E3B8EC8A68761FC /* Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Layout.swift; path = Layout/Layout.swift; sourceTree = "<group>"; };
+		43BD8A9A76A4CA9DDF95F38E70F55E88 /* OCSSelector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSSelector.m; path = src/ExecutorObjectiveC/OCSSelector.m; sourceTree = "<group>"; };
+		4467C2E5956F55068AB47F0BB00BB7A2 /* SlimListDeserializer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimListDeserializer.c; path = src/CSlim/SlimListDeserializer.c; sourceTree = "<group>"; };
+		46FA767D444A603F63D6AAE16484022C /* LayoutLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutLoader.swift; path = Layout/LayoutLoader.swift; sourceTree = "<group>"; };
+		4EA4A68B94379D7EE63E114CF4577E78 /* UIFont+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIFont+Layout.swift"; path = "Layout/UIFont+Layout.swift"; sourceTree = "<group>"; };
+		5276056A0BF6253ED037553B840DB147 /* OCSException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSException.m; path = src/ExecutorObjectiveC/OCSException.m; sourceTree = "<group>"; };
+		52C1AA7105BA958D648FAFCEA2AD81C4 /* SlimListSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimListSerializer.h; path = include/CSlim/SlimListSerializer.h; sourceTree = "<group>"; };
+		52E80FC6A14E1A30A8C653272CB7185B /* UIStackView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIStackView+Layout.swift"; path = "Layout/UIStackView+Layout.swift"; sourceTree = "<group>"; };
+		555568430DE4C7ADA2B14BE708C4AAB7 /* Pods-RemixStarBrowser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RemixStarBrowser-frameworks.sh"; sourceTree = "<group>"; };
+		57F1CDDCB2F1963C4541BFE0B1352BA6 /* OCSException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSException.h; path = include/ExecutorObjectiveC/OCSException.h; sourceTree = "<group>"; };
+		5A79C4793868B012669D2D720FE621CE /* Pods-AcceptanceTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceTests-resources.sh"; sourceTree = "<group>"; };
+		5B30896AE3B6E044FA6FB278E8BE628F /* OCSPPrincipalTestObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPPrincipalTestObserver.m; path = Pod/TestClasses/OCSPPrincipalTestObserver.m; sourceTree = "<group>"; };
+		5BA3BBCD059D5B8C3A519F3CEFBE53C9 /* SlimUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimUtil.h; path = include/CSlim/SlimUtil.h; sourceTree = "<group>"; };
+		5C60F20B8BE432B68B4C4FCD202EABB5 /* Optional+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Optional+Layout.swift"; path = "Layout/Optional+Layout.swift"; sourceTree = "<group>"; };
+		5E976A809A9A073A87A64F21DB0C164E /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AcceptanceTests.framework; path = "Pods-AcceptanceTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		634D46C6A539C1D1C20CB4FCFB3EE708 /* SlimUtil.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimUtil.c; path = src/CSlim/SlimUtil.c; sourceTree = "<group>"; };
+		634E4740E0AE8ADDB7013BA802A52CA0 /* Layout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Layout-prefix.pch"; sourceTree = "<group>"; };
+		636C809CAC28403230816F65E55D5DA9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6410323E79CF4A147691B295D8D90817 /* ExpressionParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpressionParser.swift; path = Layout/Shared/ExpressionParser.swift; sourceTree = "<group>"; };
+		6639AF7FA7C768179225AFC40F52EC44 /* Pods_AcceptanceUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AcceptanceUnitTests.framework; path = "Pods-AcceptanceUnitTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66E01A973C2870696219FC5F5CEC3450 /* Pods-AcceptanceTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AcceptanceTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6A1DD890C785C727930967E6EEB99D0B /* OCSlimProjectTestBundleSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OCSlimProjectTestBundleSupport.framework; path = OCSlimProjectTestBundleSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D66EB01C2C17C2D128F55A76BEEBABA /* ListExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ListExecutor.h; path = include/CSlim/ListExecutor.h; sourceTree = "<group>"; };
+		704751C3525587C3D2313C91B09EC6E0 /* LayoutLoading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutLoading.swift; path = Layout/LayoutLoading.swift; sourceTree = "<group>"; };
+		710E6EB9DF2CBEF398B0A616F8321648 /* UIScrollView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIScrollView+Layout.swift"; path = "Layout/UIScrollView+Layout.swift"; sourceTree = "<group>"; };
+		712399799CAB98CC8C610C2D148087C8 /* Pods-AcceptanceUnitTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceUnitTests-resources.sh"; sourceTree = "<group>"; };
+		718A615B27CD1522DF5FD94CF58646FF /* CALayer+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CALayer+Layout.swift"; path = "Layout/CALayer+Layout.swift"; sourceTree = "<group>"; };
+		71ACAC6AB942A4A74739718FEF75C488 /* OCSInstanceCreator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSInstanceCreator.m; path = src/ExecutorObjectiveC/OCSInstanceCreator.m; sourceTree = "<group>"; };
+		756CA54F4342DEF1CD4D034371250FBF /* OCSInvocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSInvocation.h; path = include/ExecutorObjectiveC/OCSInvocation.h; sourceTree = "<group>"; };
+		75B20D6B7566F88C498D30C493CC6AD6 /* SocketServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketServer.h; path = include/Com/SocketServer.h; sourceTree = "<group>"; };
+		75BE379391E9A610BEB5E11A50CDC0A8 /* LayoutExpression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutExpression.swift; path = Layout/LayoutExpression.swift; sourceTree = "<group>"; };
+		768BA798714EA0F7234925D26FA2632B /* Pods-AcceptanceUnitTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AcceptanceUnitTests-dummy.m"; sourceTree = "<group>"; };
+		77A606D8E2C5557F1A1DC2C4DBEB2797 /* OCSPTestReportReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPTestReportReader.h; path = Pod/TestClasses/OCSPTestReportReader.h; sourceTree = "<group>"; };
+		78AE7E7E9F00CDBA0DEB647C50C49169 /* RuntimeType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuntimeType.swift; path = Layout/RuntimeType.swift; sourceTree = "<group>"; };
+		7909FFEECD1C95ACF9D47A4CC68C4B6C /* OCSSelector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSSelector.h; path = include/ExecutorObjectiveC/OCSSelector.h; sourceTree = "<group>"; };
+		7BED689FF74D49AC99BF4E64DBA37A72 /* LayoutBacked.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutBacked.swift; path = Layout/LayoutBacked.swift; sourceTree = "<group>"; };
+		812CE1A28765823D62D91CAABFF137EA /* SlimListDeserializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimListDeserializer.h; path = include/CSlim/SlimListDeserializer.h; sourceTree = "<group>"; };
+		8509E8B0C7E05F3B48046A7FFBA8DE11 /* LayoutError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutError.swift; path = Layout/LayoutError.swift; sourceTree = "<group>"; };
+		8778AAFA9C5ADDBA4E9ECA5227A84FDD /* TitleTextAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TitleTextAttributes.swift; path = Layout/TitleTextAttributes.swift; sourceTree = "<group>"; };
+		879923B1E9A3FC7FF88B6F00AD4E4FAA /* Slim.c */ = {isa = PBXFileReference; includeInIndex = 1; name = Slim.c; path = src/CSlim/Slim.c; sourceTree = "<group>"; };
+		888F384A899B5F38C7BC069C7118479A /* OCSlimProjectTestBundleSupport-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCSlimProjectTestBundleSupport-prefix.pch"; sourceTree = "<group>"; };
+		8AA5F1C3B37CC1601B126772C5650D75 /* XMLParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = Layout/Shared/XMLParser.swift; sourceTree = "<group>"; };
+		8CF2BE287F2575A7546F496AE4510AF6 /* Layout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Layout-umbrella.h"; sourceTree = "<group>"; };
+		8D9B61F7E8944CF6AF46DC6E06A53259 /* OCSPTestCaseReport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPTestCaseReport.m; path = Pod/TestClasses/OCSPTestCaseReport.m; sourceTree = "<group>"; };
+		91C68E7D91397108FBBF33E2F0DEBCC9 /* UIView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Layout.swift"; path = "Layout/UIView+Layout.swift"; sourceTree = "<group>"; };
+		91C98EBBF695C0D0201E430132BB15F0 /* TcpComLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TcpComLink.h; path = include/Com/TcpComLink.h; sourceTree = "<group>"; };
+		92FB2730EEF29239B58EE2979DBE0E06 /* OCSPTestCaseReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPTestCaseReport.h; path = Pod/TestClasses/OCSPTestCaseReport.h; sourceTree = "<group>"; };
+		93A4947BCE7FB74D958E1ED9BE0B5E97 /* cslim-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "cslim-dummy.m"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9ABDCE9D693A963B534BF28817A2DB5F /* Pods-RemixStarBrowser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-RemixStarBrowser.modulemap"; sourceTree = "<group>"; };
-		9F775DBAB42C4909DB33A12872005B3B /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Layout/Shared/Expression.swift; sourceTree = "<group>"; };
-		A01D26CA814B4DCCF6C60794C22285A3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AABF16B637BA3A9DCDD3E987012118E4 /* OCSStatementExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSStatementExecutor.m; path = src/ExecutorObjectiveC/OCSStatementExecutor.m; sourceTree = "<group>"; };
-		AD04DC1198CB46A79A64F950216438CF /* Pods-AcceptanceTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AcceptanceTests-umbrella.h"; sourceTree = "<group>"; };
-		AF1B28F9E8BE41DA077B36194FAF5BF6 /* XMLParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = Layout/Shared/XMLParser.swift; sourceTree = "<group>"; };
-		B12A38DC1404876F1F3062CE4154CFC7 /* OCSReturnValue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSReturnValue.m; path = src/ExecutorObjectiveC/OCSReturnValue.m; sourceTree = "<group>"; };
-		B12F61C09DF7C108ADD1BE15BA333A98 /* OCSInstanceCreator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSInstanceCreator.h; path = include/ExecutorObjectiveC/OCSInstanceCreator.h; sourceTree = "<group>"; };
-		B1AA85B0F80066C29F0C1CB506013ABE /* Pods-AcceptanceTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceTests-resources.sh"; sourceTree = "<group>"; };
-		B28607D25A334C9AEF73D84E3264E733 /* SlimListDeserializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimListDeserializer.h; path = include/CSlim/SlimListDeserializer.h; sourceTree = "<group>"; };
-		B4A66BBF14492378D0AF8991CF9EACE1 /* Optional+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Optional+Layout.swift"; path = "Layout/Optional+Layout.swift"; sourceTree = "<group>"; };
-		BD5132520FE475EDDF8F439062347C09 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Layout/Utilities.swift; sourceTree = "<group>"; };
-		BE316262F835D7693759C41D3B1901E2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C57057E7E3AAF52ABC8CD9B2C7DEF4B0 /* LayoutNode+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutNode+XML.swift"; path = "Layout/LayoutNode+XML.swift"; sourceTree = "<group>"; };
-		C9DCB63B9B8E370FFCC23AA5EBA8FFA9 /* LayoutLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutLoader.swift; path = Layout/LayoutLoader.swift; sourceTree = "<group>"; };
-		CA31F7C51D3816FEA38B5D4587613F75 /* cslim.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = cslim.xcconfig; sourceTree = "<group>"; };
-		CBBD7B1A43CBD4E4CFC3ECA1D3277789 /* SlimConnectionHandler.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimConnectionHandler.c; path = src/CSlim/SlimConnectionHandler.c; sourceTree = "<group>"; };
-		CCA4B721EC404551B31213FC9E562B7E /* LayoutNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutNode.swift; path = Layout/LayoutNode.swift; sourceTree = "<group>"; };
-		CD6EC181BC1BD228EC9DE6C800988486 /* cslim.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = cslim.modulemap; sourceTree = "<group>"; };
-		CD7B4ACFF072D9CF34BE9E4170AA166B /* LayoutBacked.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutBacked.swift; path = Layout/LayoutBacked.swift; sourceTree = "<group>"; };
-		CDDAA23DDA8E082FC77E38FA01601C8F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		D1529D247A2B49DAD8C7DC7BA42CEC80 /* Pods-RemixStarBrowser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RemixStarBrowser-frameworks.sh"; sourceTree = "<group>"; };
-		D167D1CC35DE0274257D6C12B3720CD1 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/ExecutorObjectiveC/main.m; sourceTree = "<group>"; };
-		D3F9C72DBDAB60B6D2CC9A7420369818 /* OCSException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSException.m; path = src/ExecutorObjectiveC/OCSException.m; sourceTree = "<group>"; };
-		D496CD54A756185DFB0CE482F83B8F1B /* SocketServer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SocketServer.c; path = src/Com/SocketServer.c; sourceTree = "<group>"; };
-		D6BE018636AFA142B5B9711E6C5DB218 /* Slim.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Slim.h; path = include/CSlim/Slim.h; sourceTree = "<group>"; };
-		D771BC07B8D6D7BD0213DCF21BAB333D /* Layout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Layout-umbrella.h"; sourceTree = "<group>"; };
-		D9215E5ED5009537B7C5630F81E342EE /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
-		D9F09421C2C1F64A560122801A4EB4A3 /* OCSInvocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSInvocation.m; path = src/ExecutorObjectiveC/OCSInvocation.m; sourceTree = "<group>"; };
-		DB8E2D632CADFEBE217900FD1D4F3ABF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		DBE69D03AFDB79ED7741976D6928B9FD /* Layout+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Layout+XML.swift"; path = "Layout/Layout+XML.swift"; sourceTree = "<group>"; };
-		DC0FFA50D296BEEE8FA928924F18641B /* CALayer+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CALayer+Layout.swift"; path = "Layout/CALayer+Layout.swift"; sourceTree = "<group>"; };
-		E27B10BD4EC353679D7CB3458A669FEF /* Pods-AcceptanceTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceTests-frameworks.sh"; sourceTree = "<group>"; };
-		E630F14612D4853BF1299301C0ABF9DF /* StringUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringUtils.swift; path = Layout/Shared/StringUtils.swift; sourceTree = "<group>"; };
-		E68D0F17153346D648FED68C6D3712FD /* RuntimeTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuntimeTypes.swift; path = Layout/RuntimeTypes.swift; sourceTree = "<group>"; };
-		E822F1FB98BEAE50B5B5485AA2E33888 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EBCEE2670FC99F9ED307AD0241126FA8 /* Pods-AcceptanceTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-AcceptanceTests.modulemap"; sourceTree = "<group>"; };
-		ED6327B2879EC6E8C7E8E3F60F9D6989 /* ListExecutor.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ListExecutor.c; path = src/CSlim/ListExecutor.c; sourceTree = "<group>"; };
-		F2B3A960952E898D7759C1774E233467 /* SlimUtil.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimUtil.c; path = src/CSlim/SlimUtil.c; sourceTree = "<group>"; };
-		F2B4080D1EEFE6655D66AD5192271A53 /* XMLNode+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "XMLNode+Layout.swift"; path = "Layout/Shared/XMLNode+Layout.swift"; sourceTree = "<group>"; };
-		F325D2C7CD6EB63A00450061F1AF8CAE /* OCSInvocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSInvocation.h; path = include/ExecutorObjectiveC/OCSInvocation.h; sourceTree = "<group>"; };
-		F52A6A96C9E199FF57A732E77EC40B7E /* Pods-AcceptanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F6F576F5B753CB2AEC524CC36A8E0461 /* Pods-AcceptanceTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AcceptanceTests-dummy.m"; sourceTree = "<group>"; };
-		F9FF410A98EE25A6E76C7D01B0102C20 /* OCSReturnValue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSReturnValue.h; path = include/ExecutorObjectiveC/OCSReturnValue.h; sourceTree = "<group>"; };
-		FA9CFC0564F91543BD1B46BC1B615848 /* SlimListDeserializer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimListDeserializer.c; path = src/CSlim/SlimListDeserializer.c; sourceTree = "<group>"; };
-		FBF6D5DF5C74B15B4148DAD2D6A0BA8A /* OCSObjectiveCtoCBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSObjectiveCtoCBridge.m; path = src/ExecutorObjectiveC/OCSObjectiveCtoCBridge.m; sourceTree = "<group>"; };
-		FD7A9A35818A70F5928A2547E0BB0227 /* UITableView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITableView+Layout.swift"; path = "Layout/UITableView+Layout.swift"; sourceTree = "<group>"; };
+		9489522FD52341443A98DE960A52222B /* AnyExpression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyExpression.swift; path = Layout/AnyExpression.swift; sourceTree = "<group>"; };
+		96FC58B859E9348250127DEEACE571C4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98ABA81A5FF64393E9CEE6B15DB49875 /* OCSPTestReportCenter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPTestReportCenter.m; path = Pod/TestClasses/OCSPTestReportCenter.m; sourceTree = "<group>"; };
+		9B04478D84D26609AEDD2D0148404638 /* StatementExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StatementExecutor.h; path = include/CSlim/StatementExecutor.h; sourceTree = "<group>"; };
+		9BA24BB684CBCEC194F4E05440598739 /* Pods-AcceptanceUnitTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AcceptanceUnitTests-umbrella.h"; sourceTree = "<group>"; };
+		9BC6C1D8D7BEE7F7DDDB7463B8E8F806 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Pod/Resources/en.lproj; sourceTree = "<group>"; };
+		9C60A82586348898CCB80EC49A14D351 /* Pods-AcceptanceUnitTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceUnitTests-frameworks.sh"; sourceTree = "<group>"; };
+		9CB414C51FFB8E63FD80B080FF2D5CE9 /* OCSPTestSuite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPTestSuite.h; path = Pod/TestClasses/OCSPTestSuite.h; sourceTree = "<group>"; };
+		9D98812809A2DD9B4CEB1A8DF8B986B5 /* Pods-RemixStarBrowser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RemixStarBrowser-umbrella.h"; sourceTree = "<group>"; };
+		9E8E35025D3B07C8544F318AB2B77C32 /* Layout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Layout.modulemap; sourceTree = "<group>"; };
+		9F32DDB9D30B24472CD34578288C743D /* OCSlimToObjectiveCBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSlimToObjectiveCBridge.h; path = include/ExecutorObjectiveC/OCSlimToObjectiveCBridge.h; sourceTree = "<group>"; };
+		A2270F47CCF6C7154166DFEBD7D94813 /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		A28B64352B7C4E2904ABF1CFF5511156 /* OCSPTestReportCenter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPTestReportCenter.h; path = Pod/TestClasses/OCSPTestReportCenter.h; sourceTree = "<group>"; };
+		A2F97CD8C9CB5A6A49F0A72E2990722B /* cslim-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "cslim-prefix.pch"; sourceTree = "<group>"; };
+		A37438C0C200DA954DA83A04C2892865 /* OCSObjectiveCtoCBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSObjectiveCtoCBridge.h; path = include/ExecutorObjectiveC/OCSObjectiveCtoCBridge.h; sourceTree = "<group>"; };
+		A3A3C6F1F54CA2E983B546DDF076095E /* OCSPAssertRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPAssertRecorder.h; path = Pod/TestClasses/OCSPAssertRecorder.h; sourceTree = "<group>"; };
+		A47B0A7BBF24839A996508F1FA9F73B4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A4FB32D65A7D8DAB0973619F9BE70D56 /* OCSSymbolDictionary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSSymbolDictionary.h; path = include/ExecutorObjectiveC/OCSSymbolDictionary.h; sourceTree = "<group>"; };
+		A829157CBCB82DDEE75A68ABD014A0D3 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Layout/Utilities.swift; sourceTree = "<group>"; };
+		A863AC0FD0ED2252174C129850F26A34 /* Layout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Layout-dummy.m"; sourceTree = "<group>"; };
+		A9B0FE4230962AC8117F7010565920BC /* Pods-AcceptanceUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AcceptanceUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AC2EA9D2EAE1F8B35E5707BADED2F1EE /* OCSStatementExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSStatementExecutor.h; path = include/ExecutorObjectiveC/OCSStatementExecutor.h; sourceTree = "<group>"; };
+		AEEC4E9B0DABD6DF40203CF1A1F21B7F /* OCSReturnValue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSReturnValue.h; path = include/ExecutorObjectiveC/OCSReturnValue.h; sourceTree = "<group>"; };
+		B0C63592D530E56DAF49BF29FDABD579 /* OCSMethodCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSMethodCaller.h; path = include/ExecutorObjectiveC/OCSMethodCaller.h; sourceTree = "<group>"; };
+		B3B60B1150CB668D75CA37A5C7B94623 /* Pods-AcceptanceTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AcceptanceTests-frameworks.sh"; sourceTree = "<group>"; };
+		B5F901F0C67586E8A70AFE1A66BD3BB8 /* Layout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Layout.framework; path = Layout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6CDB998E4350C7B8EA0010FE068249C /* OCSlimToObjectiveCBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSlimToObjectiveCBridge.m; path = src/ExecutorObjectiveC/OCSlimToObjectiveCBridge.m; sourceTree = "<group>"; };
+		BCA442D29608D1108BD62AE1404D1351 /* cslim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = cslim.framework; path = cslim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCD9D1448B453E96BC2210FF88A38792 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1A9F6815AE2D7BEA7B18378DC5A4BD6 /* OCSlimProjectTestBundleSupport-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCSlimProjectTestBundleSupport-umbrella.h"; sourceTree = "<group>"; };
+		C1C79B0C976D023D94926FDA7A757E43 /* SlimConnectionHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimConnectionHandler.h; path = include/CSlim/SlimConnectionHandler.h; sourceTree = "<group>"; };
+		C30D801D4B26EBE81E64540DC17C0A88 /* OCSPTestReportReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPTestReportReader.m; path = Pod/TestClasses/OCSPTestReportReader.m; sourceTree = "<group>"; };
+		C5863B436E5415C97AA88A7B65542804 /* OCSPLocalizedMessageTable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPLocalizedMessageTable.m; path = Pod/TestClasses/OCSPLocalizedMessageTable.m; sourceTree = "<group>"; };
+		C5B56FFF76F56DE03779B8ED2B4B81A2 /* OCSPTestDataManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPTestDataManager.h; path = Pod/TestClasses/OCSPTestDataManager.h; sourceTree = "<group>"; };
+		C912670ADE1A0256FCC44D9BDC4B47A0 /* Pods-AcceptanceUnitTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AcceptanceUnitTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C97837474931CEBFF7B3CA9708173104 /* LayoutNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutNode.swift; path = Layout/LayoutNode.swift; sourceTree = "<group>"; };
+		CD2787F8B105CF672DD0784E4C4A1810 /* LayoutViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutViewController.swift; path = Layout/LayoutViewController.swift; sourceTree = "<group>"; };
+		CEF8FFD913969B9365EC2BA8DA704823 /* OCSInvocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSInvocation.m; path = src/ExecutorObjectiveC/OCSInvocation.m; sourceTree = "<group>"; };
+		D177EAB922BC5A7484F39F7A393A9114 /* Layout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Layout.h; path = Layout/Layout.h; sourceTree = "<group>"; };
+		D3CCC60C9D4374AD09B7FB6587EE8692 /* SlimConnectionHandler.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimConnectionHandler.c; path = src/CSlim/SlimConnectionHandler.c; sourceTree = "<group>"; };
+		D45B32C57E01B1F093ED03DDF18873FA /* OCSInstanceCreator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSInstanceCreator.h; path = include/ExecutorObjectiveC/OCSInstanceCreator.h; sourceTree = "<group>"; };
+		D503D95C65F2BE4496CAE09C798974CC /* ListExecutor.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ListExecutor.c; path = src/CSlim/ListExecutor.c; sourceTree = "<group>"; };
+		D5C3E75E0A2C78066B3DE629060676B0 /* SlimList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SlimList.h; path = include/CSlim/SlimList.h; sourceTree = "<group>"; };
+		D86D92C2455C8F3325BFA91E9DE768B1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9CEC43B6C247AEA48C5E9DF68D1CFCE /* LayoutNode+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutNode+XML.swift"; path = "Layout/LayoutNode+XML.swift"; sourceTree = "<group>"; };
+		DA3D44D87AFE5C5212DE1A930CC1EB1F /* UITableView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITableView+Layout.swift"; path = "Layout/UITableView+Layout.swift"; sourceTree = "<group>"; };
+		DAC7B820BBDE7BC802FAAF524FDE652C /* TcpComLink.c */ = {isa = PBXFileReference; includeInIndex = 1; name = TcpComLink.c; path = src/Com/TcpComLink.c; sourceTree = "<group>"; };
+		DDE85DC070E7CFFF225F287D89E467E1 /* Fixtures.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Fixtures.m; path = src/ExecutorObjectiveC/Fixtures.m; sourceTree = "<group>"; };
+		DE4A61055F2E403EA19D44E483B94545 /* OCSPJUnitXMLParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSPJUnitXMLParser.m; path = Pod/TestClasses/OCSPJUnitXMLParser.m; sourceTree = "<group>"; };
+		DEB210B3DA1F0C4183570A567A46A6AE /* LayoutDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutDelegate.swift; path = Layout/LayoutDelegate.swift; sourceTree = "<group>"; };
+		DEFB8CC4861CE7062F4D544C92416F9C /* SlimListSerializer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = SlimListSerializer.c; path = src/CSlim/SlimListSerializer.c; sourceTree = "<group>"; };
+		E0551449D46551B874A68F3727F193DB /* cslim.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = cslim.modulemap; sourceTree = "<group>"; };
+		E2BBB548044B0B58E22D2D64501325DD /* Pods-RemixStarBrowser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RemixStarBrowser-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E4358378A7C69F3350D1FAC75AFA8A00 /* LayoutError+LayoutNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutError+LayoutNode.swift"; path = "Layout/LayoutError+LayoutNode.swift"; sourceTree = "<group>"; };
+		E4E6C378527AFC0CE53099DF79EEE2B6 /* OCSPJUnitXMLParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSPJUnitXMLParser.h; path = Pod/TestClasses/OCSPJUnitXMLParser.h; sourceTree = "<group>"; };
+		E69D44F303AC25B23A1489019394BB24 /* Pods-AcceptanceTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-AcceptanceTests.modulemap"; sourceTree = "<group>"; };
+		E928CD261E5DE7D33FCC7CE4CDD40219 /* Layout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Layout.xcconfig; sourceTree = "<group>"; };
+		ECAD64EB110E4EE9ACA3F73320ED0DBF /* OCSlimProject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCSlimProject.h; path = Pod/Classes/OCSlimProject.h; sourceTree = "<group>"; };
+		EE0AE6A004FA8555D7D067A608084490 /* Pods-RemixStarBrowser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RemixStarBrowser-acknowledgements.plist"; sourceTree = "<group>"; };
+		EE9F5AC1D53C9D6E9063A5791EC03689 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Layout/Shared/Expression.swift; sourceTree = "<group>"; };
+		F200A37F6DB8F1E3A3F69E2FDAA4C69E /* OCSObjectiveCtoCBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSObjectiveCtoCBridge.m; path = src/ExecutorObjectiveC/OCSObjectiveCtoCBridge.m; sourceTree = "<group>"; };
+		F6A6F2B6E4865EB686DC20179157C4B2 /* OCSStatementExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCSStatementExecutor.m; path = src/ExecutorObjectiveC/OCSStatementExecutor.m; sourceTree = "<group>"; };
+		F93FEC3CFA84D42B4CD494C05AA66545 /* Slim.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Slim.h; path = include/CSlim/Slim.h; sourceTree = "<group>"; };
+		FAF5FCCF30671273850569F462C0267C /* StatementExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StatementExecutor.m; path = src/ExecutorObjectiveC/StatementExecutor.m; sourceTree = "<group>"; };
+		FB8D087C780C2EC832CB3CBAC603EADD /* Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Properties.swift; path = Layout/Properties.swift; sourceTree = "<group>"; };
+		FBF16BF12DDC02DBEC61C4F2DD2DFEC3 /* LayoutNode+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "LayoutNode+Layout.swift"; path = "Layout/LayoutNode+Layout.swift"; sourceTree = "<group>"; };
+		FCC95D9C909A7424DF502242534951F0 /* OCSlimProjectTestBundleSupport.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OCSlimProjectTestBundleSupport.xcconfig; sourceTree = "<group>"; };
+		FD0A9565230ACC79726DAC0AF56A708E /* Pods-AcceptanceTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AcceptanceTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		FF37A098F3264C57F409486488C07321 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Layout/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5ADE00D7026B361581CFEF2A4B93BCFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3283D2E15E9178B2B97B9CEA34235143 /* Cocoa.framework in Frameworks */,
+				A4557B13EF2D303733F7754AF6092B9D /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B7418505FC7AE9B25837C3340AFC95C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,6 +344,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E858FF037B3CCF2CA14FE271E9C5823F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE68AB6AFB6C60E0870D5F321988903F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F155C369C57259AA37F49396C3CA7FBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,248 +363,321 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02D678FA667543F74E752AF3BC863A91 /* cslim */ = {
+		1ABE1B8448244E383C268A6ACEC48496 /* Pods-AcceptanceTests */ = {
 			isa = PBXGroup;
 			children = (
-				8C14847F8C07FE24006DD2850A1D0FE5 /* Fixtures.h */,
-				770824B304DF7E2D5DBA579A6BB13A70 /* Fixtures.m */,
-				ED6327B2879EC6E8C7E8E3F60F9D6989 /* ListExecutor.c */,
-				455520E9E644960E25265D849B5D865D /* ListExecutor.h */,
-				D167D1CC35DE0274257D6C12B3720CD1 /* main.m */,
-				586F49A78555ECEB0BF83A3AD2296C28 /* OCSException.h */,
-				D3F9C72DBDAB60B6D2CC9A7420369818 /* OCSException.m */,
-				B12F61C09DF7C108ADD1BE15BA333A98 /* OCSInstanceCreator.h */,
-				7CFC6E533C34E797FBDE1ADC4752DF89 /* OCSInstanceCreator.m */,
-				F325D2C7CD6EB63A00450061F1AF8CAE /* OCSInvocation.h */,
-				D9F09421C2C1F64A560122801A4EB4A3 /* OCSInvocation.m */,
-				78820C47C032020A56EE8611A3D70DE1 /* OCSlimToObjectiveCBridge.h */,
-				74CC27A9295C1192440B0E00439676D8 /* OCSlimToObjectiveCBridge.m */,
-				89C784EA3FA26A78B3114594BD532918 /* OCSMethodCaller.h */,
-				7B069FC7B0E92797418EA06F4611DD7E /* OCSMethodCaller.m */,
-				767E286C003239C1CAA0EDF5D5C9857F /* OCSObjectiveCtoCBridge.h */,
-				FBF6D5DF5C74B15B4148DAD2D6A0BA8A /* OCSObjectiveCtoCBridge.m */,
-				F9FF410A98EE25A6E76C7D01B0102C20 /* OCSReturnValue.h */,
-				B12A38DC1404876F1F3062CE4154CFC7 /* OCSReturnValue.m */,
-				60DED8E8E0B684E7DECE0A90B5595D13 /* OCSSelector.h */,
-				2E6F770816144BCD097FF26F93A6465D /* OCSSelector.m */,
-				61ED790BDA5E3CDA66E5AB8C434DA2F5 /* OCSStatementExecutor.h */,
-				AABF16B637BA3A9DCDD3E987012118E4 /* OCSStatementExecutor.m */,
-				784F128696D0574D496659C66292254B /* OCSSymbolDictionary.h */,
-				1C01A6C5A4A1CBA355EE82A244E445AA /* OCSSymbolDictionary.m */,
-				13CE4A3305978503786DB5F651910E5F /* Slim.c */,
-				D6BE018636AFA142B5B9711E6C5DB218 /* Slim.h */,
-				CBBD7B1A43CBD4E4CFC3ECA1D3277789 /* SlimConnectionHandler.c */,
-				2C2D2D38E8DEA7EB3922927A97C4AE96 /* SlimConnectionHandler.h */,
-				3CF2EB425C75FAAEE9035EDC1A1CA922 /* SlimList.c */,
-				671C1F7E3969F44B944CFFBBBE143E0B /* SlimList.h */,
-				FA9CFC0564F91543BD1B46BC1B615848 /* SlimListDeserializer.c */,
-				B28607D25A334C9AEF73D84E3264E733 /* SlimListDeserializer.h */,
-				442F7C6D4974A27D2B7C82C7ED6A67C6 /* SlimListSerializer.c */,
-				31C44AA095F069D23375CACFB2789D66 /* SlimListSerializer.h */,
-				F2B3A960952E898D7759C1774E233467 /* SlimUtil.c */,
-				4D0F8726DAE4F806DC1952B5AE51DFED /* SlimUtil.h */,
-				D496CD54A756185DFB0CE482F83B8F1B /* SocketServer.c */,
-				4A0481698B45BF171389AACAECAF2A0D /* SocketServer.h */,
-				22FA1291F91EA7449FF9348301CEA5F3 /* StatementExecutor.h */,
-				723E59147BB7C5B7966345EC4F2ADBA0 /* StatementExecutor.m */,
-				64B0A52DCA9AD50C1324F6721EDDE823 /* TcpComLink.c */,
-				7ABB7F5C81BE5CD1F461A45E14AE80A9 /* TcpComLink.h */,
-				E20C96806C8AB654D04BDA9066B087A0 /* Support Files */,
+				636C809CAC28403230816F65E55D5DA9 /* Info.plist */,
+				E69D44F303AC25B23A1489019394BB24 /* Pods-AcceptanceTests.modulemap */,
+				66E01A973C2870696219FC5F5CEC3450 /* Pods-AcceptanceTests-acknowledgements.markdown */,
+				FD0A9565230ACC79726DAC0AF56A708E /* Pods-AcceptanceTests-acknowledgements.plist */,
+				2B1B767F6E14722D2AAC032CC9F85F03 /* Pods-AcceptanceTests-dummy.m */,
+				B3B60B1150CB668D75CA37A5C7B94623 /* Pods-AcceptanceTests-frameworks.sh */,
+				5A79C4793868B012669D2D720FE621CE /* Pods-AcceptanceTests-resources.sh */,
+				20BC5B40254656BACDBA32DEA1EF6970 /* Pods-AcceptanceTests-umbrella.h */,
+				009BF67E67F805E1E32BBFB71F512BF3 /* Pods-AcceptanceTests.debug.xcconfig */,
+				A2270F47CCF6C7154166DFEBD7D94813 /* Pods-AcceptanceTests.release.xcconfig */,
 			);
-			name = cslim;
-			path = cslim;
+			name = "Pods-AcceptanceTests";
+			path = "Target Support Files/Pods-AcceptanceTests";
 			sourceTree = "<group>";
 		};
-		058BAF7F14B50C578548018B15D0DE7F /* Products */ = {
+		293EBA6AD6E34827566B683C6947C6CB /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				008995DB737B52FAE7530A6EF5D69E88 /* cslim.framework */,
-				3744787747AC69ED04F569141A2B23AA /* Layout.framework */,
-				66C4C8912B58EE14254933126FD55322 /* Pods_AcceptanceTests.framework */,
-				71A9A9470F42D1FFE8C5C0D6AACE56DC /* Pods_RemixStarBrowser.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		1630E673CC8D9A732E6AEB2B8D93F49A /* OCSlimProject */ = {
-			isa = PBXGroup;
-			children = (
-				0294D8B46BDCDB5ADA875E9DF054DBD8 /* OCSlimProject.h */,
-			);
-			name = OCSlimProject;
-			path = OCSlimProject;
-			sourceTree = "<group>";
-		};
-		2252DFD5527FD0C6EA4D8C5823310B33 /* Pods-RemixStarBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				A01D26CA814B4DCCF6C60794C22285A3 /* Info.plist */,
-				9ABDCE9D693A963B534BF28817A2DB5F /* Pods-RemixStarBrowser.modulemap */,
-				4393011362E7A7FFE1419CE47574C693 /* Pods-RemixStarBrowser-acknowledgements.markdown */,
-				48273A05421B15CEB314F654FC343DCC /* Pods-RemixStarBrowser-acknowledgements.plist */,
-				11A75C2964E50478170010FA1D0A5B37 /* Pods-RemixStarBrowser-dummy.m */,
-				D1529D247A2B49DAD8C7DC7BA42CEC80 /* Pods-RemixStarBrowser-frameworks.sh */,
-				7CF266024C484600C40EF95F36DD71B0 /* Pods-RemixStarBrowser-resources.sh */,
-				245A13F70F55CE895F41C67A5F6686C3 /* Pods-RemixStarBrowser-umbrella.h */,
-				1995D41156D5C256F8933B8B60EA193B /* Pods-RemixStarBrowser.debug.xcconfig */,
-				1239EE6F30659A88BA66937E6732DA74 /* Pods-RemixStarBrowser.release.xcconfig */,
-			);
-			name = "Pods-RemixStarBrowser";
-			path = "Target Support Files/Pods-RemixStarBrowser";
-			sourceTree = "<group>";
-		};
-		226EF7AEA754F56BE93ACCA78C087202 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				C1D191D733C9E4426AE0AFBD812674A5 /* Core */,
-				CF89598069FC71F8FDC1FD115EC8DD2D /* Support Files */,
+				2DF14AB7151B5B6E1EA96FD45DEB6766 /* Core */,
+				CCD9AAAC6B23359D1DD1E704CF339BC1 /* Support Files */,
 			);
 			name = Layout;
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		2EDFAB15A7E74F864EB353FCB5A57006 /* OS X */ = {
+		2DF14AB7151B5B6E1EA96FD45DEB6766 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				CDDAA23DDA8E082FC77E38FA01601C8F /* Cocoa.framework */,
+				9489522FD52341443A98DE960A52222B /* AnyExpression.swift */,
+				718A615B27CD1522DF5FD94CF58646FF /* CALayer+Layout.swift */,
+				EE9F5AC1D53C9D6E9063A5791EC03689 /* Expression.swift */,
+				6410323E79CF4A147691B295D8D90817 /* ExpressionParser.swift */,
+				3E127171BD51B665B1EF7DA13F45B7E9 /* Files.swift */,
+				FF37A098F3264C57F409486488C07321 /* Info.plist */,
+				D177EAB922BC5A7484F39F7A393A9114 /* Layout.h */,
+				40070B6C377D2FEB1E3B8EC8A68761FC /* Layout.swift */,
+				33F033D42B94F3289B7D2CCC186ED761 /* Layout+XML.swift */,
+				7BED689FF74D49AC99BF4E64DBA37A72 /* LayoutBacked.swift */,
+				DEB210B3DA1F0C4183570A567A46A6AE /* LayoutDelegate.swift */,
+				8509E8B0C7E05F3B48046A7FFBA8DE11 /* LayoutError.swift */,
+				E4358378A7C69F3350D1FAC75AFA8A00 /* LayoutError+LayoutNode.swift */,
+				75BE379391E9A610BEB5E11A50CDC0A8 /* LayoutExpression.swift */,
+				46FA767D444A603F63D6AAE16484022C /* LayoutLoader.swift */,
+				704751C3525587C3D2313C91B09EC6E0 /* LayoutLoading.swift */,
+				C97837474931CEBFF7B3CA9708173104 /* LayoutNode.swift */,
+				FBF16BF12DDC02DBEC61C4F2DD2DFEC3 /* LayoutNode+Layout.swift */,
+				D9CEC43B6C247AEA48C5E9DF68D1CFCE /* LayoutNode+XML.swift */,
+				CD2787F8B105CF672DD0784E4C4A1810 /* LayoutViewController.swift */,
+				5C60F20B8BE432B68B4C4FCD202EABB5 /* Optional+Layout.swift */,
+				FB8D087C780C2EC832CB3CBAC603EADD /* Properties.swift */,
+				78AE7E7E9F00CDBA0DEB647C50C49169 /* RuntimeType.swift */,
+				0CEF063DF3B6A1AA476C2DD75980911D /* RuntimeTypes.swift */,
+				0AFB366FA59A0FFBB17723B4CA6B412A /* StringUtils.swift */,
+				8778AAFA9C5ADDBA4E9ECA5227A84FDD /* TitleTextAttributes.swift */,
+				286F0AA15248B8B77049642A85EE7465 /* UICollectionView+Layout.swift */,
+				4EA4A68B94379D7EE63E114CF4577E78 /* UIFont+Layout.swift */,
+				710E6EB9DF2CBEF398B0A616F8321648 /* UIScrollView+Layout.swift */,
+				52E80FC6A14E1A30A8C653272CB7185B /* UIStackView+Layout.swift */,
+				DA3D44D87AFE5C5212DE1A930CC1EB1F /* UITableView+Layout.swift */,
+				91C68E7D91397108FBBF33E2F0DEBCC9 /* UIView+Layout.swift */,
+				01510552409C913DC364A9E4FBEFA1C2 /* UIViewController+Layout.swift */,
+				A829157CBCB82DDEE75A68ABD014A0D3 /* Utilities.swift */,
+				23A050841FF307119F10067A850DF2BE /* XMLNode+Layout.swift */,
+				8AA5F1C3B37CC1601B126772C5650D75 /* XMLParser.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		3DA7C2F2D3D1CF19496B054E7D987B08 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				33DFDE70F8890A2EE841E061CD964FCD /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		6BFCD367AF426DB286A990AB633FEB87 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				2BC6A300B94A2D56659399716CDF523F /* Cocoa.framework */,
+				A47B0A7BBF24839A996508F1FA9F73B4 /* XCTest.framework */,
 			);
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		3AEF7D761E8EA8419BB4A7000AB770CB /* Frameworks */ = {
+		7626B89AAFBBE3DB39DF8AEBFB803934 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				8C918DD0468B798DBE7EEDD4C9D4170B /* iOS */,
-				2EDFAB15A7E74F864EB353FCB5A57006 /* OS X */,
+				96FC58B859E9348250127DEEACE571C4 /* Info.plist */,
+				31E7346FF14B0812E20735F04C13843B /* OCSlimProjectTestBundleSupport.modulemap */,
+				FCC95D9C909A7424DF502242534951F0 /* OCSlimProjectTestBundleSupport.xcconfig */,
+				0DFA574BDFD7A80C37877009974E5607 /* OCSlimProjectTestBundleSupport-dummy.m */,
+				888F384A899B5F38C7BC069C7118479A /* OCSlimProjectTestBundleSupport-prefix.pch */,
+				C1A9F6815AE2D7BEA7B18378DC5A4BD6 /* OCSlimProjectTestBundleSupport-umbrella.h */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/OCSlimProjectTestBundleSupport";
 			sourceTree = "<group>";
 		};
-		7B9FB3A5ABE4E4F5D944451795CBF22C /* Targets Support Files */ = {
+		763F2E3BEFF366B657959FE222FA384E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AF6BF69E7E44583D1E62CADA58B7FDD3 /* Pods-AcceptanceTests */,
-				2252DFD5527FD0C6EA4D8C5823310B33 /* Pods-RemixStarBrowser */,
+				BCA442D29608D1108BD62AE1404D1351 /* cslim.framework */,
+				B5F901F0C67586E8A70AFE1A66BD3BB8 /* Layout.framework */,
+				6A1DD890C785C727930967E6EEB99D0B /* OCSlimProjectTestBundleSupport.framework */,
+				5E976A809A9A073A87A64F21DB0C164E /* Pods_AcceptanceTests.framework */,
+				6639AF7FA7C768179225AFC40F52EC44 /* Pods_AcceptanceUnitTests.framework */,
+				0BAF9D8D2903FFD341B45DF953602439 /* Pods_RemixStarBrowser.framework */,
 			);
-			name = "Targets Support Files";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				3AEF7D761E8EA8419BB4A7000AB770CB /* Frameworks */,
-				F60FB4B2646E93E8589D6A31042B3DC1 /* Pods */,
-				058BAF7F14B50C578548018B15D0DE7F /* Products */,
-				7B9FB3A5ABE4E4F5D944451795CBF22C /* Targets Support Files */,
+				B3C2D6331B16C7BB39A27BBF5EF96D41 /* Frameworks */,
+				D0C96E31C4D60BD61301A0FD9F09681F /* Pods */,
+				763F2E3BEFF366B657959FE222FA384E /* Products */,
+				F7BF7E21CC9FDDFB7190DE6AA58EC765 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8C918DD0468B798DBE7EEDD4C9D4170B /* iOS */ = {
+		99906D869FA6CB12D34C61702B1CACA3 /* cslim */ = {
 			isa = PBXGroup;
 			children = (
-				DB8E2D632CADFEBE217900FD1D4F3ABF /* Foundation.framework */,
+				01E9040A954DA60E4FFB0ABFE5F908D4 /* Fixtures.h */,
+				DDE85DC070E7CFFF225F287D89E467E1 /* Fixtures.m */,
+				D503D95C65F2BE4496CAE09C798974CC /* ListExecutor.c */,
+				6D66EB01C2C17C2D128F55A76BEEBABA /* ListExecutor.h */,
+				1FEC35B6E9813F05D7F150FF308D4DEC /* main.m */,
+				57F1CDDCB2F1963C4541BFE0B1352BA6 /* OCSException.h */,
+				5276056A0BF6253ED037553B840DB147 /* OCSException.m */,
+				D45B32C57E01B1F093ED03DDF18873FA /* OCSInstanceCreator.h */,
+				71ACAC6AB942A4A74739718FEF75C488 /* OCSInstanceCreator.m */,
+				756CA54F4342DEF1CD4D034371250FBF /* OCSInvocation.h */,
+				CEF8FFD913969B9365EC2BA8DA704823 /* OCSInvocation.m */,
+				9F32DDB9D30B24472CD34578288C743D /* OCSlimToObjectiveCBridge.h */,
+				B6CDB998E4350C7B8EA0010FE068249C /* OCSlimToObjectiveCBridge.m */,
+				B0C63592D530E56DAF49BF29FDABD579 /* OCSMethodCaller.h */,
+				0A3BA15DC19082A2B7CE518E6DC9D15D /* OCSMethodCaller.m */,
+				A37438C0C200DA954DA83A04C2892865 /* OCSObjectiveCtoCBridge.h */,
+				F200A37F6DB8F1E3A3F69E2FDAA4C69E /* OCSObjectiveCtoCBridge.m */,
+				AEEC4E9B0DABD6DF40203CF1A1F21B7F /* OCSReturnValue.h */,
+				23ED3DED1E965FFF6A2A05B3FDB4CD91 /* OCSReturnValue.m */,
+				7909FFEECD1C95ACF9D47A4CC68C4B6C /* OCSSelector.h */,
+				43BD8A9A76A4CA9DDF95F38E70F55E88 /* OCSSelector.m */,
+				AC2EA9D2EAE1F8B35E5707BADED2F1EE /* OCSStatementExecutor.h */,
+				F6A6F2B6E4865EB686DC20179157C4B2 /* OCSStatementExecutor.m */,
+				A4FB32D65A7D8DAB0973619F9BE70D56 /* OCSSymbolDictionary.h */,
+				195D29BA33E79208222152FE0E862F17 /* OCSSymbolDictionary.m */,
+				879923B1E9A3FC7FF88B6F00AD4E4FAA /* Slim.c */,
+				F93FEC3CFA84D42B4CD494C05AA66545 /* Slim.h */,
+				D3CCC60C9D4374AD09B7FB6587EE8692 /* SlimConnectionHandler.c */,
+				C1C79B0C976D023D94926FDA7A757E43 /* SlimConnectionHandler.h */,
+				2C4C77E8070B177A4CFB267943A1E059 /* SlimList.c */,
+				D5C3E75E0A2C78066B3DE629060676B0 /* SlimList.h */,
+				4467C2E5956F55068AB47F0BB00BB7A2 /* SlimListDeserializer.c */,
+				812CE1A28765823D62D91CAABFF137EA /* SlimListDeserializer.h */,
+				DEFB8CC4861CE7062F4D544C92416F9C /* SlimListSerializer.c */,
+				52C1AA7105BA958D648FAFCEA2AD81C4 /* SlimListSerializer.h */,
+				634D46C6A539C1D1C20CB4FCFB3EE708 /* SlimUtil.c */,
+				5BA3BBCD059D5B8C3A519F3CEFBE53C9 /* SlimUtil.h */,
+				096F2DC976A2CB9463DA2BEBFB5A1A5E /* SocketServer.c */,
+				75B20D6B7566F88C498D30C493CC6AD6 /* SocketServer.h */,
+				9B04478D84D26609AEDD2D0148404638 /* StatementExecutor.h */,
+				FAF5FCCF30671273850569F462C0267C /* StatementExecutor.m */,
+				DAC7B820BBDE7BC802FAAF524FDE652C /* TcpComLink.c */,
+				91C98EBBF695C0D0201E430132BB15F0 /* TcpComLink.h */,
+				C925CC9B874ABE112A26E0C75CF60BDB /* Support Files */,
 			);
-			name = iOS;
+			name = cslim;
+			path = cslim;
 			sourceTree = "<group>";
 		};
-		AF6BF69E7E44583D1E62CADA58B7FDD3 /* Pods-AcceptanceTests */ = {
+		B18D296561545D4EE0D9ECCA38E16DCF /* OCSlimProject */ = {
 			isa = PBXGroup;
 			children = (
-				E822F1FB98BEAE50B5B5485AA2E33888 /* Info.plist */,
-				EBCEE2670FC99F9ED307AD0241126FA8 /* Pods-AcceptanceTests.modulemap */,
-				6EEE59944D64538B766F05A277CE77AD /* Pods-AcceptanceTests-acknowledgements.markdown */,
-				7C839AA20B445CC7A497A5A896D48AEC /* Pods-AcceptanceTests-acknowledgements.plist */,
-				F6F576F5B753CB2AEC524CC36A8E0461 /* Pods-AcceptanceTests-dummy.m */,
-				E27B10BD4EC353679D7CB3458A669FEF /* Pods-AcceptanceTests-frameworks.sh */,
-				B1AA85B0F80066C29F0C1CB506013ABE /* Pods-AcceptanceTests-resources.sh */,
-				AD04DC1198CB46A79A64F950216438CF /* Pods-AcceptanceTests-umbrella.h */,
-				F52A6A96C9E199FF57A732E77EC40B7E /* Pods-AcceptanceTests.debug.xcconfig */,
-				D9215E5ED5009537B7C5630F81E342EE /* Pods-AcceptanceTests.release.xcconfig */,
+				ECAD64EB110E4EE9ACA3F73320ED0DBF /* OCSlimProject.h */,
 			);
-			name = "Pods-AcceptanceTests";
-			path = "Target Support Files/Pods-AcceptanceTests";
+			name = OCSlimProject;
+			path = OCSlimProject;
 			sourceTree = "<group>";
 		};
-		C1D191D733C9E4426AE0AFBD812674A5 /* Core */ = {
+		B3C2D6331B16C7BB39A27BBF5EF96D41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B9F231A77702AE8711E81AF0439BD2F /* AnyExpression.swift */,
-				DC0FFA50D296BEEE8FA928924F18641B /* CALayer+Layout.swift */,
-				9F775DBAB42C4909DB33A12872005B3B /* Expression.swift */,
-				7EE5D9636D49C5663C3F0D754FCEAA72 /* ExpressionParser.swift */,
-				0B56243FB7D50A60EBF87EB2DCE3AAC0 /* Files.swift */,
-				6C86FBB973F62D91EAD1B62E7F7AFFA1 /* Info.plist */,
-				431614F56F37E02482FD5ED91AAEA9AA /* Layout.h */,
-				91DAB8E22DF4BE6A6FFA6626AF091511 /* Layout.swift */,
-				DBE69D03AFDB79ED7741976D6928B9FD /* Layout+XML.swift */,
-				CD7B4ACFF072D9CF34BE9E4170AA166B /* LayoutBacked.swift */,
-				265EA50247AADB872A0A2E89E90FE2F1 /* LayoutDelegate.swift */,
-				6EC85A470FC4178CD272EB79CE926E1B /* LayoutError.swift */,
-				7D0C9ECAF2167DF0C5067F855AB8A6AD /* LayoutError+LayoutNode.swift */,
-				4CD5877CA6010218B319083771EC1C39 /* LayoutExpression.swift */,
-				C9DCB63B9B8E370FFCC23AA5EBA8FFA9 /* LayoutLoader.swift */,
-				1D7B7E37354BC9F1885C9CCB5F0A02B4 /* LayoutLoading.swift */,
-				CCA4B721EC404551B31213FC9E562B7E /* LayoutNode.swift */,
-				5CC1BEDDA42BBBC7246353D4E86A274C /* LayoutNode+Layout.swift */,
-				C57057E7E3AAF52ABC8CD9B2C7DEF4B0 /* LayoutNode+XML.swift */,
-				8E657DB4B71A790358EF54031ED8CB57 /* LayoutViewController.swift */,
-				B4A66BBF14492378D0AF8991CF9EACE1 /* Optional+Layout.swift */,
-				1A528AD6BA5C1EC68A238001911385FF /* Properties.swift */,
-				6B545CE3E6B34351B48D7C196CA29521 /* RuntimeType.swift */,
-				E68D0F17153346D648FED68C6D3712FD /* RuntimeTypes.swift */,
-				E630F14612D4853BF1299301C0ABF9DF /* StringUtils.swift */,
-				163936734013C1343822DF135653BCDB /* TitleTextAttributes.swift */,
-				1EF990174FED0770DA598C4E6B220997 /* UICollectionView+Layout.swift */,
-				86E821A7DD3812C5DF46269F127036DB /* UIFont+Layout.swift */,
-				437200B43269FF287E6B7201413B77F4 /* UIScrollView+Layout.swift */,
-				1248DE6B3BD75129C5552FBA1BD9DD5E /* UIStackView+Layout.swift */,
-				FD7A9A35818A70F5928A2547E0BB0227 /* UITableView+Layout.swift */,
-				27A6475C4B07CF50297925D0B89C8875 /* UIView+Layout.swift */,
-				6D80D3468DEE848F6AEBB7162379E9A7 /* UIViewController+Layout.swift */,
-				BD5132520FE475EDDF8F439062347C09 /* Utilities.swift */,
-				F2B4080D1EEFE6655D66AD5192271A53 /* XMLNode+Layout.swift */,
-				AF1B28F9E8BE41DA077B36194FAF5BF6 /* XMLParser.swift */,
+				3DA7C2F2D3D1CF19496B054E7D987B08 /* iOS */,
+				6BFCD367AF426DB286A990AB633FEB87 /* OS X */,
 			);
-			name = Core;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CF89598069FC71F8FDC1FD115EC8DD2D /* Support Files */ = {
+		C63DCD4A3C4EAA22E8CB13A8CC16D2A0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BE316262F835D7693759C41D3B1901E2 /* Info.plist */,
-				4E5A5BC802A4EF737EF89C275323DCC1 /* Layout.modulemap */,
-				7D719971711299D006E128474FE29241 /* Layout.xcconfig */,
-				7617E32DADD373B43087E8FB6040FD8A /* Layout-dummy.m */,
-				6E55012FFB5F7C7D2BA0637EBDF3FE4D /* Layout-prefix.pch */,
-				D771BC07B8D6D7BD0213DCF21BAB333D /* Layout-umbrella.h */,
+				9BC6C1D8D7BEE7F7DDDB7463B8E8F806 /* en.lproj */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Layout";
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		E20C96806C8AB654D04BDA9066B087A0 /* Support Files */ = {
+		C925CC9B874ABE112A26E0C75CF60BDB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				CD6EC181BC1BD228EC9DE6C800988486 /* cslim.modulemap */,
-				CA31F7C51D3816FEA38B5D4587613F75 /* cslim.xcconfig */,
-				23A3A2623A4AAA386297AFE1D2989F8F /* cslim-dummy.m */,
-				08F03EB31E5EB2DB6C3AFD286CB6A719 /* cslim-prefix.pch */,
-				4611FB312570AD55883438B5005C2460 /* cslim-umbrella.h */,
-				4D329522B928D77DF01C814D7DDAA175 /* Info.plist */,
+				E0551449D46551B874A68F3727F193DB /* cslim.modulemap */,
+				1B4E0063567CF7D58A51A81446F6602B /* cslim.xcconfig */,
+				93A4947BCE7FB74D958E1ED9BE0B5E97 /* cslim-dummy.m */,
+				A2F97CD8C9CB5A6A49F0A72E2990722B /* cslim-prefix.pch */,
+				1AC7949C2B747D88605C60A1B42C60A4 /* cslim-umbrella.h */,
+				BCD9D1448B453E96BC2210FF88A38792 /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/cslim";
 			sourceTree = "<group>";
 		};
-		F60FB4B2646E93E8589D6A31042B3DC1 /* Pods */ = {
+		CCD9AAAC6B23359D1DD1E704CF339BC1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				02D678FA667543F74E752AF3BC863A91 /* cslim */,
-				226EF7AEA754F56BE93ACCA78C087202 /* Layout */,
-				1630E673CC8D9A732E6AEB2B8D93F49A /* OCSlimProject */,
+				D86D92C2455C8F3325BFA91E9DE768B1 /* Info.plist */,
+				9E8E35025D3B07C8544F318AB2B77C32 /* Layout.modulemap */,
+				E928CD261E5DE7D33FCC7CE4CDD40219 /* Layout.xcconfig */,
+				A863AC0FD0ED2252174C129850F26A34 /* Layout-dummy.m */,
+				634E4740E0AE8ADDB7013BA802A52CA0 /* Layout-prefix.pch */,
+				8CF2BE287F2575A7546F496AE4510AF6 /* Layout-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Layout";
+			sourceTree = "<group>";
+		};
+		D0C96E31C4D60BD61301A0FD9F09681F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				99906D869FA6CB12D34C61702B1CACA3 /* cslim */,
+				293EBA6AD6E34827566B683C6947C6CB /* Layout */,
+				B18D296561545D4EE0D9ECCA38E16DCF /* OCSlimProject */,
+				E962FEDDF92D59D5888A96EE6BDDD882 /* OCSlimProjectTestBundleSupport */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		DDBEE94147919CCE3045A632C5E75388 /* Pods-RemixStarBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				3696DEE8CF4ED1FA57CB8796ECA432B2 /* Info.plist */,
+				1433B396EC2DC530B54C4398AA48763C /* Pods-RemixStarBrowser.modulemap */,
+				E2BBB548044B0B58E22D2D64501325DD /* Pods-RemixStarBrowser-acknowledgements.markdown */,
+				EE0AE6A004FA8555D7D067A608084490 /* Pods-RemixStarBrowser-acknowledgements.plist */,
+				3808BA51B46D2C23F5AA1EED43B41EFB /* Pods-RemixStarBrowser-dummy.m */,
+				555568430DE4C7ADA2B14BE708C4AAB7 /* Pods-RemixStarBrowser-frameworks.sh */,
+				2AAA59E025C438461D0D88DCEA6EDF7B /* Pods-RemixStarBrowser-resources.sh */,
+				9D98812809A2DD9B4CEB1A8DF8B986B5 /* Pods-RemixStarBrowser-umbrella.h */,
+				0C9613F2A85705A720504B11373A3ECD /* Pods-RemixStarBrowser.debug.xcconfig */,
+				17CDF98A1298CBE3E786539163ACE63D /* Pods-RemixStarBrowser.release.xcconfig */,
+			);
+			name = "Pods-RemixStarBrowser";
+			path = "Target Support Files/Pods-RemixStarBrowser";
+			sourceTree = "<group>";
+		};
+		E962FEDDF92D59D5888A96EE6BDDD882 /* OCSlimProjectTestBundleSupport */ = {
+			isa = PBXGroup;
+			children = (
+				A3A3C6F1F54CA2E983B546DDF076095E /* OCSPAssertRecorder.h */,
+				294F6268463C1909B708B63FD1644B3C /* OCSPAssertRecorder.m */,
+				E4E6C378527AFC0CE53099DF79EEE2B6 /* OCSPJUnitXMLParser.h */,
+				DE4A61055F2E403EA19D44E483B94545 /* OCSPJUnitXMLParser.m */,
+				0B032F43B4A8012E8C2C8EC3B895CC0D /* OCSPLocalizedMessageTable.h */,
+				C5863B436E5415C97AA88A7B65542804 /* OCSPLocalizedMessageTable.m */,
+				39A5622FE27E3C465B911942BD87E22F /* OCSPPrincipalTestObserver.h */,
+				5B30896AE3B6E044FA6FB278E8BE628F /* OCSPPrincipalTestObserver.m */,
+				92FB2730EEF29239B58EE2979DBE0E06 /* OCSPTestCaseReport.h */,
+				8D9B61F7E8944CF6AF46DC6E06A53259 /* OCSPTestCaseReport.m */,
+				C5B56FFF76F56DE03779B8ED2B4B81A2 /* OCSPTestDataManager.h */,
+				3047B70FC968CBFC423CBE54A68EFA10 /* OCSPTestDataManager.m */,
+				A28B64352B7C4E2904ABF1CFF5511156 /* OCSPTestReportCenter.h */,
+				98ABA81A5FF64393E9CEE6B15DB49875 /* OCSPTestReportCenter.m */,
+				77A606D8E2C5557F1A1DC2C4DBEB2797 /* OCSPTestReportReader.h */,
+				C30D801D4B26EBE81E64540DC17C0A88 /* OCSPTestReportReader.m */,
+				9CB414C51FFB8E63FD80B080FF2D5CE9 /* OCSPTestSuite.h */,
+				1A6ACB17DC97F24A82C1062FB2EC7138 /* OCSPTestSuite.m */,
+				C63DCD4A3C4EAA22E8CB13A8CC16D2A0 /* Resources */,
+				7626B89AAFBBE3DB39DF8AEBFB803934 /* Support Files */,
+			);
+			name = OCSlimProjectTestBundleSupport;
+			path = OCSlimProjectTestBundleSupport;
+			sourceTree = "<group>";
+		};
+		F288D744D77018959E792CA259D27B4A /* Pods-AcceptanceUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				3973B303745608A2359256661D732FFA /* Info.plist */,
+				3C423B83600F5015E274B234EA7CBA07 /* Pods-AcceptanceUnitTests.modulemap */,
+				35B87F9D723ABFC4DFE3C0F3EC1FFF68 /* Pods-AcceptanceUnitTests-acknowledgements.markdown */,
+				C912670ADE1A0256FCC44D9BDC4B47A0 /* Pods-AcceptanceUnitTests-acknowledgements.plist */,
+				768BA798714EA0F7234925D26FA2632B /* Pods-AcceptanceUnitTests-dummy.m */,
+				9C60A82586348898CCB80EC49A14D351 /* Pods-AcceptanceUnitTests-frameworks.sh */,
+				712399799CAB98CC8C610C2D148087C8 /* Pods-AcceptanceUnitTests-resources.sh */,
+				9BA24BB684CBCEC194F4E05440598739 /* Pods-AcceptanceUnitTests-umbrella.h */,
+				A9B0FE4230962AC8117F7010565920BC /* Pods-AcceptanceUnitTests.debug.xcconfig */,
+				356003C042ED1A8BE7F685F0FB31EA7D /* Pods-AcceptanceUnitTests.release.xcconfig */,
+			);
+			name = "Pods-AcceptanceUnitTests";
+			path = "Target Support Files/Pods-AcceptanceUnitTests";
+			sourceTree = "<group>";
+		};
+		F7BF7E21CC9FDDFB7190DE6AA58EC765 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1ABE1B8448244E383C268A6ACEC48496 /* Pods-AcceptanceTests */,
+				F288D744D77018959E792CA259D27B4A /* Pods-AcceptanceUnitTests */,
+				DDBEE94147919CCE3045A632C5E75388 /* Pods-RemixStarBrowser */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,6 +712,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E57982452995A8B4E8AB674AE502938 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70E24ECBE632AEADA227BA68018C5B15 /* Pods-AcceptanceUnitTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40BF336F0F7E05BA7CC0AF422E0C0F3E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC13C8012DEFFEF150A2F10144DB103 /* OCSlimProjectTestBundleSupport-umbrella.h in Headers */,
+				2B2800855A79C888B742DE527E2BA78B /* OCSPAssertRecorder.h in Headers */,
+				5662E26882B7639DED7DEEE553BC8884 /* OCSPJUnitXMLParser.h in Headers */,
+				A0582691A9F71BB8026A26B61BE6003D /* OCSPLocalizedMessageTable.h in Headers */,
+				FA328DC75B92F7BAB26BECD0E00F8CCC /* OCSPPrincipalTestObserver.h in Headers */,
+				845582BDCCDAFA7C7F09698D16268064 /* OCSPTestCaseReport.h in Headers */,
+				B2263EF067A1E41BE409710B0C7CE5F9 /* OCSPTestDataManager.h in Headers */,
+				AA40DF3A7A1012ED344F3651E24C630E /* OCSPTestReportCenter.h in Headers */,
+				07536BE4433F35B03779AA8740725F10 /* OCSPTestReportReader.h in Headers */,
+				C655C85AA47B55696A00E9158893EB91 /* OCSPTestSuite.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9803F984D4A98221F8702365E48C5863 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -579,6 +765,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		7B6063B5E281714934DE5CF78CF84063 /* Pods-AcceptanceUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDD9D4FAB8A8025FB05335E819F59B9F /* Build configuration list for PBXNativeTarget "Pods-AcceptanceUnitTests" */;
+			buildPhases = (
+				FD68DBD6F490758A9F53C6A4A9786E12 /* Sources */,
+				E858FF037B3CCF2CA14FE271E9C5823F /* Frameworks */,
+				2E57982452995A8B4E8AB674AE502938 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5378A55A41743BFE0196063CA8B0A2FE /* PBXTargetDependency */,
+			);
+			name = "Pods-AcceptanceUnitTests";
+			productName = "Pods-AcceptanceUnitTests";
+			productReference = 6639AF7FA7C768179225AFC40F52EC44 /* Pods_AcceptanceUnitTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7D10015A958692716B67AAF6C9F11759 /* OCSlimProjectTestBundleSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FD85F35C160730B508F49EBB2F88112 /* Build configuration list for PBXNativeTarget "OCSlimProjectTestBundleSupport" */;
+			buildPhases = (
+				54406FFD0FD5859E13E2CD6AFA0717DB /* Sources */,
+				5ADE00D7026B361581CFEF2A4B93BCFD /* Frameworks */,
+				40BF336F0F7E05BA7CC0AF422E0C0F3E /* Headers */,
+				42AA22A3F2F46927B3708804C405165F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCSlimProjectTestBundleSupport;
+			productName = OCSlimProjectTestBundleSupport;
+			productReference = 6A1DD890C785C727930967E6EEB99D0B /* OCSlimProjectTestBundleSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		95FFA76D4C299567ED2113C9765332AF /* cslim */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6454FCEF2E695DF311035E13394A467F /* Build configuration list for PBXNativeTarget "cslim" */;
@@ -593,7 +815,7 @@
 			);
 			name = cslim;
 			productName = cslim;
-			productReference = 008995DB737B52FAE7530A6EF5D69E88 /* cslim.framework */;
+			productReference = BCA442D29608D1108BD62AE1404D1351 /* cslim.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C28F03A4AEF7E85CDE70B2E7B2CB5C4C /* Pods-RemixStarBrowser */ = {
@@ -611,7 +833,7 @@
 			);
 			name = "Pods-RemixStarBrowser";
 			productName = "Pods-RemixStarBrowser";
-			productReference = 71A9A9470F42D1FFE8C5C0D6AACE56DC /* Pods_RemixStarBrowser.framework */;
+			productReference = 0BAF9D8D2903FFD341B45DF953602439 /* Pods_RemixStarBrowser.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C328D909AFC1FD80A2A6EF2EE0B1D1DC /* Pods-AcceptanceTests */ = {
@@ -629,7 +851,7 @@
 			);
 			name = "Pods-AcceptanceTests";
 			productName = "Pods-AcceptanceTests";
-			productReference = 66C4C8912B58EE14254933126FD55322 /* Pods_AcceptanceTests.framework */;
+			productReference = 5E976A809A9A073A87A64F21DB0C164E /* Pods_AcceptanceTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D452F02B8DE3CC0AE77AC885633ED320 /* Layout */ = {
@@ -646,7 +868,7 @@
 			);
 			name = Layout;
 			productName = Layout;
-			productReference = 3744787747AC69ED04F569141A2B23AA /* Layout.framework */;
+			productReference = B5F901F0C67586E8A70AFE1A66BD3BB8 /* Layout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -666,17 +888,30 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 058BAF7F14B50C578548018B15D0DE7F /* Products */;
+			productRefGroup = 763F2E3BEFF366B657959FE222FA384E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				95FFA76D4C299567ED2113C9765332AF /* cslim */,
 				D452F02B8DE3CC0AE77AC885633ED320 /* Layout */,
+				7D10015A958692716B67AAF6C9F11759 /* OCSlimProjectTestBundleSupport */,
 				C328D909AFC1FD80A2A6EF2EE0B1D1DC /* Pods-AcceptanceTests */,
+				7B6063B5E281714934DE5CF78CF84063 /* Pods-AcceptanceUnitTests */,
 				C28F03A4AEF7E85CDE70B2E7B2CB5C4C /* Pods-RemixStarBrowser */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42AA22A3F2F46927B3708804C405165F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CA4D426A576668921EEEBEC7B798C23 /* en.lproj in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B796C9A1B7FD559C56C23EB5830564D /* Sources */ = {
@@ -719,6 +954,23 @@
 				0E197BFF9747F5436C6C133C0808F472 /* Utilities.swift in Sources */,
 				944A32CC5537048FB344AD6E98967259 /* XMLNode+Layout.swift in Sources */,
 				A94992238106616EF927552EEFFD5957 /* XMLParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54406FFD0FD5859E13E2CD6AFA0717DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5A115C9E2F496D8547508B861CDE0EA /* OCSlimProjectTestBundleSupport-dummy.m in Sources */,
+				1201879C1C55DBB3B43CB1AC9B605A1E /* OCSPAssertRecorder.m in Sources */,
+				101C812BBC8E44BF0D3F8614333C5ED2 /* OCSPJUnitXMLParser.m in Sources */,
+				1233FB4655A94E201E96BB82E8CC10F9 /* OCSPLocalizedMessageTable.m in Sources */,
+				4E12037513A836E20F975C223D286737 /* OCSPPrincipalTestObserver.m in Sources */,
+				54FCF0ADBBE10FF74884EF7D32766FB6 /* OCSPTestCaseReport.m in Sources */,
+				702EB8EF6138EA2723C80B63814678D2 /* OCSPTestDataManager.m in Sources */,
+				F789ED66C4A94F25B72EA69CD05E8B8C /* OCSPTestReportCenter.m in Sources */,
+				6BC69F3FC26A1599CCEC06BBCD7CC6F9 /* OCSPTestReportReader.m in Sources */,
+				A269106CDF88B57AE9739FC04EAEB5DB /* OCSPTestSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +1020,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD68DBD6F490758A9F53C6A4A9786E12 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CB475F3894099B7CA78589D73282043 /* Pods-AcceptanceUnitTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -783,9 +1043,48 @@
 			target = D452F02B8DE3CC0AE77AC885633ED320 /* Layout */;
 			targetProxy = AC76A72676E4F24F100B7A7CB80C18B2 /* PBXContainerItemProxy */;
 		};
+		5378A55A41743BFE0196063CA8B0A2FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OCSlimProjectTestBundleSupport;
+			target = 7D10015A958692716B67AAF6C9F11759 /* OCSlimProjectTestBundleSupport */;
+			targetProxy = 1D63EF8D2C4196870790F97FDA174383 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2222AB94DE6B54527D6E4A3797505C9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 356003C042ED1A8BE7F685F0FB31EA7D /* Pods-AcceptanceUnitTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-AcceptanceUnitTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Pods-AcceptanceUnitTests/Pods-AcceptanceUnitTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_AcceptanceUnitTests;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		239E02EBFBE022D5A31E54575418AD87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -905,7 +1204,7 @@
 		};
 		31DB818EDC99F59BC699DCEDE096E6D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA31F7C51D3816FEA38B5D4587613F75 /* cslim.xcconfig */;
+			baseConfigurationReference = 1B4E0063567CF7D58A51A81446F6602B /* cslim.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -936,7 +1235,7 @@
 		};
 		3394B37153579A5A6F9B0D700187AB68 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D719971711299D006E128474FE29241 /* Layout.xcconfig */;
+			baseConfigurationReference = E928CD261E5DE7D33FCC7CE4CDD40219 /* Layout.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -966,9 +1265,40 @@
 			};
 			name = Release;
 		};
+		41F6309FAC53B07DB78DAC1C5290C077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCC95D9C909A7424DF502242534951F0 /* OCSlimProjectTestBundleSupport.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/OCSlimProjectTestBundleSupport/OCSlimProjectTestBundleSupport-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCSlimProjectTestBundleSupport/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/OCSlimProjectTestBundleSupport/OCSlimProjectTestBundleSupport.modulemap";
+				PRODUCT_NAME = OCSlimProjectTestBundleSupport;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		7B60ED44D0A025D8D6CCDABAB3CE7A8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1239EE6F30659A88BA66937E6732DA74 /* Pods-RemixStarBrowser.release.xcconfig */;
+			baseConfigurationReference = 17CDF98A1298CBE3E786539163ACE63D /* Pods-RemixStarBrowser.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1002,7 +1332,7 @@
 		};
 		957A82438C6C7BA720058BC1160AC791 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9215E5ED5009537B7C5630F81E342EE /* Pods-AcceptanceTests.release.xcconfig */;
+			baseConfigurationReference = A2270F47CCF6C7154166DFEBD7D94813 /* Pods-AcceptanceTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1033,9 +1363,40 @@
 			};
 			name = Release;
 		};
+		B2FB10F3D6C9BB1684C51B7914AB5694 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCC95D9C909A7424DF502242534951F0 /* OCSlimProjectTestBundleSupport.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/OCSlimProjectTestBundleSupport/OCSlimProjectTestBundleSupport-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCSlimProjectTestBundleSupport/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/OCSlimProjectTestBundleSupport/OCSlimProjectTestBundleSupport.modulemap";
+				PRODUCT_NAME = OCSlimProjectTestBundleSupport;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		B623692ECA9F5CD83588DDB2286CFA25 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA31F7C51D3816FEA38B5D4587613F75 /* cslim.xcconfig */;
+			baseConfigurationReference = 1B4E0063567CF7D58A51A81446F6602B /* cslim.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1066,7 +1427,7 @@
 		};
 		BB16E45571E3C4A17D4A1479759AFBA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F52A6A96C9E199FF57A732E77EC40B7E /* Pods-AcceptanceTests.debug.xcconfig */;
+			baseConfigurationReference = 009BF67E67F805E1E32BBFB71F512BF3 /* Pods-AcceptanceTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1099,7 +1460,7 @@
 		};
 		BD1134B16F002DAE3931F279BA0E1457 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1995D41156D5C256F8933B8B60EA193B /* Pods-RemixStarBrowser.debug.xcconfig */;
+			baseConfigurationReference = 0C9613F2A85705A720504B11373A3ECD /* Pods-RemixStarBrowser.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1133,7 +1494,7 @@
 		};
 		C7FF9DC3E9BB6A5C50058315E59CC5A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D719971711299D006E128474FE29241 /* Layout.xcconfig */;
+			baseConfigurationReference = E928CD261E5DE7D33FCC7CE4CDD40219 /* Layout.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1162,6 +1523,39 @@
 			};
 			name = Debug;
 		};
+		DF3F48847FF5DD07751E1F484781B897 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9B0FE4230962AC8117F7010565920BC /* Pods-AcceptanceUnitTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-AcceptanceUnitTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Pods-AcceptanceUnitTests/Pods-AcceptanceUnitTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_AcceptanceUnitTests;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1170,6 +1564,15 @@
 			buildConfigurations = (
 				239E02EBFBE022D5A31E54575418AD87 /* Debug */,
 				2A6165424ECEEA7A4A599E636FABE5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5FD85F35C160730B508F49EBB2F88112 /* Build configuration list for PBXNativeTarget "OCSlimProjectTestBundleSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FB10F3D6C9BB1684C51B7914AB5694 /* Debug */,
+				41F6309FAC53B07DB78DAC1C5290C077 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1206,6 +1609,15 @@
 			buildConfigurations = (
 				C7FF9DC3E9BB6A5C50058315E59CC5A4 /* Debug */,
 				3394B37153579A5A6F9B0D700187AB68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDD9D4FAB8A8025FB05335E819F59B9F /* Build configuration list for PBXNativeTarget "Pods-AcceptanceUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF3F48847FF5DD07751E1F484781B897 /* Debug */,
+				2222AB94DE6B54527D6E4A3797505C9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

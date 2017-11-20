@@ -1,0 +1,6 @@
+framework module OCSlimProjectTestBundleSupport {
+  umbrella header "OCSlimProjectTestBundleSupport-umbrella.h"
+
+  export *
+  module * { export * }
+}

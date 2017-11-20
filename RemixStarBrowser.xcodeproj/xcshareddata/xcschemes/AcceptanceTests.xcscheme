@@ -29,6 +29,16 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C81BB9AC1FC391570023F1B4"
+               BuildableName = "AcceptanceUnitTests.xctest"
+               BlueprintName = "AcceptanceUnitTests"
+               ReferencedContainer = "container:RemixStarBrowser.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
