@@ -7,22 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38298CAB11A21295BCF12681 /* Pods_RemixMirror.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */; };
-		737F26130D57BE8A15A17003 /* Pods_AcceptanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF04715C468EB8DD9C1A2AF /* Pods_AcceptanceTests.framework */; };
-		C82E83FB1FC3186700E57DD5 /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F61FC3186700E57DD5 /* StarGateway.swift */; };
-		C82E83FC1FC3186700E57DD5 /* NASAStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F81FC3186700E57DD5 /* NASAStarGateway.swift */; };
-		C82E83FD1FC3186700E57DD5 /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F91FC3186700E57DD5 /* Star.swift */; };
-		C82E83FE1FC318B600E57DD5 /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F91FC3186700E57DD5 /* Star.swift */; };
-		C82E83FF1FC318BB00E57DD5 /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F61FC3186700E57DD5 /* StarGateway.swift */; };
-		C82E84001FC318BE00E57DD5 /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F51FC3186700E57DD5 /* StarGatewayStub.swift */; };
-		C82E84011FC318C000E57DD5 /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82E83F51FC3186700E57DD5 /* StarGatewayStub.swift */; };
+		7D26095AD1F017BF7A891C96 /* Pods_AcceptanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */; };
+		A145FA3C039030AE9E60E3DE /* Pods_RemixStarBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9502226A3F1402211A41C6 /* Pods_RemixStarBrowser.framework */; };
 		C84CA6F91FC0EB25004BBF8C /* StarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */; };
 		C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */; };
 		C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */; };
 		C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */; };
+		C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
 		C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
 		C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
 		C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */; };
+		C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */; };
 		C84CA7361FC0F30A004BBF8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7351FC0F30A004BBF8C /* main.m */; };
 		C84CA7391FC0F65E004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
@@ -36,6 +31,9 @@
 		C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */; };
 		C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */; };
 		C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */; };
+		C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
+		C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
+		C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
 		C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
 		C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */; };
 		C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
@@ -48,9 +46,11 @@
 		C867537E1FC1020600F036CD /* StarBrowserViewDoubleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537D1FC1020600F036CD /* StarBrowserViewDoubleFactory.swift */; };
 		C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */; };
 		C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift */; };
+		C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538C1FC2316900F036CD /* NASAStarGateway.swift */; };
 		C867538F1FC237C100F036CD /* NavigatingTheStarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538E1FC237C100F036CD /* NavigatingTheStarBrowser.swift */; };
 		C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753921FC2447200F036CD /* StarBrowserFixture.swift */; };
 		C86753971FC24DEE00F036CD /* StarListView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C86753961FC24DEE00F036CD /* StarListView.xml */; };
+		C86753981FC251CA00F036CD /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
 		C867539C1FC2544E00F036CD /* StarDetailView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C867539B1FC2544E00F036CD /* StarDetailView.xml */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
@@ -61,16 +61,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		187D09EB2F9BF5D3CC611B7D /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
-		2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemixMirror.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixMirror.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror.release.xcconfig"; sourceTree = "<group>"; };
-		3DF04715C468EB8DD9C1A2AF /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcceptanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2771E4727B4B025627B3F52 /* Pods-AcceptanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixMirror.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror.debug.xcconfig"; sourceTree = "<group>"; };
-		C82E83F51FC3186700E57DD5 /* StarGatewayStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarGatewayStub.swift; sourceTree = "<group>"; };
-		C82E83F61FC3186700E57DD5 /* StarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarGateway.swift; sourceTree = "<group>"; };
-		C82E83F81FC3186700E57DD5 /* NASAStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAStarGateway.swift; sourceTree = "<group>"; };
-		C82E83F91FC3186700E57DD5 /* Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Star.swift; sourceTree = "<group>"; };
+		238D4CD6E75A35D1F8BD3B01 /* Pods-RemixStarBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixStarBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+		2D9502226A3F1402211A41C6 /* Pods_RemixStarBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemixStarBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C81FC925A78045A2A6EA9A5 /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		563805AC087B8366B4EC8196 /* Pods-AcceptanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		99AD3080EB723DAEAC2BB398 /* Pods-RemixStarBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixStarBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewController.swift; sourceTree = "<group>"; };
 		C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingViewController.swift; sourceTree = "<group>"; };
 		C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorViewController.swift; sourceTree = "<group>"; };
@@ -79,9 +74,12 @@
 		C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingViewSpy.swift; sourceTree = "<group>"; };
 		C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorViewSpy.swift; sourceTree = "<group>"; };
 		C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewSpy.swift; sourceTree = "<group>"; };
+		C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGatewayStub.swift; sourceTree = "<group>"; };
+		C84CA70C1FC0EEDA004BBF8C /* Star.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Star.swift; sourceTree = "<group>"; };
 		C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListView.swift; sourceTree = "<group>"; };
 		C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingView.swift; sourceTree = "<group>"; };
 		C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorView.swift; sourceTree = "<group>"; };
+		C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGateway.swift; sourceTree = "<group>"; };
 		C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcceptanceTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTests.m; sourceTree = "<group>"; };
 		C84CA72D1FC0F183004BBF8C /* SlimTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlimTables.h; sourceTree = "<group>"; };
@@ -99,11 +97,12 @@
 		C867537D1FC1020600F036CD /* StarBrowserViewDoubleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewDoubleFactory.swift; sourceTree = "<group>"; };
 		C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewControllerFactory.swift; sourceTree = "<group>"; };
 		C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift; sourceTree = "<group>"; };
+		C867538C1FC2316900F036CD /* NASAStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAStarGateway.swift; sourceTree = "<group>"; };
 		C867538E1FC237C100F036CD /* NavigatingTheStarBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingTheStarBrowser.swift; sourceTree = "<group>"; };
 		C86753921FC2447200F036CD /* StarBrowserFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserFixture.swift; sourceTree = "<group>"; };
 		C86753961FC24DEE00F036CD /* StarListView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarListView.xml; sourceTree = "<group>"; };
 		C867539B1FC2544E00F036CD /* StarDetailView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarDetailView.xml; sourceTree = "<group>"; };
-		C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8DF4B1D1FBDE49200066C3B /* RemixStarBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixStarBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8DF4B271FBDE49200066C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8DF4B2A1FBDE49200066C3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -111,6 +110,7 @@
 		C8DF4B481FBE3D5200066C3B /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBrowserFlow.swift; sourceTree = "<group>"; };
 		C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailView.swift; sourceTree = "<group>"; };
+		FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcceptanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737F26130D57BE8A15A17003 /* Pods_AcceptanceTests.framework in Frameworks */,
+				7D26095AD1F017BF7A891C96 /* Pods_AcceptanceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,59 +126,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38298CAB11A21295BCF12681 /* Pods_RemixMirror.framework in Frameworks */,
+				A145FA3C039030AE9E60E3DE /* Pods_RemixStarBrowser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01BE27B2D878A378E0BF6615 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */,
-				27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */,
-				A2771E4727B4B025627B3F52 /* Pods-AcceptanceTests.debug.xcconfig */,
-				187D09EB2F9BF5D3CC611B7D /* Pods-AcceptanceTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		25F569CE08877F8ED17ED0A4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2743F1A95EB6368B13A4E2CA /* Pods_RemixMirror.framework */,
-				3DF04715C468EB8DD9C1A2AF /* Pods_AcceptanceTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C82E83F31FC3186700E57DD5 /* Gateways */ = {
-			isa = PBXGroup;
-			children = (
-				C82E83F61FC3186700E57DD5 /* StarGateway.swift */,
-				C82E83F41FC3186700E57DD5 /* Test */,
-				C82E83F71FC3186700E57DD5 /* Live */,
-			);
-			path = Gateways;
-			sourceTree = "<group>";
-		};
-		C82E83F41FC3186700E57DD5 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				C82E83F51FC3186700E57DD5 /* StarGatewayStub.swift */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
-		C82E83F71FC3186700E57DD5 /* Live */ = {
-			isa = PBXGroup;
-			children = (
-				C82E83F81FC3186700E57DD5 /* NASAStarGateway.swift */,
-			);
-			path = Live;
-			sourceTree = "<group>";
-		};
 		C84CA6F71FC0EB01004BBF8C /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +158,32 @@
 				C877852B1FC0E9F800616B15 /* Live */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C84CA71A1FC0EFE7004BBF8C /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */,
+				C84CA71F1FC0F085004BBF8C /* Test */,
+				C84CA71E1FC0F07B004BBF8C /* Live */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		C84CA71E1FC0F07B004BBF8C /* Live */ = {
+			isa = PBXGroup;
+			children = (
+				C867538C1FC2316900F036CD /* NASAStarGateway.swift */,
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
+		C84CA71F1FC0F085004BBF8C /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		C84CA7261FC0F183004BBF8C /* AcceptanceTests */ = {
@@ -300,24 +280,24 @@
 		C8DF4B141FBDE49200066C3B = {
 			isa = PBXGroup;
 			children = (
-				C8DF4B1F1FBDE49200066C3B /* RemixMirror */,
+				C8DF4B1F1FBDE49200066C3B /* RemixStarBrowser */,
 				C84CA7261FC0F183004BBF8C /* AcceptanceTests */,
 				C8DF4B1E1FBDE49200066C3B /* Products */,
-				01BE27B2D878A378E0BF6615 /* Pods */,
-				25F569CE08877F8ED17ED0A4 /* Frameworks */,
+				CC43F7FFAB70CA9B0CE41AC5 /* Pods */,
+				E45BE87B58C9B9FC0527D396 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		C8DF4B1E1FBDE49200066C3B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */,
+				C8DF4B1D1FBDE49200066C3B /* RemixStarBrowser.app */,
 				C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C8DF4B1F1FBDE49200066C3B /* RemixMirror */ = {
+		C8DF4B1F1FBDE49200066C3B /* RemixStarBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				C8DF4B201FBDE49200066C3B /* AppDelegate.swift */,
@@ -326,19 +306,39 @@
 				C84CA7401FC0F6F9004BBF8C /* Utility */,
 				C877852F1FC0EA9400616B15 /* Resources */,
 			);
-			path = RemixMirror;
+			path = RemixStarBrowser;
 			sourceTree = "<group>";
 		};
 		C8DF4B471FBE3D5200066C3B /* StarBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */,
-				C82E83F91FC3186700E57DD5 /* Star.swift */,
+				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
 				C84CA7161FC0EF8A004BBF8C /* Views */,
-				C82E83F31FC3186700E57DD5 /* Gateways */,
+				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
 				C84CA7561FC0F9F3004BBF8C /* Fixtures */,
 			);
 			path = StarBrowser;
+			sourceTree = "<group>";
+		};
+		CC43F7FFAB70CA9B0CE41AC5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				563805AC087B8366B4EC8196 /* Pods-AcceptanceTests.debug.xcconfig */,
+				3C81FC925A78045A2A6EA9A5 /* Pods-AcceptanceTests.release.xcconfig */,
+				238D4CD6E75A35D1F8BD3B01 /* Pods-RemixStarBrowser.debug.xcconfig */,
+				99AD3080EB723DAEAC2BB398 /* Pods-RemixStarBrowser.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E45BE87B58C9B9FC0527D396 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */,
+				2D9502226A3F1402211A41C6 /* Pods_RemixStarBrowser.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,13 +348,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C84CA7321FC0F183004BBF8C /* Build configuration list for PBXNativeTarget "AcceptanceTests" */;
 			buildPhases = (
-				A1BCB8A91B32E01050D17919 /* [CP] Check Pods Manifest.lock */,
+				41806D4F7AAC60428A463903 /* [CP] Check Pods Manifest.lock */,
 				C84CA7201FC0F183004BBF8C /* Sources */,
 				C84CA7211FC0F183004BBF8C /* Frameworks */,
 				C84CA7221FC0F183004BBF8C /* Resources */,
 				C84CA7231FC0F183004BBF8C /* [OCSP] Generate Fitnesse Test System Scripts */,
-				14E5011D0EA6E6B79E2057CE /* [CP] Embed Pods Frameworks */,
-				601D400AC0F4EFD2FD5E2B89 /* [CP] Copy Pods Resources */,
+				91354687BE06A636B9DEA0BD /* [CP] Embed Pods Frameworks */,
+				A0397458215003E8E5DD2741 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,24 +365,24 @@
 			productReference = C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C8DF4B1C1FBDE49200066C3B /* RemixMirror */ = {
+		C8DF4B1C1FBDE49200066C3B /* RemixStarBrowser */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C8DF4B3A1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixMirror" */;
+			buildConfigurationList = C8DF4B3A1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixStarBrowser" */;
 			buildPhases = (
-				A1D63629C741744143A13436 /* [CP] Check Pods Manifest.lock */,
+				A9B700057F419DB96612ED0E /* [CP] Check Pods Manifest.lock */,
 				C8DF4B191FBDE49200066C3B /* Sources */,
 				C8DF4B1A1FBDE49200066C3B /* Frameworks */,
 				C8DF4B1B1FBDE49200066C3B /* Resources */,
-				CE7CF15991CDD30BEDDFC270 /* [CP] Embed Pods Frameworks */,
-				5BC484EB8CCF0B4581666FBD /* [CP] Copy Pods Resources */,
+				2E921622F2903681DA7A982D /* [CP] Embed Pods Frameworks */,
+				E78D8292853E85586009C491 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RemixMirror;
-			productName = RemixMirror;
-			productReference = C8DF4B1D1FBDE49200066C3B /* RemixMirror.app */;
+			name = RemixStarBrowser;
+			productName = RemixStarBrowser;
+			productReference = C8DF4B1D1FBDE49200066C3B /* RemixStarBrowser.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -393,7 +393,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0910;
-				ORGANIZATIONNAME = Schibsted;
+				ORGANIZATIONNAME = cutting.io;
 				TargetAttributes = {
 					C84CA7241FC0F183004BBF8C = {
 						CreatedOnToolsVersion = 9.1;
@@ -405,7 +405,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C8DF4B181FBDE49200066C3B /* Build configuration list for PBXProject "RemixMirror" */;
+			buildConfigurationList = C8DF4B181FBDE49200066C3B /* Build configuration list for PBXProject "RemixStarBrowser" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -418,7 +418,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C8DF4B1C1FBDE49200066C3B /* RemixMirror */,
+				C8DF4B1C1FBDE49200066C3B /* RemixStarBrowser */,
 				C84CA7241FC0F183004BBF8C /* AcceptanceTests */,
 			);
 		};
@@ -447,55 +447,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14E5011D0EA6E6B79E2057CE /* [CP] Embed Pods Frameworks */ = {
+		2E921622F2903681DA7A982D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cslim/cslim.framework",
+				"${SRCROOT}/Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Layout/Layout.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/cslim.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Layout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5BC484EB8CCF0B4581666FBD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		601D400AC0F4EFD2FD5E2B89 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1BCB8A91B32E01050D17919 /* [CP] Check Pods Manifest.lock */ = {
+		41806D4F7AAC60428A463903 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -513,7 +483,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A1D63629C741744143A13436 /* [CP] Check Pods Manifest.lock */ = {
+		91354687BE06A636B9DEA0BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/cslim/cslim.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/cslim.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0397458215003E8E5DD2741 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A9B700057F419DB96612ED0E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -524,7 +527,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RemixMirror-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RemixStarBrowser-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -545,22 +548,19 @@
 			shellPath = /bin/sh;
 			shellScript = "${OCSP_SUPPORT_FILE_DIR}/ocsp-generate-fitnesse-test-system-scripts.sh \"${OCSP_BUNDLE_RESOURCES_DIR}\"";
 		};
-		CE7CF15991CDD30BEDDFC270 /* [CP] Embed Pods Frameworks */ = {
+		E78D8292853E85586009C491 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Layout/Layout.framework",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Layout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixMirror/Pods-RemixMirror-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -571,15 +571,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C86753791FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift in Sources */,
-				C82E83FE1FC318B600E57DD5 /* Star.swift in Sources */,
 				C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */,
 				C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */,
 				C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */,
+				C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */,
+				C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */,
 				C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */,
-				C82E84001FC318BE00E57DD5 /* StarGatewayStub.swift in Sources */,
+				C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */,
 				C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift in Sources */,
 				C86753771FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift in Sources */,
-				C82E83FF1FC318BB00E57DD5 /* StarGateway.swift in Sources */,
 				C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */,
 				C864A2BE1FC3146000C595B2 /* ScreenNameable.swift in Sources */,
 				C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */,
@@ -602,20 +602,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */,
 				C84CA6F91FC0EB25004BBF8C /* StarDetailViewController.swift in Sources */,
 				C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */,
 				C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */,
 				C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */,
+				C86753981FC251CA00F036CD /* StarGatewayStub.swift in Sources */,
 				C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
-				C82E83FD1FC3186700E57DD5 /* Star.swift in Sources */,
-				C82E83FB1FC3186700E57DD5 /* StarGateway.swift in Sources */,
+				C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */,
 				C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */,
-				C82E84011FC318C000E57DD5 /* StarGatewayStub.swift in Sources */,
+				C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */,
 				C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
 				C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */,
 				C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */,
-				C82E83FC1FC3186700E57DD5 /* NASAStarGateway.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,
 				C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */,
 				C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */,
@@ -640,7 +640,7 @@
 /* Begin XCBuildConfiguration section */
 		C84CA7331FC0F183004BBF8C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2771E4727B4B025627B3F52 /* Pods-AcceptanceTests.debug.xcconfig */;
+			baseConfigurationReference = 563805AC087B8366B4EC8196 /* Pods-AcceptanceTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -658,7 +658,7 @@
 		};
 		C84CA7341FC0F183004BBF8C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 187D09EB2F9BF5D3CC611B7D /* Pods-AcceptanceTests.release.xcconfig */;
+			baseConfigurationReference = 3C81FC925A78045A2A6EA9A5 /* Pods-AcceptanceTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -783,14 +783,14 @@
 		};
 		C8DF4B3B1FBDE49200066C3B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A78FA4365652220F44578B97 /* Pods-RemixMirror.debug.xcconfig */;
+			baseConfigurationReference = 238D4CD6E75A35D1F8BD3B01 /* Pods-RemixStarBrowser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3H86HRS574;
-				INFOPLIST_FILE = "$(SRCROOT)/RemixMirror/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RemixStarBrowser/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixMirror;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixStarBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -799,14 +799,14 @@
 		};
 		C8DF4B3C1FBDE49200066C3B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27E0BE89A98BECA2E543AF8E /* Pods-RemixMirror.release.xcconfig */;
+			baseConfigurationReference = 99AD3080EB723DAEAC2BB398 /* Pods-RemixStarBrowser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3H86HRS574;
-				INFOPLIST_FILE = "$(SRCROOT)/RemixMirror/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RemixStarBrowser/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixMirror;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cutting.RemixStarBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -825,7 +825,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C8DF4B181FBDE49200066C3B /* Build configuration list for PBXProject "RemixMirror" */ = {
+		C8DF4B181FBDE49200066C3B /* Build configuration list for PBXProject "RemixStarBrowser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8DF4B381FBDE49200066C3B /* Debug */,
@@ -834,7 +834,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C8DF4B3A1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixMirror" */ = {
+		C8DF4B3A1FBDE49200066C3B /* Build configuration list for PBXNativeTarget "RemixStarBrowser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8DF4B3B1FBDE49200066C3B /* Debug */,

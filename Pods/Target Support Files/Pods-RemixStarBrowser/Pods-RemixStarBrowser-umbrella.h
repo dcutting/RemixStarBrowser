@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_RemixMirrorVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_RemixMirrorVersionString[];
+FOUNDATION_EXPORT double Pods_RemixStarBrowserVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_RemixStarBrowserVersionString[];
 

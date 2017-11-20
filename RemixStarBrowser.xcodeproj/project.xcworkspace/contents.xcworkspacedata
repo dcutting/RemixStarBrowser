@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:RemixMirror.xcodeproj">
+      location = "self:RemixStarBrowser.xcodeproj">
    </FileRef>
 </Workspace>
