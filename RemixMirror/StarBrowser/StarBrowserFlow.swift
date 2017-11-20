@@ -7,16 +7,10 @@ class StarBrowserFlow {
     }
     private let deps: Dependencies
 
-    private let fetchStarsUseCase: FetchStarsUseCase
-    private let viewStarUseCase: ViewStarUseCase
-
     private var listView: StarListView?
 
     init(deps: Dependencies) {
         self.deps = deps
-        let starService = StarService(gateway: deps.starGateway)
-        fetchStarsUseCase = FetchStarsUseCase(service: starService)
-        viewStarUseCase = ViewStarUseCase(service: starService)
     }
 
     func start() {
@@ -32,8 +26,10 @@ class StarBrowserFlow {
     }
 
     private func fetchStars() {
-        fetchStarsUseCase.fetchStars { stars in
-            self.listView?.viewData = StarListViewFormatter().prepare(stars: stars)
+        deps.starGateway.loadAll { result in
+            if case .success(let stars) = result {
+                self.listView?.viewData = StarListViewFormatter().prepare(stars: stars)
+            }
         }
     }
 }
@@ -52,9 +48,9 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     private func loadStar(withID id: Star.ID) {
-        viewStarUseCase.fetchStar(withID: id) { result in
+        deps.starGateway.loadAll { result in
             self.dismissLoadingView {
-                self.show(result: result)
+                self.showStar(withID: id, from: result)
             }
         }
     }
@@ -65,12 +61,11 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func show(result: Result<Star>) {
-        switch result {
-        case .error:
-            showError()
-        case .success(let star):
-            show(star: star)
+    private func showStar(withID id: Star.ID, from result: Result<[Star]>) {
+        if case .success(let stars) = result, let star = stars.first(where: { $0.id == id }) {
+            self.show(star: star)
+        } else {
+            self.showError()
         }
     }
 
