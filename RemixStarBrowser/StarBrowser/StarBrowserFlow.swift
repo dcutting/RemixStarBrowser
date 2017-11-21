@@ -42,7 +42,7 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func presentLoadingView(completion: (() -> ())?) {
+    private func presentLoadingView(completion: (() -> Void)?) {
         let view = deps.starBrowserViewFactory.makeLoadingView()
         deps.navigationWireframe.present(view, completion: completion)
     }
@@ -55,10 +55,8 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func dismissLoadingView(completion: (() -> ())?) {
-        self.deps.navigationWireframe.dismiss {
-            completion?()
-        }
+    private func dismissLoadingView(completion: (() -> Void)?) {
+        self.deps.navigationWireframe.dismiss(completion: completion)
     }
 
     private func showStar(withID id: Star.ID, from result: Result<[Star]>) {
