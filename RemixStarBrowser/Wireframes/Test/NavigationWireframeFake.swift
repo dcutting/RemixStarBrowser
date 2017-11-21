@@ -11,12 +11,12 @@ class NavigationWireframeFake: NavigationWireframe {
         _ = navigatables.popLast()
     }
 
-    func present(_ navigatable: Navigatable, completion: (() -> ())?) {
+    func present(_ navigatable: Navigatable, completion: (() -> Void)?) {
         presented = navigatable
         completion?()
     }
 
-    func dismiss(completion: (() -> ())?) {
+    func dismiss(completion: (() -> Void)?) {
         presented = nil
         completion?()
     }
