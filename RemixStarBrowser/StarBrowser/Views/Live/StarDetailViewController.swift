@@ -4,7 +4,7 @@ class StarDetailViewController: LayoutViewController, StarDetailView {
 
     var viewData = StarDetailViewData.empty {
         didSet {
-            updateState()
+            updateViews()
         }
     }
 
@@ -18,10 +18,12 @@ class StarDetailViewController: LayoutViewController, StarDetailView {
     }
 
     override func layoutDidLoad() {
-        updateState()
+        updateViews()
     }
 
-    private func updateState() {
-        layoutNode?.setState(viewData, animated: true)
+    private func updateViews() {
+        DispatchQueue.main.async {
+            self.layoutNode?.setState(self.viewData, animated: true)
+        }
     }
 }

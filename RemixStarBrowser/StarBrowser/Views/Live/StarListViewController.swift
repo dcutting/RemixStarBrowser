@@ -4,7 +4,7 @@ class StarListViewController: LayoutViewController, StarListView {
 
     var viewData = StarListViewData.empty {
         didSet {
-            tableView?.reloadData()
+            updateViews()
         }
     }
     var delegate: StarListViewDelegate?
@@ -18,6 +18,12 @@ class StarListViewController: LayoutViewController, StarListView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView?.reloadData()
+        }
     }
 }
 
