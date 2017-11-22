@@ -5,7 +5,7 @@ class StarDetailViewFormatter {
     }
 }
 
-struct StarDetailViewData {
+struct StarDetailViewData: Emptyable {
 
     let title: String
     let text: String

@@ -8,7 +8,7 @@ class StarListViewFormatter {
     }
 }
 
-struct StarListViewData {
+struct StarListViewData: Emptyable {
 
     struct Entry {
         let id: Star.ID
