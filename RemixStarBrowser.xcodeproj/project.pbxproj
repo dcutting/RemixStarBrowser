@@ -56,6 +56,7 @@
 		C86753971FC24DEE00F036CD /* StarListView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C86753961FC24DEE00F036CD /* StarListView.xml */; };
 		C86753981FC251CA00F036CD /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
 		C867539C1FC2544E00F036CD /* StarDetailView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C867539B1FC2544E00F036CD /* StarDetailView.xml */; };
+		C88AFAC71FC637E6000A1E6F /* ViewDataLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
 		C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */; };
@@ -110,6 +111,7 @@
 		C86753921FC2447200F036CD /* StarBrowserFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserFixture.swift; sourceTree = "<group>"; };
 		C86753961FC24DEE00F036CD /* StarListView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarListView.xml; sourceTree = "<group>"; };
 		C867539B1FC2544E00F036CD /* StarDetailView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarDetailView.xml; sourceTree = "<group>"; };
+		C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDataLayoutViewController.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixStarBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixStarBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8DF4B271FBDE49200066C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */,
+				C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */,
 				C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */,
 				C86753961FC24DEE00F036CD /* StarListView.xml */,
 				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
@@ -648,6 +651,7 @@
 				C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
 				C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */,
+				C88AFAC71FC637E6000A1E6F /* ViewDataLayoutViewController.swift in Sources */,
 				C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,
 				C8DF4B4C1FBE3D5200066C3B /* StarService.swift in Sources */,

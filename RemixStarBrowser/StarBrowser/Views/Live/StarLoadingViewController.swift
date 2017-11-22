@@ -7,11 +7,11 @@ class StarLoadingViewController: UIAlertController, StarLoadingView {
         title = "Loading"
     }
 
-    override var preferredStyle: UIAlertControllerStyle {
-        return .alert
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override var preferredStyle: UIAlertControllerStyle {
+        return .alert
     }
 }

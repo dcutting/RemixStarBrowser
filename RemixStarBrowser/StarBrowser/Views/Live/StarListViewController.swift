@@ -1,33 +1,20 @@
-import Layout
+import UIKit
 
-class StarListViewController: LayoutViewController, StarListView {
+class StarListViewController: ViewDataLayoutViewController<StarListViewData>, StarListView, UITableViewDataSource, UITableViewDelegate {
 
-    var viewData = StarListViewData.empty {
-        didSet {
-            updateViews()
-        }
-    }
     var delegate: StarListViewDelegate?
 
     @IBOutlet var tableView: UITableView?
 
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        loadLayout(named: "StarListView.xml")
+    override func layoutName() -> String {
+        return "StarListView.xml"
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func updateViews() {
+    override func updateViews() {
         DispatchQueue.main.async {
             self.tableView?.reloadData()
         }
     }
-}
-
-extension StarListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewData.entries.count
