@@ -12,11 +12,11 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
         return nav.visibleScreenName
     }
 
-    @objc func whenTheNetwork(_ condition: String) {
+    @objc func whenTheNetworkIs(_ condition: String) {
         switch condition {
-        case "is slow":
+        case "slow":
             gateway.behaviour = .loading
-        case "is working properly":
+        case "working properly":
             gateway.behaviour = .success(stubbedStars)
         default:
             gateway.behaviour = .error
