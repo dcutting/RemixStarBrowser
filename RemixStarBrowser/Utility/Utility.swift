@@ -17,10 +17,6 @@ struct Identifier<T>: Hashable {
     }
 }
 
-protocol Emptyable {
-    static var empty: Self { get }
-}
-
 enum Result<T> {
     case success(T)
     case error

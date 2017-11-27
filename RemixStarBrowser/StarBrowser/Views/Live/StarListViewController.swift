@@ -1,36 +1,30 @@
-import UIKit
+import Layout
 
-class StarListViewController: ViewDataLayoutViewController<StarListViewData>, StarListView, UITableViewDataSource, UITableViewDelegate {
-
-    var delegate: StarListViewDelegate?
+class StarListViewController: LayoutViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var tableView: UITableView?
 
-    override func layoutName() -> String {
-        return "StarListView.xml"
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        loadLayout(named: "StarListView.xml", state: [:])
     }
 
-    override func updateViews() {
-        DispatchQueue.main.async {
-            self.tableView?.reloadData()
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewData.entries.count
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = tableView.dequeueReusableCellNode(withIdentifier: "StarListCell", for: indexPath)
-        let state = viewData.entries[indexPath.row]
-        node.setState(state)
+        node.setState([:])
         guard let cell = node.view as? UITableViewCell else { preconditionFailure() }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let star = viewData.entries[indexPath.row]
-        delegate?.didSelectStar(withID: star.id)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -21,11 +21,6 @@ class NavigatorFake: Navigator {
         completion?()
     }
 
-    var visibleScreenName: String? {
-        let screenNameable = visible as? ScreenNameable
-        return screenNameable?.screenName
-    }
-
     private var visible: Navigatable? {
         return presented ?? navigatables.last
     }

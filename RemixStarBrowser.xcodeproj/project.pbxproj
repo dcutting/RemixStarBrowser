@@ -9,64 +9,26 @@
 /* Begin PBXBuildFile section */
 		7D26095AD1F017BF7A891C96 /* Pods_AcceptanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */; };
 		A145FA3C039030AE9E60E3DE /* Pods_RemixStarBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9502226A3F1402211A41C6 /* Pods_RemixStarBrowser.framework */; };
-		C80912361FCC4E3200215A2E /* StarListView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912351FCC4E3200215A2E /* StarListView+Emptyable.swift */; };
-		C80912371FCC4E3200215A2E /* StarListView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912351FCC4E3200215A2E /* StarListView+Emptyable.swift */; };
-		C80912391FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */; };
-		C809123A1FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */; };
-		C846107A1FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */; };
-		C846107B1FCC4C2800AA9C4C /* StarDetailViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */; };
-		C846107D1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */; };
-		C846107E1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */; };
 		C84CA6F91FC0EB25004BBF8C /* StarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */; };
 		C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */; };
 		C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */; };
 		C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */; };
 		C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
-		C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
-		C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
-		C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */; };
-		C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */; };
 		C84CA7361FC0F30A004BBF8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7351FC0F30A004BBF8C /* main.m */; };
 		C84CA7391FC0F65E004BBF8C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* Navigator.swift */; };
 		C84CA73F1FC0F6C6004BBF8C /* UIKitNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73E1FC0F6C6004BBF8C /* UIKitNavigator.swift */; };
-		C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */; };
-		C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
-		C84CA7451FC0F81B004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
-		C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */; };
-		C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */; };
-		C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7021FC0EC84004BBF8C /* StarListViewSpy.swift */; };
-		C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */; };
-		C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */; };
-		C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */; };
-		C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
-		C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
 		C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
 		C84CA7531FC0F834004BBF8C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* Navigator.swift */; };
 		C84CA7541FC0F834004BBF8C /* NavigatorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigatorFake.swift */; };
 		C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
 		C854ED661FC2F2C7008D580F /* StarErrorView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C854ED651FC2F2C7008D580F /* StarErrorView.xml */; };
-		C864A2BE1FC3146000C595B2 /* ScreenNameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */; };
-		C86753771FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */; };
-		C86753791FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753781FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift */; };
-		C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */; };
-		C867537C1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */; };
-		C867537E1FC1020600F036CD /* StarBrowserViewSpyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537D1FC1020600F036CD /* StarBrowserViewSpyFactory.swift */; };
-		C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */; };
-		C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift */; };
-		C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538C1FC2316900F036CD /* NASAStarGateway.swift */; };
-		C867538F1FC237C100F036CD /* NavigatingTheStarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C867538E1FC237C100F036CD /* NavigatingTheStarBrowser.swift */; };
-		C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86753921FC2447200F036CD /* StarBrowserFixture.swift */; };
 		C86753971FC24DEE00F036CD /* StarListView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C86753961FC24DEE00F036CD /* StarListView.xml */; };
-		C86753981FC251CA00F036CD /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
 		C867539C1FC2544E00F036CD /* StarDetailView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C867539B1FC2544E00F036CD /* StarDetailView.xml */; };
-		C88AFAC71FC637E6000A1E6F /* ViewDataLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */; };
 		C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B201FBDE49200066C3B /* AppDelegate.swift */; };
 		C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B271FBDE49200066C3B /* Assets.xcassets */; };
 		C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */; };
 		C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
-		C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */; };
-		C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,24 +37,11 @@
 		3C81FC925A78045A2A6EA9A5 /* Pods-AcceptanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.release.xcconfig"; sourceTree = "<group>"; };
 		563805AC087B8366B4EC8196 /* Pods-AcceptanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcceptanceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		99AD3080EB723DAEAC2BB398 /* Pods-RemixStarBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixStarBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser.release.xcconfig"; sourceTree = "<group>"; };
-		C80912351FCC4E3200215A2E /* StarListView+Emptyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarListView+Emptyable.swift"; sourceTree = "<group>"; };
-		C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarDetailView+Emptyable.swift"; sourceTree = "<group>"; };
-		C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewFormatter.swift; sourceTree = "<group>"; };
-		C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListViewFormatter.swift; sourceTree = "<group>"; };
 		C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewController.swift; sourceTree = "<group>"; };
 		C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingViewController.swift; sourceTree = "<group>"; };
 		C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorViewController.swift; sourceTree = "<group>"; };
 		C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListViewController.swift; sourceTree = "<group>"; };
-		C84CA7021FC0EC84004BBF8C /* StarListViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListViewSpy.swift; sourceTree = "<group>"; };
-		C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingViewSpy.swift; sourceTree = "<group>"; };
-		C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorViewSpy.swift; sourceTree = "<group>"; };
-		C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewSpy.swift; sourceTree = "<group>"; };
-		C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGatewayStub.swift; sourceTree = "<group>"; };
 		C84CA70C1FC0EEDA004BBF8C /* Star.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Star.swift; sourceTree = "<group>"; };
-		C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListView.swift; sourceTree = "<group>"; };
-		C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingView.swift; sourceTree = "<group>"; };
-		C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarErrorView.swift; sourceTree = "<group>"; };
-		C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarGateway.swift; sourceTree = "<group>"; };
 		C84CA7251FC0F183004BBF8C /* AcceptanceTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcceptanceTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcceptanceTests.m; sourceTree = "<group>"; };
 		C84CA72D1FC0F183004BBF8C /* SlimTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlimTables.h; sourceTree = "<group>"; };
@@ -103,27 +52,14 @@
 		C84CA73C1FC0F697004BBF8C /* NavigatorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorFake.swift; sourceTree = "<group>"; };
 		C84CA73E1FC0F6C6004BBF8C /* UIKitNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitNavigator.swift; sourceTree = "<group>"; };
 		C854ED651FC2F2C7008D580F /* StarErrorView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarErrorView.xml; sourceTree = "<group>"; };
-		C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenNameable.swift; sourceTree = "<group>"; };
-		C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenTheWebServiceReturnsTheseStars.swift; sourceTree = "<group>"; };
-		C86753781FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThenTheStarBrowserListsTheseStars.swift; sourceTree = "<group>"; };
-		C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewFactory.swift; sourceTree = "<group>"; };
-		C867537D1FC1020600F036CD /* StarBrowserViewSpyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewSpyFactory.swift; sourceTree = "<group>"; };
-		C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewControllerFactory.swift; sourceTree = "<group>"; };
-		C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift; sourceTree = "<group>"; };
-		C867538C1FC2316900F036CD /* NASAStarGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NASAStarGateway.swift; sourceTree = "<group>"; };
-		C867538E1FC237C100F036CD /* NavigatingTheStarBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingTheStarBrowser.swift; sourceTree = "<group>"; };
-		C86753921FC2447200F036CD /* StarBrowserFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserFixture.swift; sourceTree = "<group>"; };
 		C86753961FC24DEE00F036CD /* StarListView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarListView.xml; sourceTree = "<group>"; };
 		C867539B1FC2544E00F036CD /* StarDetailView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarDetailView.xml; sourceTree = "<group>"; };
-		C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDataLayoutViewController.swift; sourceTree = "<group>"; };
 		C8DF4B1D1FBDE49200066C3B /* RemixStarBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemixStarBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DF4B201FBDE49200066C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8DF4B271FBDE49200066C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8DF4B2A1FBDE49200066C3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8DF4B2C1FBDE49200066C3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8DF4B481FBE3D5200066C3B /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBrowserFlow.swift; sourceTree = "<group>"; };
-		C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailView.swift; sourceTree = "<group>"; };
 		FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcceptanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,26 +83,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C80912341FCC4E0A00215A2E /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				C80912351FCC4E3200215A2E /* StarListView+Emptyable.swift */,
-				C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */,
-				C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */,
-				C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
 		C84CA6F71FC0EB01004BBF8C /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				C867537D1FC1020600F036CD /* StarBrowserViewSpyFactory.swift */,
-				C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */,
-				C84CA7021FC0EC84004BBF8C /* StarListViewSpy.swift */,
-				C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */,
-				C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */,
-				C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -174,42 +93,10 @@
 		C84CA7161FC0EF8A004BBF8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C867537A1FC1016A00F036CD /* StarBrowserViewFactory.swift */,
-				C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */,
-				C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */,
-				C84CA7121FC0EF42004BBF8C /* StarErrorView.swift */,
-				C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */,
-				C80912341FCC4E0A00215A2E /* Helper */,
 				C84CA6F71FC0EB01004BBF8C /* Test */,
 				C877852B1FC0E9F800616B15 /* Live */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		C84CA71A1FC0EFE7004BBF8C /* Gateways */ = {
-			isa = PBXGroup;
-			children = (
-				C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */,
-				C84CA71F1FC0F085004BBF8C /* Test */,
-				C84CA71E1FC0F07B004BBF8C /* Live */,
-			);
-			path = Gateways;
-			sourceTree = "<group>";
-		};
-		C84CA71E1FC0F07B004BBF8C /* Live */ = {
-			isa = PBXGroup;
-			children = (
-				C867538C1FC2316900F036CD /* NASAStarGateway.swift */,
-			);
-			path = Live;
-			sourceTree = "<group>";
-		};
-		C84CA71F1FC0F085004BBF8C /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 		C84CA7261FC0F183004BBF8C /* AcceptanceTests */ = {
@@ -266,23 +153,9 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		C84CA7561FC0F9F3004BBF8C /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				C86753921FC2447200F036CD /* StarBrowserFixture.swift */,
-				C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */,
-				C86753781FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift */,
-				C867538E1FC237C100F036CD /* NavigatingTheStarBrowser.swift */,
-				C86753851FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift */,
-			);
-			path = Fixtures;
-			sourceTree = "<group>";
-		};
 		C877852B1FC0E9F800616B15 /* Live */ = {
 			isa = PBXGroup;
 			children = (
-				C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */,
-				C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */,
 				C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */,
 				C86753961FC24DEE00F036CD /* StarListView.xml */,
 				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
@@ -339,13 +212,42 @@
 		C8DF4B471FBE3D5200066C3B /* StarBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */,
 				C84CA70C1FC0EEDA004BBF8C /* Star.swift */,
 				C84CA7161FC0EF8A004BBF8C /* Views */,
-				C84CA71A1FC0EFE7004BBF8C /* Gateways */,
-				C84CA7561FC0F9F3004BBF8C /* Fixtures */,
+				C8F979EE1FCCC45F00752067 /* Gateways */,
+				C8F979F11FCCC47300752067 /* Fixtures */,
 			);
 			path = StarBrowser;
+			sourceTree = "<group>";
+		};
+		C8F979EE1FCCC45F00752067 /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				C8F979EF1FCCC45F00752067 /* Test */,
+				C8F979F01FCCC45F00752067 /* Live */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		C8F979EF1FCCC45F00752067 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		C8F979F01FCCC45F00752067 /* Live */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
+		C8F979F11FCCC47300752067 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		CC43F7FFAB70CA9B0CE41AC5 /* Pods */ = {
@@ -597,35 +499,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C86753791FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift in Sources */,
-				C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */,
-				C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */,
 				C84CA7541FC0F834004BBF8C /* NavigatorFake.swift in Sources */,
-				C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */,
 				C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */,
-				C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */,
-				C846107E1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */,
-				C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */,
-				C86753861FC1C76D00F036CD /* TheStarDetailScreenShowsMoreInformationAboutTheSelectedStar.swift in Sources */,
-				C80912371FCC4E3200215A2E /* StarListView+Emptyable.swift in Sources */,
-				C86753771FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift in Sources */,
-				C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */,
-				C864A2BE1FC3146000C595B2 /* ScreenNameable.swift in Sources */,
-				C809123A1FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */,
-				C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */,
-				C867537E1FC1020600F036CD /* StarBrowserViewSpyFactory.swift in Sources */,
-				C84CA74B1FC0F81B004BBF8C /* StarDetailViewSpy.swift in Sources */,
 				C84CA7361FC0F30A004BBF8C /* main.m in Sources */,
-				C867537C1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
 				C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */,
-				C846107A1FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift in Sources */,
-				C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */,
 				C84CA7531FC0F834004BBF8C /* Navigator.swift in Sources */,
-				C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */,
-				C867538F1FC237C100F036CD /* NavigatingTheStarBrowser.swift in Sources */,
-				C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */,
 				C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */,
-				C84CA7451FC0F81B004BBF8C /* StarLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,30 +512,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C846107B1FCC4C2800AA9C4C /* StarDetailViewFormatter.swift in Sources */,
-				C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */,
 				C84CA6F91FC0EB25004BBF8C /* StarDetailViewController.swift in Sources */,
-				C84CA7131FC0EF42004BBF8C /* StarErrorView.swift in Sources */,
-				C84CA70F1FC0EF1C004BBF8C /* StarListView.swift in Sources */,
-				C8DF4B4D1FBE3D5200066C3B /* StarBrowserFlow.swift in Sources */,
-				C86753981FC251CA00F036CD /* StarGatewayStub.swift in Sources */,
-				C80912391FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */,
-				C867537B1FC1016A00F036CD /* StarBrowserViewFactory.swift in Sources */,
-				C867538D1FC2316900F036CD /* NASAStarGateway.swift in Sources */,
 				C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */,
 				C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */,
-				C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */,
-				C80912361FCC4E3200215A2E /* StarListView+Emptyable.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
-				C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */,
-				C88AFAC71FC637E6000A1E6F /* ViewDataLayoutViewController.swift in Sources */,
 				C84CA73F1FC0F6C6004BBF8C /* UIKitNavigator.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,
 				C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */,
 				C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */,
-				C846107D1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */,
 				C84CA7391FC0F65E004BBF8C /* Navigator.swift in Sources */,
-				C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

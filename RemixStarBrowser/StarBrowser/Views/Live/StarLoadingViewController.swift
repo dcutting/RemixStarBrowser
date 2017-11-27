@@ -1,6 +1,6 @@
 import UIKit
 
-class StarLoadingViewController: UIAlertController, StarLoadingView {
+class StarLoadingViewController: UIAlertController {
 
     init() {
         super.init(nibName: nil, bundle: nil)

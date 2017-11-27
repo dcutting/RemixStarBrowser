@@ -1,8 +1,13 @@
-import Foundation
+import Layout
 
-class StarDetailViewController: ViewDataLayoutViewController<StarDetailViewData>, StarDetailView {
+class StarDetailViewController: LayoutViewController {
 
-    override func layoutName() -> String {
-        return "StarDetailView.xml"
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        loadLayout(named: "StarDetailView.xml", state: [:])
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
