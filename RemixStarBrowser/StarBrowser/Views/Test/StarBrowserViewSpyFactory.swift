@@ -1,4 +1,4 @@
-class StarBrowserViewDoubleFactory: StarBrowserViewFactory {
+class StarBrowserViewSpyFactory: StarBrowserViewFactory {
 
     let list = StarListViewSpy()
     let loading = StarLoadingViewSpy()

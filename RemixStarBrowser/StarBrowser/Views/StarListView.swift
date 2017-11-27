@@ -1,14 +1,4 @@
-class StarListViewFormatter {
-
-    func prepare(stars: [Star]) -> StarListViewData {
-        let entries = stars.map { star in
-            StarListViewData.Entry(id: star.id, name: star.name)
-        }
-        return StarListViewData(entries: entries)
-    }
-}
-
-struct StarListViewData: Emptyable {
+struct StarListViewData {
 
     struct Entry {
         let id: Star.ID
@@ -16,10 +6,6 @@ struct StarListViewData: Emptyable {
     }
 
     let entries: [Entry]
-
-    static var empty: StarListViewData {
-        return StarListViewData(entries: [])
-    }
 }
 
 protocol StarListViewDelegate: class {

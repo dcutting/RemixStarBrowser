@@ -67,14 +67,14 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func showError() {
-        let view = deps.starBrowserViewFactory.makeErrorView()
-        deps.navigationWireframe.push(view)
-    }
-
     private func show(star: Star) {
         let view = deps.starBrowserViewFactory.makeDetailView()
         view.viewData = StarDetailViewFormatter().prepare(star: star)
+        deps.navigationWireframe.push(view)
+    }
+
+    private func showError() {
+        let view = deps.starBrowserViewFactory.makeErrorView()
         deps.navigationWireframe.push(view)
     }
 }
