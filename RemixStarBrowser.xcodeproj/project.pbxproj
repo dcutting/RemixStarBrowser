@@ -28,8 +28,8 @@
 		C84CA7191FC0EFC5004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7291FC0F183004BBF8C /* AcceptanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7281FC0F183004BBF8C /* AcceptanceTests.m */; };
 		C84CA7361FC0F30A004BBF8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7351FC0F30A004BBF8C /* main.m */; };
-		C84CA7391FC0F65E004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
-		C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */; };
+		C84CA7391FC0F65E004BBF8C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* Navigator.swift */; };
+		C84CA73F1FC0F6C6004BBF8C /* UIKitNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73E1FC0F6C6004BBF8C /* UIKitNavigator.swift */; };
 		C84CA7431FC0F815004BBF8C /* StarBrowserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4A1FBE3D5200066C3B /* StarBrowserFlow.swift */; };
 		C84CA7441FC0F81B004BBF8C /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70E1FC0EF1C004BBF8C /* StarListView.swift */; };
 		C84CA7451FC0F81B004BBF8C /* StarLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7101FC0EF2F004BBF8C /* StarLoadingView.swift */; };
@@ -42,8 +42,8 @@
 		C84CA74F1FC0F828004BBF8C /* StarGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7181FC0EFC5004BBF8C /* StarGateway.swift */; };
 		C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70A1FC0ECB4004BBF8C /* StarGatewayStub.swift */; };
 		C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA70C1FC0EEDA004BBF8C /* Star.swift */; };
-		C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */; };
-		C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */; };
+		C84CA7531FC0F834004BBF8C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA7381FC0F65E004BBF8C /* Navigator.swift */; };
+		C84CA7541FC0F834004BBF8C /* NavigatorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CA73C1FC0F697004BBF8C /* NavigatorFake.swift */; };
 		C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B481FBE3D5200066C3B /* Utility.swift */; };
 		C854ED661FC2F2C7008D580F /* StarErrorView.xml in Resources */ = {isa = PBXBuildFile; fileRef = C854ED651FC2F2C7008D580F /* StarErrorView.xml */; };
 		C864A2BE1FC3146000C595B2 /* ScreenNameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */; };
@@ -99,9 +99,9 @@
 		C84CA72E1FC0F183004BBF8C /* AcceptanceTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AcceptanceTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		C84CA7311FC0F183004BBF8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C84CA7351FC0F30A004BBF8C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframe.swift; sourceTree = "<group>"; };
-		C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWireframeFake.swift; sourceTree = "<group>"; };
-		C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerWireframe.swift; sourceTree = "<group>"; };
+		C84CA7381FC0F65E004BBF8C /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		C84CA73C1FC0F697004BBF8C /* NavigatorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorFake.swift; sourceTree = "<group>"; };
+		C84CA73E1FC0F6C6004BBF8C /* UIKitNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitNavigator.swift; sourceTree = "<group>"; };
 		C854ED651FC2F2C7008D580F /* StarErrorView.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StarErrorView.xml; sourceTree = "<group>"; };
 		C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenNameable.swift; sourceTree = "<group>"; };
 		C86753761FC0FD4B00F036CD /* GivenTheWebServiceReturnsTheseStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenTheWebServiceReturnsTheseStars.swift; sourceTree = "<group>"; };
@@ -232,20 +232,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C84CA7371FC0F649004BBF8C /* Wireframes */ = {
+		C84CA7371FC0F649004BBF8C /* Navigator */ = {
 			isa = PBXGroup;
 			children = (
-				C84CA7381FC0F65E004BBF8C /* NavigationWireframe.swift */,
+				C84CA7381FC0F65E004BBF8C /* Navigator.swift */,
 				C84CA73A1FC0F66C004BBF8C /* Test */,
 				C84CA73B1FC0F672004BBF8C /* Live */,
 			);
-			path = Wireframes;
+			path = Navigator;
 			sourceTree = "<group>";
 		};
 		C84CA73A1FC0F66C004BBF8C /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				C84CA73C1FC0F697004BBF8C /* NavigationWireframeFake.swift */,
+				C84CA73C1FC0F697004BBF8C /* NavigatorFake.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 		C84CA73B1FC0F672004BBF8C /* Live */ = {
 			isa = PBXGroup;
 			children = (
-				C84CA73E1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift */,
+				C84CA73E1FC0F6C6004BBF8C /* UIKitNavigator.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 			children = (
 				C8DF4B201FBDE49200066C3B /* AppDelegate.swift */,
 				C8DF4B471FBE3D5200066C3B /* StarBrowser */,
-				C84CA7371FC0F649004BBF8C /* Wireframes */,
+				C84CA7371FC0F649004BBF8C /* Navigator */,
 				C84CA7401FC0F6F9004BBF8C /* Utility */,
 				C877852F1FC0EA9400616B15 /* Resources */,
 			);
@@ -600,7 +600,7 @@
 				C86753791FC0FF4100F036CD /* ThenTheStarBrowserListsTheseStars.swift in Sources */,
 				C84CA74A1FC0F81B004BBF8C /* StarErrorViewSpy.swift in Sources */,
 				C84CA7471FC0F81B004BBF8C /* StarDetailView.swift in Sources */,
-				C84CA7541FC0F834004BBF8C /* NavigationWireframeFake.swift in Sources */,
+				C84CA7541FC0F834004BBF8C /* NavigatorFake.swift in Sources */,
 				C84CA7501FC0F828004BBF8C /* StarGatewayStub.swift in Sources */,
 				C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */,
 				C84CA7481FC0F81B004BBF8C /* StarListViewSpy.swift in Sources */,
@@ -620,7 +620,7 @@
 				C84CA7551FC0F83A004BBF8C /* Utility.swift in Sources */,
 				C846107A1FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift in Sources */,
 				C86753931FC2447200F036CD /* StarBrowserFixture.swift in Sources */,
-				C84CA7531FC0F834004BBF8C /* NavigationWireframe.swift in Sources */,
+				C84CA7531FC0F834004BBF8C /* Navigator.swift in Sources */,
 				C84CA7461FC0F81B004BBF8C /* StarErrorView.swift in Sources */,
 				C867538F1FC237C100F036CD /* NavigatingTheStarBrowser.swift in Sources */,
 				C84CA7491FC0F81B004BBF8C /* StarLoadingViewSpy.swift in Sources */,
@@ -650,12 +650,12 @@
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
 				C86753801FC1027200F036CD /* StarBrowserViewControllerFactory.swift in Sources */,
 				C88AFAC71FC637E6000A1E6F /* ViewDataLayoutViewController.swift in Sources */,
-				C84CA73F1FC0F6C6004BBF8C /* UINavigationControllerWireframe.swift in Sources */,
+				C84CA73F1FC0F6C6004BBF8C /* UIKitNavigator.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,
 				C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */,
 				C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */,
 				C846107D1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */,
-				C84CA7391FC0F65E004BBF8C /* NavigationWireframe.swift in Sources */,
+				C84CA7391FC0F65E004BBF8C /* Navigator.swift in Sources */,
 				C84CA7111FC0EF2F004BBF8C /* StarLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

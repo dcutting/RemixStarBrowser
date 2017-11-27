@@ -7,7 +7,7 @@ extension Navigatable {
     }
 }
 
-class UINavigationControllerWireframe: UINavigationController, NavigationWireframe {
+class UIKitNavigator: UINavigationController, Navigator {
 
     func push(_ navigatable: Navigatable) {
         guard let viewController = navigatable.viewController else { return }

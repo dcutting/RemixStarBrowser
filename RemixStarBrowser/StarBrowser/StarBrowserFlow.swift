@@ -1,7 +1,7 @@
 class StarBrowserFlow {
 
     struct Dependencies {
-        let navigationWireframe: NavigationWireframe
+        let navigator: Navigator
         let starBrowserViewFactory: StarBrowserViewFactory
         let starGateway: StarGateway
     }
@@ -21,7 +21,7 @@ class StarBrowserFlow {
     private func pushListView() {
         let view = deps.starBrowserViewFactory.makeListView()
         view.delegate = self
-        deps.navigationWireframe.push(view)
+        deps.navigator.push(view)
         listView = view
     }
 
@@ -44,7 +44,7 @@ extension StarBrowserFlow: StarListViewDelegate {
 
     private func presentLoadingView(completion: (() -> Void)?) {
         let view = deps.starBrowserViewFactory.makeLoadingView()
-        deps.navigationWireframe.present(view, completion: completion)
+        deps.navigator.present(view, completion: completion)
     }
 
     private func loadStar(withID id: Star.ID) {
@@ -56,7 +56,7 @@ extension StarBrowserFlow: StarListViewDelegate {
     }
 
     private func dismissLoadingView(completion: (() -> Void)?) {
-        self.deps.navigationWireframe.dismiss(completion: completion)
+        self.deps.navigator.dismiss(completion: completion)
     }
 
     private func showStar(withID id: Star.ID, from result: Result<[Star]>) {
@@ -70,11 +70,11 @@ extension StarBrowserFlow: StarListViewDelegate {
     private func show(star: Star) {
         let view = deps.starBrowserViewFactory.makeDetailView()
         view.viewData = StarDetailViewFormatter().prepare(star: star)
-        deps.navigationWireframe.push(view)
+        deps.navigator.push(view)
     }
 
     private func showError() {
         let view = deps.starBrowserViewFactory.makeErrorView()
-        deps.navigationWireframe.push(view)
+        deps.navigator.push(view)
     }
 }

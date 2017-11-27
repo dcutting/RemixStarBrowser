@@ -7,17 +7,17 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let navigationController = UINavigationControllerWireframe()
-        rootFlow = makeStarBrowserFlow(navigationWireframe: navigationController)
-        configureWindow(rootViewController: navigationController)
+        let navigator = UIKitNavigator()
+        rootFlow = makeStarBrowserFlow(navigator: navigator)
+        configureWindow(rootViewController: navigator)
         rootFlow?.start()
 
         return true
     }
 
-    private func makeStarBrowserFlow(navigationWireframe: NavigationWireframe) -> StarBrowserFlow {
+    private func makeStarBrowserFlow(navigator: Navigator) -> StarBrowserFlow {
 
-        let deps = StarBrowserFlow.Dependencies(navigationWireframe: navigationWireframe,
+        let deps = StarBrowserFlow.Dependencies(navigator: navigator,
                                                 starBrowserViewFactory: StarBrowserViewControllerFactory(),
                                                 starGateway: makeGateway())
         return StarBrowserFlow(deps: deps)
