@@ -1,0 +1,17 @@
+The star browser shows you a list of stars.
+
+|Given the web service returns these stars|
+|name     |summary                        |
+|Sirius   |The brightest star in the sky. |
+|Arcturus |Great name.                    |
+
+|Ordered query: then the browser shows these stars|
+|name                                             |
+|Sirius                                           |
+|Arcturus                                         |
+
+|Script: navigating the star browser|
+|select a star                      |
+|check |the visible screen is|detail|
+|go back                            |
+|check |the visible screen is|list  |

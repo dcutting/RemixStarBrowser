@@ -1,6 +1,18 @@
 import Layout
 
-class StarListViewController: LayoutViewController, UITableViewDataSource, UITableViewDelegate {
+class StarListViewController: LayoutViewController, StarListView, UITableViewDataSource, UITableViewDelegate {
+
+    var viewData = StarListViewData(names: []) {
+        didSet {
+            updateView()
+        }
+    }
+
+    private func updateView() {
+        DispatchQueue.main.async {
+            self.tableView?.reloadData()
+        }
+    }
 
     @IBOutlet var tableView: UITableView?
 
@@ -14,12 +26,13 @@ class StarListViewController: LayoutViewController, UITableViewDataSource, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return viewData.names.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = tableView.dequeueReusableCellNode(withIdentifier: "StarListCell", for: indexPath)
-        node.setState([:])
+        let name = viewData.names[indexPath.row]
+        node.setState(["name": name])
         guard let cell = node.view as? UITableViewCell else { preconditionFailure() }
         return cell
     }
