@@ -40,6 +40,8 @@ class StarListViewController: LayoutViewController, StarListView, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let starID = viewData.entries[indexPath.row].id
+        delegate?.didSelect(starID: starID)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

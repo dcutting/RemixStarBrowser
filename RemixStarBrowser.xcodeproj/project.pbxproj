@@ -47,6 +47,7 @@
 		C8F97A1C1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */; };
 		C8F97A1D1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */; };
 		C8F97A1F1FCD872900752067 /* StarBrowserViewSpyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1E1FCD872900752067 /* StarBrowserViewSpyFactory.swift */; };
+		C8F97A211FCD89FF00752067 /* StarBrowserViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A201FCD89FF00752067 /* StarBrowserViewControllerFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		C8F97A191FCD86DA00752067 /* StarDetailViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewSpy.swift; sourceTree = "<group>"; };
 		C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewFactory.swift; sourceTree = "<group>"; };
 		C8F97A1E1FCD872900752067 /* StarBrowserViewSpyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewSpyFactory.swift; sourceTree = "<group>"; };
+		C8F97A201FCD89FF00752067 /* StarBrowserViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewControllerFactory.swift; sourceTree = "<group>"; };
 		FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcceptanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 				C854ED651FC2F2C7008D580F /* StarErrorView.xml */,
 				C84CA6F81FC0EB25004BBF8C /* StarDetailViewController.swift */,
 				C867539B1FC2544E00F036CD /* StarDetailView.xml */,
+				C8F97A201FCD89FF00752067 /* StarBrowserViewControllerFactory.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				C84CA6FD1FC0EB43004BBF8C /* StarErrorViewController.swift in Sources */,
 				C84CA70D1FC0EEDA004BBF8C /* Star.swift in Sources */,
 				C8F97A031FCCE59800752067 /* StarGatewayStub.swift in Sources */,
+				C8F97A211FCD89FF00752067 /* StarBrowserViewControllerFactory.swift in Sources */,
 				C8DF4B211FBDE49200066C3B /* AppDelegate.swift in Sources */,
 				C84CA73F1FC0F6C6004BBF8C /* UIKitNavigator.swift in Sources */,
 				C8DF4B4B1FBE3D5200066C3B /* Utility.swift in Sources */,

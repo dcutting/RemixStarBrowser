@@ -1,6 +1,6 @@
 import Layout
 
-class StarDetailViewController: LayoutViewController {
+class StarDetailViewController: LayoutViewController, StarDetailView {
 
     init() {
         super.init(nibName: nil, bundle: nil)
