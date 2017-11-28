@@ -8,6 +8,8 @@ class StarListViewController: LayoutViewController, StarListView, UITableViewDat
         }
     }
 
+    weak var delegate: StarListViewDelegate?
+
     private func updateView() {
         DispatchQueue.main.async {
             self.tableView?.reloadData()

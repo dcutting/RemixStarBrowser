@@ -7,15 +7,17 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let rootViewController = StarListViewController()
+        let navigator = UIKitNavigator()
+        let listView = StarListViewController()
         let gateway = StarGatewayStub()
         gateway.stars = makeStars()
 
-        let deps = StarBrowserFlow.Dependencies(starListView: rootViewController,
+        let deps = StarBrowserFlow.Dependencies(navigator: navigator,
+                                                starListView: listView,
                                                 starGateway: gateway)
         let flow = StarBrowserFlow(deps: deps)
 
-        configureWindow(rootViewController: rootViewController)
+        configureWindow(rootViewController: navigator)
 
         rootFlow = flow
         flow.start()
