@@ -22,7 +22,7 @@ class NavigatingTheStarBrowser: NSObject {
     }
 
     @objc func selectAStar() {
-        guard let starID = stubbedStars.first?.id else { return }
+        guard let starID = listView.viewData.entries.first?.id else { return }
         listView.delegate?.didSelect(starID: starID)
     }
 

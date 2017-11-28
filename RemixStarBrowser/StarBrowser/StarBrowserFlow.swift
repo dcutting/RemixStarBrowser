@@ -31,10 +31,10 @@ class StarBrowserFlow {
     }
 
     private func prepare(stars: [Star]) -> StarListViewData {
-        let names = stars.map {
-            $0.name
+        let entries = stars.map {
+            StarListViewData.Entry(id: $0.id, name: $0.name)
         }
-        return StarListViewData(names: names)
+        return StarListViewData(entries: entries)
     }
 }
 
