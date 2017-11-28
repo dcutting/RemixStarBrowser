@@ -16,9 +16,9 @@ class ThenTheBrowserShowsTheseStars: NSObject {
         let flow = StarBrowserFlow(deps: deps)
         flow.start()
 
-        let listedStars = listView.viewData.names
+        let listedStars = listView.viewData.entries
         let names = listedStars.map {
-            [["name", $0]]
+            [["name", $0.name]]
         }
 
         return names

@@ -2,7 +2,7 @@ import Layout
 
 class StarListViewController: LayoutViewController, StarListView, UITableViewDataSource, UITableViewDelegate {
 
-    var viewData = StarListViewData(names: []) {
+    var viewData = StarListViewData(entries: []) {
         didSet {
             updateView()
         }
@@ -28,12 +28,12 @@ class StarListViewController: LayoutViewController, StarListView, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewData.names.count
+        return viewData.entries.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = tableView.dequeueReusableCellNode(withIdentifier: "StarListCell", for: indexPath)
-        let name = viewData.names[indexPath.row]
+        let name = viewData.entries[indexPath.row].name
         node.setState(["name": name])
         guard let cell = node.view as? UITableViewCell else { preconditionFailure() }
         return cell

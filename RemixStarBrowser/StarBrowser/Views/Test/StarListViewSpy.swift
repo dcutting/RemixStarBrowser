@@ -1,4 +1,4 @@
 class StarListViewSpy: StarListView {
-    var viewData = StarListViewData(names: [])
+    var viewData = StarListViewData(entries: [])
     weak var delegate: StarListViewDelegate?
 }

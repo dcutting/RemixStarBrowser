@@ -1,5 +1,11 @@
 struct StarListViewData {
-    let names: [String]
+
+    struct Entry {
+        let id: Star.ID
+        let name: String
+    }
+
+    let entries: [Entry]
 }
 
 protocol StarListViewDelegate: class {
