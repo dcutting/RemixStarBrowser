@@ -9,3 +9,10 @@ The star browser shows you a list of stars.
 |name                                             |
 |Sirius                                           |
 |Arcturus                                         |
+
+|Script: navigating the star browser|
+|check |the visible screen is|list  |
+|select a star                      |
+|check |the visible screen is|detail|
+|go back                            |
+|check |the visible screen is|list  |

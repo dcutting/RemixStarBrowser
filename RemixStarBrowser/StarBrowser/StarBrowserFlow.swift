@@ -1,6 +1,7 @@
 class StarBrowserFlow {
 
     struct Dependencies {
+        let navigator: Navigator
         let starListView: StarListView
         let starGateway: StarGateway
     }
@@ -12,6 +13,7 @@ class StarBrowserFlow {
     }
 
     func start() {
+        deps.navigator.push(deps.starListView)
         deps.starGateway.loadAll { result in
             if case .success(let stars) = result {
                 self.show(stars: stars)
