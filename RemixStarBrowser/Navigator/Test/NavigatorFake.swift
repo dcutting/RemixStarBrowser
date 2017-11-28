@@ -21,7 +21,7 @@ class NavigatorFake: Navigator {
         completion?()
     }
 
-    private var visible: Navigatable? {
+    var visible: Navigatable? {
         return presented ?? navigatables.last
     }
 }
