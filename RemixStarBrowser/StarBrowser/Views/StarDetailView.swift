@@ -1,0 +1,3 @@
+protocol StarDetailView: Navigatable {
+
+}

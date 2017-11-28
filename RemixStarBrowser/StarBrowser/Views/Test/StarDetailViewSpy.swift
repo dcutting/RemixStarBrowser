@@ -1,0 +1,3 @@
+class StarDetailViewSpy: StarDetailView {
+    
+}

@@ -3,15 +3,19 @@ class NavigatingTheStarBrowser: NSObject {
 
     let navigator = NavigatorFake()
     let listView = StarListViewSpy()
+    let detailView = StarDetailViewSpy()
     let flow: StarBrowserFlow
 
     override init() {
+
+        let viewFactory = StarBrowserViewSpyFactory()
+        viewFactory.listView = listView
 
         let gateway = StarGatewayStub()
         gateway.stars = stubbedStars
 
         let deps = StarBrowserFlow.Dependencies(navigator: navigator,
-                                                starListView: listView,
+                                                viewFactory: viewFactory,
                                                 starGateway: gateway)
         flow = StarBrowserFlow(deps: deps)
         flow.start()
@@ -27,6 +31,8 @@ class NavigatingTheStarBrowser: NSObject {
             let top = navigator.visible
             if top is StarListView {
                 return "list"
+            } else if top is StarDetailView {
+                return "detail"
             }
             return ""
         }

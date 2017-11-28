@@ -5,12 +5,14 @@ class ThenTheBrowserShowsTheseStars: NSObject {
 
         let navigator = NavigatorFake()
         let listView = StarListViewSpy()
+        let viewFactory = StarBrowserViewSpyFactory()
+        viewFactory.listView = listView
         let gateway = StarGatewayStub()
         gateway.stars = stubbedStars
 
         let deps = StarBrowserFlow.Dependencies(
             navigator: navigator,
-            starListView: listView,
+            viewFactory: viewFactory,
             starGateway: gateway
         )
         let flow = StarBrowserFlow(deps: deps)

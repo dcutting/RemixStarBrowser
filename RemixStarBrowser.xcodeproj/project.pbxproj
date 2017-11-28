@@ -41,6 +41,12 @@
 		C8F97A021FCCDE2D00752067 /* StarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A001FCCDE2D00752067 /* StarListView.swift */; };
 		C8F97A031FCCE59800752067 /* StarGatewayStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F979F91FCCC7F800752067 /* StarGatewayStub.swift */; };
 		C8F97A151FCD834900752067 /* NavigatingTheStarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A141FCD834900752067 /* NavigatingTheStarBrowser.swift */; };
+		C8F97A171FCD86C200752067 /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A161FCD86C200752067 /* StarDetailView.swift */; };
+		C8F97A181FCD86C200752067 /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A161FCD86C200752067 /* StarDetailView.swift */; };
+		C8F97A1A1FCD86DA00752067 /* StarDetailViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A191FCD86DA00752067 /* StarDetailViewSpy.swift */; };
+		C8F97A1C1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */; };
+		C8F97A1D1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */; };
+		C8F97A1F1FCD872900752067 /* StarBrowserViewSpyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F97A1E1FCD872900752067 /* StarBrowserViewSpyFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +86,10 @@
 		C8F979FD1FCCDDB800752067 /* StarBrowserFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserFlow.swift; sourceTree = "<group>"; };
 		C8F97A001FCCDE2D00752067 /* StarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListView.swift; sourceTree = "<group>"; };
 		C8F97A141FCD834900752067 /* NavigatingTheStarBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatingTheStarBrowser.swift; sourceTree = "<group>"; };
+		C8F97A161FCD86C200752067 /* StarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailView.swift; sourceTree = "<group>"; };
+		C8F97A191FCD86DA00752067 /* StarDetailViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewSpy.swift; sourceTree = "<group>"; };
+		C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewFactory.swift; sourceTree = "<group>"; };
+		C8F97A1E1FCD872900752067 /* StarBrowserViewSpyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBrowserViewSpyFactory.swift; sourceTree = "<group>"; };
 		FF385967B7E54B24F11260B4 /* Pods_AcceptanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcceptanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -107,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				C8F979FB1FCCDD8500752067 /* StarListViewSpy.swift */,
+				C8F97A191FCD86DA00752067 /* StarDetailViewSpy.swift */,
+				C8F97A1E1FCD872900752067 /* StarBrowserViewSpyFactory.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -114,7 +126,9 @@
 		C84CA7161FC0EF8A004BBF8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C8F97A1B1FCD870300752067 /* StarBrowserViewFactory.swift */,
 				C8F97A001FCCDE2D00752067 /* StarListView.swift */,
+				C8F97A161FCD86C200752067 /* StarDetailView.swift */,
 				C84CA6F71FC0EB01004BBF8C /* Test */,
 				C877852B1FC0E9F800616B15 /* Live */,
 			);
@@ -528,8 +542,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8F97A151FCD834900752067 /* NavigatingTheStarBrowser.swift in Sources */,
+				C8F97A1A1FCD86DA00752067 /* StarDetailViewSpy.swift in Sources */,
+				C8F97A1D1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */,
 				C84CA7541FC0F834004BBF8C /* NavigatorFake.swift in Sources */,
 				C84CA7511FC0F82E004BBF8C /* Star.swift in Sources */,
+				C8F97A1F1FCD872900752067 /* StarBrowserViewSpyFactory.swift in Sources */,
+				C8F97A181FCD86C200752067 /* StarDetailView.swift in Sources */,
 				C8F979F81FCCC7C100752067 /* StarGateway.swift in Sources */,
 				C84CA7361FC0F30A004BBF8C /* main.m in Sources */,
 				C8F97A021FCCDE2D00752067 /* StarListView.swift in Sources */,
@@ -561,6 +579,8 @@
 				C84CA6FB1FC0EB3A004BBF8C /* StarLoadingViewController.swift in Sources */,
 				C84CA6FF1FC0EB4F004BBF8C /* StarListViewController.swift in Sources */,
 				C84CA7391FC0F65E004BBF8C /* Navigator.swift in Sources */,
+				C8F97A1C1FCD870300752067 /* StarBrowserViewFactory.swift in Sources */,
+				C8F97A171FCD86C200752067 /* StarDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
