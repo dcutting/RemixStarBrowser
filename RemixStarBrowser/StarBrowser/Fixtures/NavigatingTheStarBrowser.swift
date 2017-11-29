@@ -9,7 +9,7 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
     }
 
     @objc var theVisibleScreenIs: String? {
-        return nav.visibleScreenName
+        return navigator.visibleScreenName
     }
 
     @objc func whenTheNetworkIs(_ condition: String) {
@@ -28,6 +28,6 @@ class NavigatingTheStarBrowser: StarBrowserFixture {
     }
 
     @objc func goBack() {
-        nav.pop()
+        navigator.pop()
     }
 }
