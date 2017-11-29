@@ -22,20 +22,20 @@ class UIKitNavigator: UINavigationController, Navigator {
         }
     }
 
-    func present(_ navigatable: Navigatable, completion: (() -> Void)?) {
+    func present(_ navigatable: Navigatable, completion: Callback?) {
         guard let viewController = navigatable.viewController else { return }
         onMainQueue {
             self.present(viewController, animated: true, completion: completion)
         }
     }
 
-    func dismiss(completion: (() -> Void)?) {
+    func dismiss(completion: Callback?) {
         onMainQueue {
             self.dismiss(animated: true, completion: completion)
         }
     }
 
-    private func onMainQueue(block: @escaping () -> Void) {
+    private func onMainQueue(block: @escaping Callback) {
         DispatchQueue.main.async(execute: block)
     }
 }

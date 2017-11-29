@@ -27,3 +27,5 @@ enum Result<T> {
 }
 
 typealias AsyncResult<T> = (Result<T>) -> Void
+
+typealias Callback = () -> Void

@@ -42,7 +42,7 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func presentLoadingView(completion: (() -> Void)?) {
+    private func presentLoadingView(completion: Callback?) {
         let view = deps.starBrowserViewFactory.makeLoadingView()
         deps.navigator.present(view, completion: completion)
     }
@@ -55,7 +55,7 @@ extension StarBrowserFlow: StarListViewDelegate {
         }
     }
 
-    private func dismissLoadingView(completion: (() -> Void)?) {
+    private func dismissLoadingView(completion: Callback?) {
         self.deps.navigator.dismiss(completion: completion)
     }
 

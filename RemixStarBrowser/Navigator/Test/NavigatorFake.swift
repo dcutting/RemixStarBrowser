@@ -11,12 +11,12 @@ class NavigatorFake: Navigator {
         _ = navigatables.popLast()
     }
 
-    func present(_ navigatable: Navigatable, completion: (() -> Void)?) {
+    func present(_ navigatable: Navigatable, completion: Callback?) {
         presented = navigatable
         completion?()
     }
 
-    func dismiss(completion: (() -> Void)?) {
+    func dismiss(completion: Callback?) {
         presented = nil
         completion?()
     }
