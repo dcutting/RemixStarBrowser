@@ -1,12 +1,5 @@
 import UIKit
 
-extension Navigatable {
-
-    var viewController: UIViewController? {
-        return self as? UIViewController
-    }
-}
-
 class UIKitNavigator: UINavigationController, Navigator {
 
     func push(_ navigatable: Navigatable) {
@@ -34,8 +27,11 @@ class UIKitNavigator: UINavigationController, Navigator {
             self.dismiss(animated: true, completion: completion)
         }
     }
+}
 
-    private func onMainQueue(block: @escaping Callback) {
-        DispatchQueue.main.async(execute: block)
+private extension Navigatable {
+
+    var viewController: UIViewController? {
+        return self as? UIViewController
     }
 }

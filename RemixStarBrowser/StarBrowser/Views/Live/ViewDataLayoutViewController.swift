@@ -26,7 +26,7 @@ class ViewDataLayoutViewController<ViewData: Emptyable>: LayoutViewController {
     }
 
     private func updateViewsOnMainQueue() {
-        DispatchQueue.main.async {
+        onMainQueue {
             self.updateViews()
         }
     }

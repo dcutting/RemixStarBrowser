@@ -29,3 +29,7 @@ enum Result<T> {
 typealias AsyncResult<T> = (Result<T>) -> Void
 
 typealias Callback = () -> Void
+
+func onMainQueue(block: @escaping Callback) {
+    DispatchQueue.main.async(execute: block)
+}
