@@ -11,9 +11,7 @@ class StarListViewController: ViewDataLayoutViewController<StarListViewData>, St
     }
 
     override func updateViews() {
-        DispatchQueue.main.async {
-            self.tableView?.reloadData()
-        }
+        self.tableView?.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

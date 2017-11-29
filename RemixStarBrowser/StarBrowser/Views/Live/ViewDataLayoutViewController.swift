@@ -4,7 +4,7 @@ class ViewDataLayoutViewController<ViewData: Emptyable>: LayoutViewController {
 
     var viewData = ViewData.empty {
         didSet {
-            updateViews()
+            updateViewsOnMainQueue()
         }
     }
 
@@ -22,12 +22,16 @@ class ViewDataLayoutViewController<ViewData: Emptyable>: LayoutViewController {
     }
 
     override func layoutDidLoad() {
-        updateViews()
+        updateViewsOnMainQueue()
+    }
+
+    private func updateViewsOnMainQueue() {
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
     }
 
     func updateViews() {
-        DispatchQueue.main.async {
-            self.layoutNode?.setState(self.viewData, animated: true)
-        }
+        self.layoutNode?.setState(self.viewData, animated: true)
     }
 }
