@@ -14,7 +14,7 @@
 		C80912391FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */; };
 		C809123A1FCC4E4500215A2E /* StarDetailView+Emptyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */; };
 		C8267CE2205DA8B200D7EAFF /* StarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8267CE1205DA8B200D7EAFF /* StarDetailViewController.swift */; };
-		C8267CE4205DA8E600D7EAFF /* StarDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8267CE3205DA8E600D7EAFF /* StarDetailViewController.storyboard */; };
+		C8267CE4205DA8E600D7EAFF /* StarDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8267CE3205DA8E600D7EAFF /* StarDetailView.storyboard */; };
 		C846107A1FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */; };
 		C846107B1FCC4C2800AA9C4C /* StarDetailViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */; };
 		C846107D1FCC4C4700AA9C4C /* StarListViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */; };
@@ -78,7 +78,7 @@
 		C80912351FCC4E3200215A2E /* StarListView+Emptyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarListView+Emptyable.swift"; sourceTree = "<group>"; };
 		C80912381FCC4E4500215A2E /* StarDetailView+Emptyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarDetailView+Emptyable.swift"; sourceTree = "<group>"; };
 		C8267CE1205DA8B200D7EAFF /* StarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewController.swift; sourceTree = "<group>"; };
-		C8267CE3205DA8E600D7EAFF /* StarDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StarDetailViewController.storyboard; sourceTree = "<group>"; };
+		C8267CE3205DA8E600D7EAFF /* StarDetailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StarDetailView.storyboard; sourceTree = "<group>"; };
 		C84610781FCC4C1E00AA9C4C /* StarDetailViewFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarDetailViewFormatter.swift; sourceTree = "<group>"; };
 		C846107C1FCC4C4700AA9C4C /* StarListViewFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarListViewFormatter.swift; sourceTree = "<group>"; };
 		C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarLoadingViewController.swift; sourceTree = "<group>"; };
@@ -282,14 +282,10 @@
 			isa = PBXGroup;
 			children = (
 				C867537F1FC1027200F036CD /* StarBrowserViewControllerFactory.swift */,
-				C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */,
-				C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */,
-				C86753961FC24DEE00F036CD /* StarListView.xml */,
-				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
-				C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */,
-				C854ED651FC2F2C7008D580F /* StarErrorView.xml */,
-				C8267CE1205DA8B200D7EAFF /* StarDetailViewController.swift */,
-				C8267CE3205DA8E600D7EAFF /* StarDetailViewController.storyboard */,
+				C883CA4C205DB197004041F0 /* StarListView */,
+				C883CA4B205DB190004041F0 /* StarLoadingView */,
+				C883CA4A205DB183004041F0 /* StarErrorView */,
+				C883CA4D205DB1A6004041F0 /* StarDetailView */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -302,6 +298,42 @@
 				C8DF4B2C1FBDE49200066C3B /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		C883CA4A205DB183004041F0 /* StarErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA6FC1FC0EB43004BBF8C /* StarErrorViewController.swift */,
+				C854ED651FC2F2C7008D580F /* StarErrorView.xml */,
+			);
+			path = StarErrorView;
+			sourceTree = "<group>";
+		};
+		C883CA4B205DB190004041F0 /* StarLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				C84CA6FA1FC0EB3A004BBF8C /* StarLoadingViewController.swift */,
+			);
+			path = StarLoadingView;
+			sourceTree = "<group>";
+		};
+		C883CA4C205DB197004041F0 /* StarListView */ = {
+			isa = PBXGroup;
+			children = (
+				C88AFAC61FC637E6000A1E6F /* ViewDataLayoutViewController.swift */,
+				C84CA6FE1FC0EB4F004BBF8C /* StarListViewController.swift */,
+				C86753961FC24DEE00F036CD /* StarListView.xml */,
+			);
+			path = StarListView;
+			sourceTree = "<group>";
+		};
+		C883CA4D205DB1A6004041F0 /* StarDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				C8267CE1205DA8B200D7EAFF /* StarDetailViewController.swift */,
+				C8267CE3205DA8E600D7EAFF /* StarDetailView.storyboard */,
+			);
+			path = StarDetailView;
 			sourceTree = "<group>";
 		};
 		C8CE892A205886B800C11D6E /* Entity */ = {
@@ -483,7 +515,7 @@
 				C854ED661FC2F2C7008D580F /* StarErrorView.xml in Resources */,
 				C8DF4B2B1FBDE49200066C3B /* LaunchScreen.storyboard in Resources */,
 				C8DF4B281FBDE49200066C3B /* Assets.xcassets in Resources */,
-				C8267CE4205DA8E600D7EAFF /* StarDetailViewController.storyboard in Resources */,
+				C8267CE4205DA8E600D7EAFF /* StarDetailView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
