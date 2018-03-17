@@ -162,11 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				C867537D1FC1020600F036CD /* StarBrowserViewSpyFactory.swift */,
-				C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */,
 				C84CA7021FC0EC84004BBF8C /* StarListViewSpy.swift */,
 				C84CA7041FC0EC91004BBF8C /* StarLoadingViewSpy.swift */,
 				C84CA7061FC0EC9E004BBF8C /* StarErrorViewSpy.swift */,
 				C84CA7081FC0ECA7004BBF8C /* StarDetailViewSpy.swift */,
+				C864A2BD1FC3146000C595B2 /* ScreenNameable.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";

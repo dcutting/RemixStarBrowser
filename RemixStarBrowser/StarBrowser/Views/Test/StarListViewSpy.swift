@@ -22,9 +22,3 @@ extension StarListViewSpy {
         delegate?.didSelectStar(withID: star.id)
     }
 }
-
-extension StarListViewSpy: ScreenNameable {
-    var screenName: String {
-        return "list"
-    }
-}
