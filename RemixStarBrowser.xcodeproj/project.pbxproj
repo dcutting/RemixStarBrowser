@@ -69,6 +69,16 @@
 		C8DF4B4F1FBE3F0F00066C3B /* StarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF4B4E1FBE3F0F00066C3B /* StarDetailView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C883CA4E205DC402004041F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C8DF4B151FBDE49200066C3B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C84CA7241FC0F183004BBF8C;
+			remoteInfo = AcceptanceTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		238D4CD6E75A35D1F8BD3B01 /* Pods-RemixStarBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemixStarBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		2D9502226A3F1402211A41C6 /* Pods_RemixStarBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemixStarBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -454,6 +464,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C883CA4F205DC402004041F0 /* PBXTargetDependency */,
 			);
 			name = RemixStarBrowser;
 			productName = RemixStarBrowser;
@@ -709,6 +720,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C883CA4F205DC402004041F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C84CA7241FC0F183004BBF8C /* AcceptanceTests */;
+			targetProxy = C883CA4E205DC402004041F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C8DF4B291FBDE49200066C3B /* LaunchScreen.storyboard */ = {
