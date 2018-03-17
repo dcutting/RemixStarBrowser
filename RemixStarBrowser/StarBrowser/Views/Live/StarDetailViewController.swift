@@ -1,8 +1,25 @@
-import Foundation
+import UIKit
 
-class StarDetailViewController: ViewDataLayoutViewController<StarDetailViewData>, StarDetailView {
+class StarDetailViewController: UIViewController, StarDetailView {
 
-    override func layoutName() -> String {
-        return "StarDetailView.xml"
+    @IBOutlet var titleLabel: UILabel?
+    @IBOutlet var textView: UITextView?
+
+    var viewData = StarDetailViewData.empty {
+        didSet {
+            onMainQueue {
+                self.updateViews()
+            }
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViews()
+    }
+
+    private func updateViews() {
+        titleLabel?.text = viewData.title
+        textView?.text = viewData.text
     }
 }

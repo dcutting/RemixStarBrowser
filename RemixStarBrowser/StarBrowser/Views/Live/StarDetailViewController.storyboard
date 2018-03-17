@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Star Detail View Controller-->
+        <scene sceneID="GPE-QC-9Vg">
+            <objects>
+                <viewController storyboardIdentifier="StarDetailViewController" id="N4x-bI-48r" customClass="StarDetailViewController" customModule="RemixStarBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AOp-j9-xbl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbT-MN-Qse">
+                                <rect key="frame" x="20" y="40" width="335" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="lKX-YL-ap7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ry-xD-5Qz">
+                                <rect key="frame" x="20" y="108" width="335" height="539"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CIc-oj-URN" firstAttribute="bottom" secondItem="8Ry-xD-5Qz" secondAttribute="bottom" constant="20" id="1KV-Y1-txP"/>
+                            <constraint firstItem="8Ry-xD-5Qz" firstAttribute="top" secondItem="dbT-MN-Qse" secondAttribute="bottom" constant="8" id="AzF-be-K9h"/>
+                            <constraint firstItem="CIc-oj-URN" firstAttribute="trailing" secondItem="8Ry-xD-5Qz" secondAttribute="trailing" constant="20" id="Mbt-5U-KB7"/>
+                            <constraint firstItem="CIc-oj-URN" firstAttribute="trailing" secondItem="dbT-MN-Qse" secondAttribute="trailing" constant="20" id="PaO-La-CTv"/>
+                            <constraint firstItem="dbT-MN-Qse" firstAttribute="leading" secondItem="CIc-oj-URN" secondAttribute="leading" constant="20" id="baW-mr-r3m"/>
+                            <constraint firstItem="8Ry-xD-5Qz" firstAttribute="leading" secondItem="CIc-oj-URN" secondAttribute="leading" constant="20" id="dZV-p9-F1h"/>
+                            <constraint firstItem="dbT-MN-Qse" firstAttribute="top" secondItem="CIc-oj-URN" secondAttribute="top" constant="20" id="gQd-WC-Pbu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CIc-oj-URN"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="8Ry-xD-5Qz" id="mD8-Pc-Bqz"/>
+                        <outlet property="titleLabel" destination="dbT-MN-Qse" id="1Z3-Bh-yXo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ucG-d5-Whl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-236" y="226.23688155922042"/>
+        </scene>
+    </scenes>
+</document>

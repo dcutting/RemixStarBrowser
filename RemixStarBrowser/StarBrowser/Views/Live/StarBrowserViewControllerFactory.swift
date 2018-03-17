@@ -1,3 +1,5 @@
+import UIKit
+
 class StarBrowserViewControllerFactory: StarBrowserViewFactory {
 
     func makeListView() -> StarListView {
@@ -13,6 +15,8 @@ class StarBrowserViewControllerFactory: StarBrowserViewFactory {
     }
 
     func makeDetailView() -> StarDetailView {
-        return StarDetailViewController()
+        let storyboard = UIStoryboard(name: "StarDetailViewController", bundle: nil)
+        let view = storyboard.instantiateViewController(withIdentifier: "StarDetailViewController")
+        return view as! StarDetailView
     }
 }
