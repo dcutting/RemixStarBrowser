@@ -1,6 +1,6 @@
 import Layout
 
-class ViewDataLayoutViewController<ViewData: Emptyable>: LayoutViewController {
+class ViewDataLayoutViewController<ViewData: Emptyable>: UIViewController, LayoutLoading {
 
     var viewData = ViewData.empty {
         didSet {
@@ -21,7 +21,7 @@ class ViewDataLayoutViewController<ViewData: Emptyable>: LayoutViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutDidLoad() {
+    public func layoutDidLoad(_: LayoutNode) {
         updateViewsOnMainQueue()
     }
 

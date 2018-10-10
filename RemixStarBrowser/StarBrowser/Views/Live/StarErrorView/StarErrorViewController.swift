@@ -1,6 +1,6 @@
 import Layout
 
-class StarErrorViewController: LayoutViewController, StarErrorView {
+class StarErrorViewController: UIViewController, LayoutLoading, StarErrorView {
 
     init() {
         super.init(nibName: nil, bundle: nil)
