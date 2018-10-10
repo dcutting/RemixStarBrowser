@@ -1,23 +1,28 @@
 [![Travis](https://img.shields.io/travis/schibsted/layout.svg)](https://travis-ci.org/schibsted/layout)
 [![Coveralls](https://coveralls.io/repos/github/schibsted/layout/badge.svg)](https://coveralls.io/github/schibsted/layout)
 [![Platform](https://img.shields.io/cocoapods/p/Layout.svg?style=flat)](http://cocoadocs.org/docsets/Layout)
-[![Swift](https://img.shields.io/badge/swift-3.2-orange.svg?style=flat)](https://developer.apple.com/swift)
-[![Swift](https://img.shields.io/badge/swift-4.0-red.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift](https://img.shields.io/badge/swift-3.4-orange.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift](https://img.shields.io/badge/swift-4.2-red.svg?style=flat)](https://developer.apple.com/swift)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Layout.svg)](https://img.shields.io/cocoapods/v/Layout.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Layout
 
+Layout is a native Swift framework for implementing iOS user interfaces using XML template files and runtime-evaluated expressions. It is intended as a more-or-less drop-in replacement for Nibs and Storyboards, but offers a number of advantages such as human-readable templates and live editing.
+
+![Screenshot](Layout.gif?raw=true)
+
 - [Introduction](#introduction)
-    - [What?](#what)
     - [Why?](#why)
     - [How?](#how)
 - [Usage](#usage)
     - [Installation](#installation)
+    - [Dependencies](#dependencies)
     - [Integration](#integration)
     - [Editor Support](#editor-support)
     - [Live Reloading](#live-reloading)
+    - [Debugging](#debugging)
     - [Constants](#constants)
     - [State](#state)
     - [Actions](#actions)
@@ -25,6 +30,7 @@
     - [Delegates](#delegates)
     - [Animation](#animation)
     - [Safe Area Insets](#safe-area-insets)
+    - [Legacy Layout Mode](#legacy-layout-mode)
 - [Expressions](#expressions)
     - [Layout Properties](#layout-properties)
     - [Geometry](#geometry)
@@ -37,6 +43,7 @@
     - [Enums](#enums)
     - [OptionSets](#optionsets)
     - [Arrays](#arrays)
+    - [Functions](#functions)
     - [Optionals](#optionals)
     - [Comments](#comments)
 - [Standard Components](#standard-components)
@@ -47,6 +54,7 @@
     - [UIStackView](#uistackview)
     - [UITableView](#uitableview)
     - [UICollectionView](#uicollectionview)
+    - [UIVisualEffectView](#uivisualeffectview)
     - [UIWebView](#uiwebview)
     - [WKWebView](#wkwebview)
     - [UITabBarController](#uitabbarcontroller)
@@ -73,7 +81,7 @@
     - [Installation](#installation-1)
     - [Formatting](#formatting)
     - [Renaming](#renaming)
-    - [Strings](#strings)
+    - [Strings](#strings-1)
 - [Xcode Extension](#xcodeextension)
     - [Installation](#installation-2)
     - [Formatting](#formatting-1)
@@ -81,13 +89,6 @@
 
 
 # Introduction
-
-## What?
-
-Layout is a framework for implementing iOS user interfaces using runtime-evaluated expressions for layout and XML template files. It is intended as a more-or-less drop-in replacement for Nibs and Storyboards, but offers a number of advantages.
-
-To find out more about why we built Layout, and the problems it addresses, check out [this article](http://bytes.schibsted.com/layout-declarative-ui-framework-ios/).
-
 
 ## Why?
 
@@ -106,6 +107,7 @@ Layout also includes a replacement for AutoLayout that aims to be:
 * More deterministic and simpler to debug
 * More performant (at least in theory :-))
 
+To find out more about why we built Layout, and the problems it addresses, check out [this article](http://bytes.schibsted.com/layout-declarative-ui-framework-ios/).
 
 ## How?
 
@@ -122,7 +124,7 @@ Layout is designed to work with ordinary UIKit components, not to replace or rei
 
 ## Installation
 
-Layout is provided as a standalone Swift framework that you can use in your app. It works with Swift 3.2 and 4.0, has no dependencies, and is not tied to any particular package management solution.
+Layout is provided as a standalone Swift framework that you can use in your app. It works with Swift 3.2 and 4.0, and is not tied to any particular package management solution.
 
 To install Layout using CocoaPods, add the following to your Podfile:
 
@@ -136,13 +138,21 @@ To install using Carthage, add this to your Cartfile:
 github "schibsted/Layout" ~> 0.6
 ```
 
+
+## Dependencies
+
+Layout has no external dependencies. It makes use of the [Expression](https://github.com/nicklockwood/Expression) and [Sprinter](https://github.com/nicklockwood/Sprinter) frameworks internally, but these have been included inside the Layout module as part of the source distribution, so there is no need to include them separately.
+
+Because Expression and Sprinter are inside the Layout namespace, you can safely use Layout in a project that is already using another copy of either of these frameworks.
+
+
 ## Integration
 
 The primary API exposed by Layout is the `LayoutNode` class. Create a layout node as follows:
 
 ```swift
 let node = LayoutNode(
-    view: UIView(),
+    view: UIView.self,
     expressions: [
         "width": "100%",
         "height": "100%",
@@ -150,7 +160,7 @@ let node = LayoutNode(
     ],
     children: [
         LayoutNode(
-            view: UILabel(),
+            view: UILabel.self,
             expressions: [
                 "width": "100%",
                 "top": "50% - height / 2",
@@ -187,10 +197,10 @@ The equivalent XML markup for the layout above is:
 
 Most built-in iOS views should already work when used as a Layout XML element. For custom views, you may need to make a few minor changes for full Layout-compatibility. See the [Custom Components](#custom-components) section below for details.
 
-To mount a `LayoutNode` inside a view or view controller, subclass `LayoutViewController` and use one of the following three approaches to load your layout:
+To mount a `LayoutNode` inside a view or view controller, the simplest approach is to create a `UIViewController` subclass and add the `LayoutLoading` protocol. You can then use one of the following three options to load your layout:
 
 ```swift
-class MyViewController: LayoutViewController {
+class MyViewController: UIViewController, LayoutLoading {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -234,21 +244,32 @@ We hope to add support for other editors in future. If you are interested in con
 
 ## Live Reloading
 
-The `LayoutViewController` class provides a number of helpful features to improve your development productivity, most notably the *Red Box* debugger and the *live reloading* feature.
-
-If the Layout framework throws an error during XML parsing, mounting, or updating, the `LayoutViewController` will detect it and display the *Red Box*, which is a full-screen overlay that displays the error message along with a reload button. Pressing reload will reset the layout state and re-parse the layout XML file.
+Layout provides a number of helpful features to improve your development productivity, most notably the [Red Box debugger](#debugging) and the *live reloading* feature.
 
 When you load an XML layout file in the iOS Simulator, the Layout framework will attempt to find the original source XML file for the layout and load that instead of the static version bundled into the compiled app.
 
-This means that you can go ahead and fix the errors in your XML file, then reload it *without* restarting the simulator, or recompiling the app.
+This means that you can make changes to your XML file and then reload it *without* recompiling the app or restarting the simulator.
 
 **Note:** If multiple source files match the bundled file name, you will be asked to choose which one to load. See the [Ignore File](#ignore-file) section below if you need to exclude certain files from the search process.
 
-You can reload at any time, even if there was no error, by pressing Cmd-R in the simulator (not in Xcode itself, as that will recompile the app). `LayoutViewController` will detect that key combination and reload the XML, provided that it is the current first responder on screen.
+You can reload your XML files at any time by pressing Cmd-R in the simulator (not in Xcode itself, as that will recompile the app). Layout will detect that key combination and reload the XML.
 
 **Note:** This only works for changes you make to your layout XML files, or in your `Localizable.strings` file, not for Swift code changes in your view controller, or other resources such as images.
 
-The live reloading feature, combined with the gracious handling of errors, means that it should be possible to do most of your interface development without needing to recompile the app.
+The live reloading feature, combined with the graceful handling of errors, means that it should be possible to do most of your interface development without needing to recompile the app.
+
+
+## Debugging
+
+If the Layout framework throws an error during XML parsing, mounting, or updating, it will display the *Red Box*, which is a full-screen overlay that displays the error message along with a reload button.
+
+For non-critical errors (e.g. using a deprecated API) Layout will display a yellow warning bar at the bottom of the screen, which can be dismissed with a tap.
+
+Thanks to the [live reloading](#live-reloading) feature, many bugs (e.g. syntax errors or misnamed properties) can be fixed without recompiling the app. Once you have fixed the bug, pressing reload (or Cmd-R) will dismiss any warnings or errors and reload the layout XML file.
+
+The Red Box interface is managed by the `LayoutConsole` singleton. This exposes static methods to show and hide the console, along with an `isEnabled` property to enable or disable the console programmatically. By default, the console is enabled for debug builds and disabled for release, but if you need to override this setting at runtime you can do so.
+
+If the `LayoutConsole` is disabled, errors and warnings will be printed to the Xcode console instead.
 
 
 ## Constants
@@ -331,13 +352,13 @@ func setSelected() {
 }
 ```
 
-Note that you can use both constants and state in the same Layout. If a state variable has the same name as a constant, the state variable takes precedence. As with constants, state values can be passed in at the root node of a hierarchy and accessed by any child node. If children in the hierarchy have their own constant or state properties, these will take priority over values set on their parent.
+Note that you can use both constants and state in the same Layout. If a state variable has the same name as a constant, the state variable takes precedence. As with constants, state variables can be passed in at the root node of a hierarchy and accessed by any child node. If children in the hierarchy have their own constants or state variables, these will take priority over values set on their parent.
 
-Although state can be updated dynamically, all state properties referenced in the layout must have been given a value before the `LayoutNode` is first mounted/updated. It's generally a good idea to set default values for all state variables when you first initialize the node.
+Although state can be updated dynamically, all state variables referenced in the layout must have been given a value before the `LayoutNode` is first mounted/updated. It's generally a good idea to set default values for all state variables when you first initialize the node.
 
 Calling `setState()` on a `LayoutNode` after it has been created will trigger an update. The update causes all expressions in that node and its children to be re-evaluated. In future it may be possible to detect if parent nodes are indirectly affected by the state changes of their children and update them too, but currently that is not implemented.
 
-In the example above, we've used a dictionary to store the state values, but `LayoutNode` supports the use of arbitrary objects for state. A really good idea for layouts with complex state requirements is to use a `struct` to store the state. When you set the state using a `struct` or `class`, Layout uses Swift's introspection features to compare changes and determine if an update is necessary.
+In the example above, we've used a dictionary to store the state, but `LayoutNode` supports the use of arbitrary objects for state. A really good idea for layouts with complex state requirements is to use a `struct`. When you set the state using a `struct` or `class`, Layout uses Swift's introspection features to compare changes and determine if an update is necessary.
 
 Internally the `LayoutNode` still just treats the struct as a dictionary of key/value pairs, but you get to take advantage of compile-time type validation when manipulating your state programmatically in the rest of your program:
 
@@ -359,7 +380,7 @@ func setSelected() {
 }
 ```
 
-When using a state dictionary, you do not have to pass every single property each time you set the state. If you are only updating one property, it is fine to pass a dictionary with only that key/value pair. (This is not the case if you are using a struct, but don't worry - this is only a convenience feature, and makes little or no difference to performance.):
+When using a state dictionary, you do not have to pass every single property each time you set the state. If you are only updating a subset of properties, it is fine to pass a dictionary with only those key/value pairs. (This is not the case if you are using a struct, but don't worry - this is only a convenience feature, and makes little or no difference to performance.):
 
 ```swift
 loadLayout(
@@ -422,10 +443,10 @@ In this case, the button will call either the `select(_:)` or `deselect(_:)` met
 
 When creating views inside a Nib or Storyboard, you typically create references to individual views by using properties in your view controller marked with the `@IBOutlet` attribute, and Layout can utilize the same system to let you reference individual views in your hierarchy from code.
 
-To create an outlet binding for a layout node, declare a property of the correct type on your `LayoutViewController`, and then reference it using the `outlet` constructor argument for the `LayoutNode`:
+To create an outlet binding for a layout node, declare a property of the correct type on your view controller, and then reference it using the `outlet` constructor argument for the `LayoutNode`:
 
 ```swift
-class MyViewController: LayoutViewController {
+class MyViewController: UIViewController, LayoutLoading {
 
     @objc var labelNode: LayoutNode? // outlet
 
@@ -433,10 +454,10 @@ class MyViewController: LayoutViewController {
         super.viewDidLoad()
 
         self.layoutNode = LayoutNode(
-            view: UIView(),
+            view: UIView.self,
             children: [
                 LayoutNode(
-                    view: UILabel(),
+                    view: UILabel.self,
                     outlet: #keyPath(self.labelNode),
                     expressions: [ ... ]
                 )
@@ -473,13 +494,13 @@ Outlets can also be set using an expression instead of a literal value. This is 
     <param name="labelOutlet" type="String"/>
 
     <UILabel
-        outlety="{labelOutlet}"
+        outlet="{labelOutlet}"
         text="Hello World"
     />
 </UIView>
 ```
 
-The type of the parameter in this case must be `String`, and not `UILabel` as you might expect. The reason for this is that the outlet is a KeyPath that references a property of the layout's owner (typically a view controller), not a direct reference to the view itself.
+The type of the parameter in this case must be `String`, and not `UILabel` as you might expect. The reason for this is that the outlet is a keyPath that references a property of the layout's owner (typically a view controller), not a direct reference to the view itself.
 
 **Note:** Outlet expressions must be set using a constant or literal value, and cannot be changed once set. Attempting to set the outlet using a state variable or other dynamic value will result in an error.
 
@@ -488,22 +509,22 @@ The type of the parameter in this case must be `String`, and not `UILabel` as yo
 
 Another commonly-used feature in iOS is the *delegate* pattern. Layout also supports this, but it does so in an implicit way that may be confusing if you aren't expecting it.
 
-When loading a Layout XML file, or a programmatically-created `LayoutNode` hierarchy into a `LayoutViewController`, the views will be scanned for delegate properties and these will be automatically bound to the `LayoutViewController` *if* it conforms to the specified protocol.
+When loading a Layout XML file, or a programmatically-created `LayoutNode` hierarchy into a view controller, the views will be scanned for delegate properties and these will be automatically bound to the controller *if* it conforms to the specified protocol.
 
 So for example, if your layout contains a `UIScrollView`, and your view controller conforms to the `UIScrollViewDelegate` protocol, then the view controller will automatically be attached as the delegate for the view controller:
 
 ```swift
-class MyViewController: LayoutViewController, UITextFieldDelegate {
+class MyViewController: UIViewController, LayoutLoading, UITextFieldDelegate {
     var labelNode: LayoutNode!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         self.layoutNode = LayoutNode(
-            view: UIView()
+            view: UIView.self,
             children: [
                 LayoutNode(
-                    view: UITextField(), // delegate is automatically bound to MyViewController
+                    view: UITextField.self, // delegate is automatically bound to MyViewController
                     expressions: [ ... ]
                 )
             ]
@@ -533,13 +554,13 @@ You can also set the delegate to a specific object by passing a reference to it 
 
 ```swift
 self.layoutNode = LayoutNode(
-    view: UIView()
+    view: UIView.self,
     constants: [
         "fieldDelegate": someDelegate
     ],
     children: [
         LayoutNode(
-            view: UITextField(),
+            view: UITextField.self,
             expressions: [
                 "delegate": "fieldDelegate"
             ]
@@ -620,12 +641,41 @@ For Layout, this approach creates problems, as your view frame may depend on the
 
 To simplify backwards compatibility, as with the `safeAreaInsets` property itself, Layout permits you to set `contentInsetAdjustmentBehavior` on any iOS version, however the value is ignored on iOS versions earlier than 11.
 
+## Legacy Layout Mode
+
+You may have seen references in the code or documentation to the `LayoutNode.useLegacyLayoutMode`. In the original design of Layout, the `right` and `bottom` expressions were specified relative to the top-left corner of the view, rather than relative to their respective edges as you might expect.
+
+Version 0.6.22 of Layout introduces a new layout mode where `bottom` and `right` expressions are relative to the `bottom` and `right` edges, which is more intuitive for users familiar with CSS or AutoLayout, and is also more consistent with the way that the `leading` and `trailing` expressions work.
+
+To avoid breaking compatibility with existing Layout projects, you must explicitly opt-in to the new layout mode by setting `LayoutNode.useLegacyLayoutMode = false` in your application code. This is a global property so it only needs to be set once. A good place to do this is in the `application(_:didFinishLaunchingWithOptions:)` method of your `AppDelegate`:
+
+```swift
+import UIKit
+import Layout
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        // enable Layout's new layout mode
+        LayoutNode.useLegacyLayoutMode = false
+        
+        // other setup code
+        ...
+    }
+}
+```
+
+In a future version of Layout, the new layout mode will become the default and the legacy layout mode will eventually be removed, so it's a good idea to begin migrating your templates now!
+
 
 # Expressions
 
-The most important feature of the `LayoutNode` class is its built-in support for parsing and evaluating expressions. The implementation of this feature is built on top of the [Expression](https://github.com/nicklockwood/Expression) framework, but Layout adds a number of extensions in order to support arbitrary types and layout-specific logic.
+The most important feature of the `LayoutNode` class is its built-in support for parsing and evaluating expressions. The implementation of this feature is built on top of the [Expression](https://github.com/nicklockwood/Expression) framework, but Layout adds a number of extensions in order to support UIKit types and layout-specific logic.
 
-Expressions can be simple, hard-coded values such as "10", or more complex expressions such as "width / 2 + someConstant". The available operators and functions to use in an expression depend on the name and type of the property being expressed, but all expressions support the standard decimal math and boolean operators and functions that you find in most C-family programming languages.
+Expressions can be simple, hard-coded values such as "10", or more complex expressions such as "width / 2 + someConstant". The available operators and functions to use in an expression depend on the name and type of the property being expressed, but all expressions support the standard decimal math and boolean operators and functions that you find in most C-family programming languages. You can also extend Layout with custom functions (see the [Functions](#functions) section below).
 
 Expressions in a `LayoutNode` can reference constants and state passed in to the node or any of its parents. They can also reference the values of any other expression defined on the node, or any supported property of the view:
 
@@ -667,7 +717,6 @@ To reference a node that is not an immediate sibling, you can give the node an `
 </UIView>
 ```
 
-
 ## Layout Properties
 
 The set of expressible properties available to a `LayoutNode` depends on the view type, but every node supports the following properties at a minimum:
@@ -677,9 +726,15 @@ top
 left
 bottom
 right
+leading
+trailing
 width
 height
+center.x
+center.y
 ```
+
+**Note:** see the [Legacy Layout Mode](#legacy-layout-mode) section for an important note about the `right` and `bottom` layout properties.
 
 These are numeric values (measured in screen points) that specify the frame for the view. In addition to the standard operators, all of these properties allow values specified in percentages:
 
@@ -713,7 +768,7 @@ The following types of property are given special treatment in order to make it 
 
 ## Geometry
 
-Because Layout manages the view frame automatically, direct manipulation of the view's frame, bounds and position via expressions is not permitted - you should use the `top`/`left`/`bottom`/`right`/`width`/`height` expressions instead. However, there are other geometric properties that do not directly affect the frame, and many of these *are* available to be set via expressions, for example:
+Because Layout manages the view frame automatically, direct manipulation of the view's `frame` or `bounds` is not permitted - you should use the `top`, `left`, `bottom`, `right`, `leading`, `trailing`, `width`, `height`, `center.x` and `center.y` expressions instead. However, there are other geometric properties that do not directly affect the frame, and many of these *are* available to be set via expressions, for example:
 
 * contentSize
 * contentInset
@@ -721,7 +776,7 @@ Because Layout manages the view frame automatically, direct manipulation of the 
 
 These properties are not simple numbers, but structs containing several packed values. So how can you manipulate these with Layout expressions?
 
-Well, firstly, almost any property type can be set using a constant or state variable, even if there is no way to define a literal value for it in an expression. So for example, the following code will set the `layer.transform` even though Layout has no way to specify a literal `CATransform3D` struct in an expression:
+Firstly, almost any property type can be set using a constant or state variable, even if there is no way to define a literal value for it in an expression. So for example, the following code will set the `layer.transform` even though Layout has no way to specify a literal `CATransform3D` struct in an expression:
 
 ```swift
 loadLayout(
@@ -740,7 +795,7 @@ loadLayout(
 <UIView layer.transform="flipped ? flipTransform : identityTransform"/>
 ```
 
-For many geometric struct types, such as `CGPoint`, `CGSize`, `CGRect`, `CGAffineTransform` and `UIEdgeInsets`, Layout has built-in support for directly referencing the member properties in expressions. To set the top `contentInset` value for a `UIScrollView`, you could use:
+Secondly, for many geometric struct types, such as `CGPoint`, `CGSize`, `CGRect`, `CGAffineTransform` and `UIEdgeInsets`, Layout has built-in support for directly referencing the member properties in expressions. To set the top `contentInset` value for a `UIScrollView`, you could use:
 
 ```xml
 <UIScrollView contentInset.top="safeAreaInsets.top + 10"/>
@@ -801,6 +856,29 @@ If you want to display the literal `{` or `}` brace characters, you can escape t
 <UILabel text="Open brace: {'{'}. Close brace: {'}'}."/>
 ```
 
+Layout has support for basic manipulation of string literals and variables inside expressions. To concatenate strings, you can either use multiple expression clauses within a single string property, or you can use the `+` operator within a single expression:
+
+```xml
+<UILabel text="{'foo'}{'bar'}"/>
+
+<UILabel text="{'foo' + 'bar'}"/>
+```
+
+You can reference individual characters or substrings by using Swift-style subscripting syntax. Ordinarily, Swift requires String subscripts to use values of type `String.Index`, but for convenience, Layout supports integer indexes and ranges as well. These are zero-based and refer to the `Character` index (as opposed to bytes or unicode scalars):
+
+```xml
+<!-- Displays 'e' -->
+<UILabel text="{'Hello World'[1]}"/>
+
+<!-- Displays 'foo' -->
+<UILabel text="{'foobar'[0..<3]}"/>
+
+<!-- Displays 'bar' -->
+<UILabel text="{'foobar'[3...]}"/>
+```
+
+Attempting to reference a substring outside the original string bounds won't crash, but will display a Red Box error. There is currently no way to check the bounds of a string from inside an expression unless you implement a custom `count()` function, or equivalent (see the [functions](#functions) section below for details).
+
 If your app is localized, you will need to use constants instead of literal strings for virtually all of the strings in your template. Localizing all of these strings and passing them as individual constants would be tedious, so Layout offers some alternatives:
 
 Constants prefixed with `strings.` are assumed to be localized strings, and will be looked up in the application's `Localizable.strings` file. So for example, if your `Localizable.strings` file contains the following entry:
@@ -820,6 +898,20 @@ It's common practice on iOS to use the English text as the key for localized str
 ```xml
 <UILabel text="{`strings.Some text with spaces and punctuation!`}"/>
 ```
+
+Localized strings may contain placeholder tokens for runtime values. On iOS, the convention for this is to use the printf `%` escape sequences for these placeholders, which are then replaced propgrammatically. Layout supports this mechanism by treating parameterized string constants as functions. For example, for the following localized string:
+
+```
+"Messages.Title" = "Hello %s, you have %i new messages";
+```
+
+You could display the formatted string directly inside your template as follows (assuming that `name` and `messageCount` are valid state variables):
+
+```xml
+<UILabel text="{strings.Messages.Title(name, messageCount)}"/>
+```
+
+Layout checks the placeholders in the format string, and will display an error if you pass the wrong number or types of arguments. Layout's format string processing is powered by the [Sprinter](https://github.com/nicklockwood/Sprinter) framework, and has full support for the [IEEE printf spec](http://pubs.opengroup.org/onlinepubs/009695399/functions/printf.html), so you can use flags such as `%1.3f` or `%3$0x` in your localized strings to control parameter order and formatting.
 
 In addition to reducing boilerplate, strings referenced directly from your XML will also take advantage of [live reloading](#live-reloading), so you can make changes to your `Localizable.strings` file, and they will be picked up when you type Cmd-R in the simulator, with no need to recompile the app.
 
@@ -845,7 +937,7 @@ A neat extra feature built in to attributed string expressions is support for in
 
 ```swift
 LayoutNode(
-    view: UILabel(),
+    view: UILabel.self,
     expressions: [
         "text": "I <i>can't believe</i> this <b>actually works!</b>"
     ]
@@ -880,7 +972,6 @@ As with regular text attributes, inline HTML can contain embedded expressions, w
 ```xml
 <UILabel>Hello <b>{name}</b></UILabel>
 ```
-
 
 ## URLs
 
@@ -1011,6 +1102,23 @@ The `<font-size>` can be either a number or a percentage. If you use a percentag
 <UILabel font="{themeFont} 25 bold"/>
 ```
 
+You can also define custom named fonts using an extension on `UIFont`, and Layout will detect them automatically:
+
+```swift
+extension UIFont {
+    @objc static let customFont = UIFont.systemFont(ofSize: 42)
+}
+```
+
+Fonts defined in this way can be referenced by name from inside any font expression, either with or without the "Font" suffix, but are not available inside braced sub-expressions `{...}` unless prefixed with `UIFont.`:
+
+```xml
+<UILabel font="customFont bold"/>
+
+<UILabel font="custom italic"/>
+
+<UILabel font="{UIFont.customFont} 120%"/>
+```
 
 ## Colors
 
@@ -1064,15 +1172,15 @@ loadLayout(
 
 Color constants are available to use in any expression (although they probably aren't much use outside of a color expression).
 
-You can also define a custom colors using extension on `UIColor`, and Layout will detect it automatically:
+You can also define a custom colors using an extension on `UIColor`, and Layout will detect it automatically:
 
 ```swift
 extension UIColor {
-    @objc static var headerColor: UIColor { return UIColor(0.6, 0.5, 0.5, 1) }
+    @objc static let headerColor = UIColor(0.6, 0.5, 0.5, 1)
 }
 ```
 
-Colors defined in this way can be referenced by name from inside any color expression, either with or without the `Color` suffix, but are not available inside other expression types unless prefixed with `UIColor.`:
+Colors defined in this way can be referenced by name from inside any color expression, either with or without the "Color" suffix, but are not available inside other expression types unless prefixed with `UIColor.`:
 
 ```xml
 <UIView backgroundColor="headerColor"/>
@@ -1092,7 +1200,7 @@ Finally, in iOS 11 and above, you can define named colors as XCAssets and then r
 <UIView backgroundColor="color-number-{level}"/>
 ```
 
-For color assets defined in a different bundle, you can prefix the color name with the bundle name (or fully-qualified bundle identifier) followed by a colon. For example:
+For color assets defined in a framework or standalone bundle, you can prefix the color name with the bundle name (or fully-qualified bundle identifier) followed by a colon. For example:
 
 ```xml
 <UIView backgroundColor="com.example.MyBundle:MyColor"/>
@@ -1100,8 +1208,13 @@ For color assets defined in a different bundle, you can prefix the color name wi
 <UIView backgroundColor="MyBundle:MyColor"/>
 ```
 
-**Note:** There is no need to use quotes around the color asset name, even if it contains spaces or other punctuation. Layout will interpret invalid color asset names as expressions. You can use `{ ... }` braces to disambiguate between asset names and constant or variable names if necessary.
+You can also reference a `Bundle`/`NSBundle` instance stored in a constant or variable:
 
+```xml
+<UIImageView image="{bundle}:MyColor"/>
+```
+
+**Note:** There is no need to use quotes around the color asset name, even if it contains spaces or other punctuation. Layout will interpret invalid color asset names as expressions. You can use `{ ... }` braces to disambiguate between asset names and constant or variable names if necessary.
 
 ## Images
 
@@ -1115,14 +1228,15 @@ Static images can be specified by name or via a constant or state variable. As w
 <UIImageView image="image_{index}.png"/>
 ``` 
 
-As with color assets, image assets defined in a different bundle can be referenced by prefixing with the bundle name or identifier followed by a colon:
+As with color assets, image assets defined in a framework or standalone bundle can be referenced by prefixing with a bundle name/identifier or constant followed by a colon:
 
 ```xml
-<UIImageView image="com.example.MyBundle:MyImage.png"/>
+<UIImageView image="com.example.MyBundle:MyImage"/>
 
-<UIImageView image="MyBundle:MyImage.png"/>
+<UIImageView image="MyBundle:MyImage"/>
+
+<UIImageView image="{bundle}:MyImage"/>
 ```
-
 
 ## Enums
 
@@ -1149,7 +1263,6 @@ Standard UIKit enum values are exposed as constants that may be used only in exp
 <UIImageView height="contentMode == .scaleAspectFit ? 200 : 300"/>
 ```
 
-
 ## OptionSets
 
 OptionSet expressions work the same way as enums. If you want to set multiple values for an OptionSet, separate them with commas:
@@ -1160,10 +1273,21 @@ OptionSet expressions work the same way as enums. If you want to set multiple va
 
 There is no need to wrap multiple OptionSet values in square brackets, as you would in Swift. As with enums, OptionSet value names cannot be used outside of the expression that sets them unless they are prefixed with the type name.
 
-
 ## Arrays
 
-There is no syntax for array literals inside expressions (yet), but for array-type expressions, you can use commas to pass multiple values:
+You can use Swift-style square-bracketed array literals inside any type of expression:
+
+```xml
+<UISegmentedControl items="['Hello', 'World']"/>
+```
+
+You can use the `+` operator to concatenate array literals:
+
+```xml
+<UISegmentedControl items="['Hello'] + ['And', 'Goodbye']"/>
+```
+
+For array-type expressions, the square brackets are optional; you can just pass comma, delimited values and they will be treated as an array:
 
 ```xml
 <UISegmentedControl items="'Hello', 'World'"/>
@@ -1178,10 +1302,6 @@ If you return a single non-array value from an array expression, it will be "box
 
 The `,` operator automatically flattens nested array constants, so the following code will produce a single, flat array instead of an outer array with another array inside it:
 
-```xml
-<UISegmentedControl items="firstTwoItems, 'Third'"/>
-```
-
 ```swift
 loadLayout(
     named: "MyLayout.xml",
@@ -1189,9 +1309,93 @@ loadLayout(
         "firstTwoItems": ["First", "Second"],
     ]
 )
+```
 
-**Note:** There is currently no validation of the element types inside an array, so if you (for example) attempt to pass an array of strings to a property expecting an array of view controllers, the app won't display a Red Box error overlay, it will simply crash.
+```xml
+<UISegmentedControl items="firstTwoItems, 'Third'"/>
+```
 
+You can use the same array literal syntax inside [macros](#macros), if you need to re-use the values:
+
+```xml
+<UIView>
+    <macro name="ITEMS" items="'First', 'Second'"/>
+    <UISegmentedControl items="ITEMS"/>
+</UIView>
+```
+
+If you need to access individual elements of an array, you can use the `[]` subscript operators in an expression:
+
+```swift
+loadLayout(
+    named: "MyLayout.xml",
+    constants: [
+        "colors": [UIColor.green, UIColor.black],
+    ],
+)
+```
+
+```xml
+<!-- green label -->
+<UILabel textColor="colors[0]"/>
+```
+
+You can also subscript arrays using ranges. All of the standard Swift range operators are supported, including open-ended ranges:
+
+```xml
+<!-- Only the second and third item -->
+<UISegmentedControl items="items[1...2]"/>
+
+<!-- Only the first and second item -->
+<UISegmentedControl items="items[..<2]"/>
+
+<!-- All but the first item -->
+<UISegmentedControl items="items[1...]"/>
+```
+
+Attempting to access an array with an out-of-bounds index or range won't crash, but will display a Red Box error. There is currently no way to check the bounds of an array from inside an expression unless you implement a custom `count()` function, or equivalent (see the [functions](#functions) section below for details).
+
+## Functions
+
+Layout expressions support a number of built-in math functions such as `min()`, `max()`, `pow()`, etc. But you can also extend Layout with additional custom functions that can be called inside your template.
+
+Custom functions are Swift closures that conform to the signature `([Any]) throws -> Any`. Any closure constant conforming to this type that is passed into your `LayoutNode` can be called inside an expression.
+
+Currently there is no way to specify the number or type of arguments expected by a custom function, so you must be careful to implement type checking within your custom function to prevent crashes. Here are some examples:
+
+```swift
+loadLayout(
+    named: "MyLayout.xml",
+    constants: [
+        "count": { (args: [Any]) throws -> Any in
+            guard args.count == 1 else {
+                throw LayoutError.message("count() function expects a single argument")  
+            }
+            switch args[0] {
+            case let array as [Any]:
+                return array.count
+            case let string as String:
+                return string.count
+            default:
+                throw LayoutError.message("count() function expects an Array or String")   
+            }
+            return array.count
+        },
+        "uppercased": { (args: [Any]) throws -> Any in
+            guard let string = args.first as? String else {
+                throw LayoutError.message("uppercased() function expects a String argument")  
+            }
+            return string.uppercased()
+        },
+    ],
+)
+```
+
+```xml
+<UILabel text="{uppercased('uppercased text'}"/>
+
+<UILabel text="'foo' contains {count('foo')} characters"/>
+```
 
 ## Optionals
 
@@ -1275,7 +1479,7 @@ In the unlikely event that you need the literal value of a string expression to 
 
 # Standard Components
 
-Layout has good support for most built-in UIKit views and view controllers. It can automatically create any `UIView` subclass using `init(frame:)`, and can set any property that is compatible with Key Value Coding (KVC), but some views expect extra initializer arguments, or have properties that cannot be set by name at runtime, or which require special treatment for other reasons.
+Layout has good support for most built-in UIKit views and view controllers. It can automatically create almost any `UIView` subclass using `init(frame:)`, and can set any property that is compatible with Key Value Coding (KVC), but some views expect extra initializer arguments, or have properties that cannot be set by name at runtime, or which require special treatment for other reasons.
 
 The following views and view controllers have all been tested and are known to work correctly:
 
@@ -1304,6 +1508,7 @@ The following views and view controllers have all been tested and are known to w
 * UITextView
 * UIView
 * UIViewController
+* UIVisualEffectView
 * UIWebView
 * WKWebView
 
@@ -1487,7 +1692,7 @@ Layout supports UIKit's `UIStackView` class, which you can use for flexbox-like 
 </UIStackView>
 ```
 
-Subview nodes nested inside a `UIStackView` are automatically added to the `arrangedSubviews` array. The `width` and `height` properties are respected for children of a `UIStackView`, but the `top`, `left`, `bottom` and `right` expressions are ignored.
+Subview nodes nested inside a `UIStackView` are automatically added to the `arrangedSubviews` array. The `width` and `height` properties are respected for children of a `UIStackView`, but the `top`, `left`, `bottom`, `right`, `center.x` and `center.y` expressions are ignored.
 
 Since `UIStackView` is a non-drawing view, only its position and layout attributes can be configured. Inherited `UIView` properties such as `backgroundColor` or `borderWidth` are unavailable.
 
@@ -1504,7 +1709,7 @@ You can use a `UITableView` inside a Layout template in much the same way as you
 />
 ```
 
-The tableView's `delegate` and `dataSource` will automatically be bound to the file's owner, which is typically either your `LayoutViewController` subclass, or the first nested view controller that conforms to one or both of the `UITableViewDelegate`/`DataSource` protocols. If you don't want that behavior, you can explicitly set them (see the [Delegates](#delegates) section above).
+The tableView's `delegate` and `dataSource` will automatically be bound to the file's owner, which is typically either your `UIViewController` subclass, or the first nested view controller that conforms to one or both of the `UITableViewDelegate`/`DataSource` protocols. If you don't want that behavior, you can explicitly set them (see the [Delegates](#delegates) section above).
 
 You would define the view controller logic for a Layout-managed table in pretty much the same way as you would if not using Layout:
 
@@ -1725,6 +1930,48 @@ Layout does not currently support using XML to define supplementary `UICollectio
 Layout supports the use of `UICollectionViewController`, with the same caveats as for `UITableViewController`.
 
 
+## UIVisualEffectView
+
+`UIVisualEffectView` has an `effect` property of type `UIVisualEffect`. `UIVisualEffect` is an abstract base class that is not used directly - instead you would typically set the effect to be either a `UIBlurEffect` or a `UIVibrancyEffect` (which itself contains a `UIBlurEffect`).
+
+The `effect` property can be set programmatically, or by passing a `UIVisualEffect` instance into your `LayoutNode` as a constant or state variable:
+
+
+```swift
+loadLayout(
+    named: "MyLayout.xml",
+    constants: [
+        "blurEffect": UIBlurEffect(style: .regular),
+    ]
+)
+```
+
+```xml
+<UICollectionView
+    effect="blurEffect"
+>
+```
+
+For convenience, Layout also allows you to configure the effect directly using expressions. To configure the effect use the `UIBlurEffect(style)` or `UIVibrancyEffect(style)` constructor functions inside the `effect` expression as follows:
+
+```xml
+<UICollectionView
+    effect="UIVibrancyEffect(light)"
+>
+```
+
+The `style` argument is of type `UIBlurEffectStyle`, and  is supported for both `UIBlurEffect` and `UIVibrancyEffect`. You can set the style using a constant or state variable, or it can be set to one of the following built-in values:
+
+* extraLight
+* light
+* dark
+* extraDark
+* regular
+* prominent
+
+**Note:** You can also use this solution for setting the `UITableView.separatorEffect` property, or any other property of type `UIVisualEffect` that is exposed in a custom view or controller. 
+
+
 ## UIWebView
 
 The API for `UIWebView` uses methods for loading content, which isn't directly usable from XML, so Layout exposes these methods as properties instead. To load a URL, you can use the `request` property, as follows:
@@ -1812,7 +2059,7 @@ Layout also exposes the `configuration` property of `WKWebView`. This is a read-
 
 ## UITabBarController
 
-For the most part, Layout works best when implemented on a per-screen basis, with one `LayoutViewController` for each screen. There is basic support for defining collection view controllers such as `UITabBarController` however, as demonstrated in the SampleApp.
+For the most part, Layout works best when implemented on a per-screen basis, with one `LayoutLoading` view controller for each screen. There is basic support for defining collection view controllers such as `UITabBarController` however, as demonstrated in the SampleApp.
 
 To define a `UITabBarController`-based layout in XML, nest one or more `UIViewController` nodes inside a `UITabBarController` node, as follows:
 
@@ -2042,7 +2289,7 @@ In the interests of avoiding boilerplate, you should generally use the latter fo
 
 ## Custom Property Types
 
-As mentioned above, Layout uses the Objective-C runtime to automatically detect property names and types for use with expressions. If you are using Swift 4.0 or above, you may need to explicitly annotate your properties with `@objc` for them to work in Layout, as the default behavior is now for properties to not be exposed to the Objective-C runtime.
+As mentioned above, Layout uses the Objective-C runtime to automatically detect property names and types for use with expressions. If you are using Swift 4.0 or above, you will need to explicitly annotate your properties with `@objc` for them to work in Layout, as the default behavior is now for properties to not be exposed to the Objective-C runtime.
 
 Even if you mark your properties with `@objc`, the Objective-C runtime only supports a subset of possible Swift types, and even for Objective-C types, some runtime information is lost. For example, it's currently impossible to automatically detect the valid set of raw values and case names for enum types at runtime.
 
@@ -2097,10 +2344,8 @@ The preferred way to define custom runtime types is as static vars on the `Runti
 
 ```swift
 extension RuntimeType {
-
-    @objc static var myStructType: RuntimeType {
-        return RuntimeType(MyStructType.self)
-    }
+    
+    @objc static let myStructType = RuntimeType(MyStructType.self)
 }
 
 extension MyView {
@@ -2122,13 +2367,13 @@ Layout's `RuntimeType` wrapper can also be used to specify a set of enum values:
 ```swift
 extension RuntimeType {
 
-    @objc static var nsTextAlignment: RuntimeType {
-        return RuntimeType([
-            "left": .left,
-            "right": .right,
-            "center": .center,
-        ] as [String: NSTextAlignment])
-    }
+    @objc static let nsTextAlignment = RuntimeType([
+        "left": .left,
+        "right": .right,
+        "center": .center,
+        "justified": .justified,
+        "natural": .natural,
+    ] as [String: NSTextAlignment])
 }
 ```
 
@@ -2139,19 +2384,17 @@ OptionSets can be specified in the same way as enums:
 ```swift
 extension RuntimeType {
 
-    @objc static var uiDataDetectorTypes: RuntimeType {
-        return RuntimeType([
-            "phoneNumber": .phoneNumber,
-            "link": .link,
-            "address": .address,
-            "calendarEvent": .calendarEvent,
-            "all": .all,
-        ] as [String: UIDataDetectorTypes])
-    }
+    @objc static let uiDataDetectorTypes = RuntimeType([
+        "phoneNumber": .phoneNumber,
+        "link": .link,
+        "address": .address,
+        "calendarEvent": .calendarEvent,
+        "all": .all,
+    ] as [String: UIDataDetectorTypes])
 }
 ```
 
-Again, for Objective-C APIs it is typically not necessary to provide a custom `setValue(forExpression:)` implementation for and OptionSet value, but if the type of the property is defined in Swift as the OptionSet type itself rather than the `rawValue` type, then you may need to do so.
+Again, for Objective-C APIs it is typically not necessary to provide a custom `setValue(forExpression:)` implementation for an OptionSet value, but if the type of the property is defined in Swift as the OptionSet type itself rather than the `rawValue` type, then you may need to do so.
 
 
 ## Custom Constructor Arguments
@@ -2257,11 +2500,11 @@ extension MyView {
 
 ## Layout-based Components
 
-If you are creating a library of views or controllers that use Layout internally, it probably doesn't make sense to base each component on a subclass of `LayoutViewController`. Ideally there should only be one `LayoutViewController` visible on-screen at once, otherwise the behavior of using Cmd-R to reload becomes ambiguous.
+If you are creating a library of views that use Layout internally, it's probably overkill wrap each one in its own `UIViewController` subclass.
 
-If the consumers of your component library are using `Layout`, then you could expose all your components as xml files and allow them to be composed directly using Layout templates or code, but if you want the library to work well with an ordinary UIKit app, then it is better if each component is exposed as a regular `UIView` or `UIViewController` subclass.
+If the consumers of your component library are using Layout, then you could expose all your components as xml files and allow them to be composed directly using Layout templates or code, but if you want the library to work well with an ordinary UIKit app then it's better if each component is exposed as a regular `UIView` subclass.
 
-To implement this, you can make use of the `LayoutLoading` protocol. `LayoutLoading` works in the same way as `LayoutViewController`, providing `loadLayout(...)` and `reloadLayout(...)` methods to load the subviews of your view or view controller using Layout templates.
+To implement this, subclass `UIView` (or `UIControl`, `UIButton`, etc) and add the `LayoutLoading` protocol. You can then use the `loadLayout(...)` methods just as you would with a view controller:
 
 ```swift
 class MyView: UIView, LayoutLoading {
@@ -2285,7 +2528,7 @@ class MyView: UIView, LayoutLoading {
 }
 ```
 
-**Note:** In the above example, the root view defined in the xml will be loaded as a *subview* of MyView, and will be automatically set to the same size. It would therefore probably not make sense for the root view in the xml to also be an instance of `MyView`, unless you want your view structure to be:
+**Note:** In the above example, the root view defined in the xml will be loaded as a *subview* of MyView, and will be automatically set to the same size. It would therefore not make sense for the root view in the xml to also be an instance of `MyView`, unless you want your view structure to be:
 
 ```xml
 <MyView>
@@ -2294,6 +2537,8 @@ class MyView: UIView, LayoutLoading {
     </MyView>
 </MyView>
 ``` 
+
+Attempting to load a view inside itself like this will throw a runtime error, because otherwise there's a danger of creating an infinite loading loop.
 
 If the layout has a dynamic size, you may wish to update the container view's frame whenever the layout frame changes. To implement that, add the following code:
 
@@ -2318,14 +2563,12 @@ class MyView: UIView, LayoutLoading {
 }
 ```
 
-Unlike `LayoutViewController`,  `LayoutLoading` provides no Red Box error console or keyboard shortcuts for reloading, and because it is a protocol rather than a base class, it can be applied on top of any existing `UIView` or `UIViewController` base class that you require.
-
-The default implementation of `LayoutLoading` will bubble errors up the responder chain to the first view or view controller that handles them. If the `LayoutLoading` view or view controller is placed inside a root `LayoutViewController`, it will therefore gain all the same debugging features as if it was using a `LayoutViewController` base class.
+The default implementation of `LayoutLoading` will bubble errors up the responder chain to the first view or view controller that handles them. If no responder in the chain intercepts the error, it will be displayed in the [Red Box console](#debugging).
 
 
 ## Manual Integration
 
-If you would prefer not to use either the `LayoutViewController` base class or `LayoutLoading` protocol, you can mount a `LayoutNode` directly into a regular view or view controller by using the `mount(in:)` method:
+If you would prefer not to use the `LayoutLoading` protocol, you can mount a `LayoutNode` into a view or view controller manually by using the `mount(in:)` method:
 
 ```swift
 class MyViewController: UIViewController {
@@ -2350,8 +2593,6 @@ class MyViewController: UIViewController {
 }
 ```
 
-This method of integration does not provide the live reloading feature for local XML files, nor the Red Box debugging interface - both of those are implemented internally by the `LayoutViewController`.
-
 If you are using some fancy architecture like [Viper](https://github.com/MindorksOpenSource/iOS-Viper-Architecture) that splits up view controllers into sub-components, you may find that you need to bind a `LayoutNode` to something other than a `UIView` or `UIViewController` subclass. In that case you can use the `bind(to:)` method, which will connect the node's outlets, actions and delegates to the specified owner object, but won't attempt to mount the view or view controllers.
 
 The `mount(in:)` and `bind(to:)` methods may each throw an error if there is a problem with your XML markup, or in an expression's syntax or symbols.
@@ -2373,7 +2614,7 @@ Fortunately, Layout has a nice solution for this: any layout node in your XML fi
 
 The referenced XML is just an ordinary layout file, and can be loaded and used normally, but when loaded using the composition feature it replaces the node that loads it. The attributes of the original node will be merged with the external node once it has loaded.
 
-Loading is synchronous for xml files in the same filesystem location, but for remote URLs, loading is performed asynchronously, so the original node will be displayed first and will be updated once the XML for the external node has loaded.
+Loading is synchronous for local xml files, but for remote URLs loading is performed asynchronously, so the original node will be displayed first and will be updated once the XML for the external node has loaded.
 
 Any children of the original node will be replaced by the contents of the loaded node, so you can insert a placeholder view to be displayed while the real content is loading:
 
@@ -2409,6 +2650,20 @@ As with composition, the template itself is just an ordinary layout file, and ca
 
 The imported template's root node class must be either the same class or a *superclass* of the importing node (unlike with composition, where it must be the same class or a *subclass*).
 
+If your template has a complex internal structure, you may wish to specify where children will be inserted, instead of just having them appended to the existing top-level sub-nodes. To do that, you can use the `<children/>` tag.
+
+The `<children/>` tag can be placed anywhere inside the template (including inside sub-nodes of the template node) and it will be replaced by the children of the importing node:
+
+```xml
+<!-- MyTemplate.xml -->
+<UIView backgroundColor="#fff">
+    <UILabel>Shared Heading</UILabel>
+    <UIView>
+        <children/> <!-- children of the importing node will be inserted here -->
+    </UIView>
+    <UILabel>Shared Footer</UILabel>
+</UIView>
+```
 
 ## Parameters
 
@@ -2642,7 +2897,7 @@ When you have a Layout XML file open in Xcode, select the `Editor > Layout > For
 
 *Q. Why does Layout use XML instead of a more modern format like JSON?*
 
-> XML is better to suited to representing document-like structures such as view hierarchies. JSON does not distinguish between node types, attributes, and children in its syntax, which leads to a lot of extra verbosity when representing hierarchical structures because each node must include keys for "type" and "children", or equivalent. JSON also doesn't support comments, which are useful in complex layouts. While XML isn't perfect, it is the most appropriate of the formats that iOS has built-in support for.
+> XML is better suited to representing document-like structures such as view hierarchies. JSON does not distinguish between node types, attributes, and children in its syntax, which leads to a lot of extra verbosity when representing hierarchical structures because each node must include keys for "type" and "children", or equivalent. JSON also doesn't support comments, which are useful in complex layouts. While XML isn't perfect, it is the most appropriate of the formats that iOS has built-in support for.
 
 *Q. Do I really have to write my layouts in XML?*
 
@@ -2662,7 +2917,7 @@ When you have a Layout XML file open in Xcode, select the `Editor > Layout > For
 
 *Q. Will Layout ever support macOS/AppKit?*
 
-> There are no plans at the moment, but this would make sense in future given the shared language and similar frameworks. If you are interested in implementing such a feature, please create an issue on Guthub to discuss the approach.
+> There are no plans at the moment, but this would make sense in future given the shared language and similar frameworks. If you are interested in implementing such a feature, please create an issue on GitHub to discuss the approach.
 
 *Q. Will Layout ever support Android/Windows?*
 
@@ -2680,9 +2935,9 @@ When you have a Layout XML file open in Xcode, select the `Editor > Layout > For
 
 > Read the [Custom Property Types](#custom-property-types) section above.
 
-*Q. Do I have to use a `LayoutViewController` to display my layout?*
+*Q. Do I have to use a `UIViewController` subclass load my layout?*
 
-> No. See the [Manual Integration](#manual-integration) section above.
+> No. See the [Advanced Topics](#advanced-topics) section above.
 
 *Q. When I launched my app, Layout asked me to select a source file and I chose the wrong one, now my app isn't working correctly. What do I do?*
 

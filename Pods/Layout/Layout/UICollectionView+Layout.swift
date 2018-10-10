@@ -20,11 +20,52 @@ extension UICollectionViewLayout {
             flowLayout.estimatedItemSize = flowLayout.itemSize
         }
         if #available(iOS 10.0, *) {
-            flowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize
+            flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
         } else {
-            flowLayout.itemSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+            flowLayout.itemSize = CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
         }
         return flowLayout
+    }
+}
+
+private class LayoutCollectionView: UICollectionView {
+    open override var intrinsicContentSize: CGSize {
+        guard layoutNode != nil else {
+            return super.intrinsicContentSize
+        }
+        return CGSize(
+            width: contentSize.width + contentInset.left + contentInset.right,
+            height: contentSize.height + contentInset.top + contentInset.bottom
+        )
+    }
+
+    open override var contentSize: CGSize {
+        didSet {
+            if oldValue != contentSize, let layoutNode = layoutNode {
+                layoutNode.contentSizeChanged()
+            }
+        }
+    }
+}
+
+private var swizzled = NSMutableSet()
+
+private extension UICollectionView {
+    @objc var layout_intrinsicContentSize: CGSize {
+        guard layoutNode != nil else {
+            return self.layout_intrinsicContentSize
+        }
+        return CGSize(
+            width: contentSize.width + contentInset.left + contentInset.right,
+            height: contentSize.height + contentInset.top + contentInset.bottom
+        )
+    }
+
+    @objc func layout_setContentSize(_ size: CGSize) {
+        layout_setContentSize(size)
+        if size != contentSize, let layoutNode = layoutNode {
+            layoutNode.contentSizeChanged()
+        }
     }
 }
 
@@ -35,7 +76,20 @@ extension UICollectionView: LayoutBacked {
         let layout = node.attempt {
             try node.value(forExpression: "collectionViewLayout")
         } as? UICollectionViewLayout ?? .defaultLayout(for: node)
-        let collectionView = self.init(frame: .zero, collectionViewLayout: layout)
+        let collectionView: UICollectionView = {
+            if self == UICollectionView.self {
+                return LayoutCollectionView(frame: .zero, collectionViewLayout: layout)
+            } else {
+                if !isSubclass(of: LayoutCollectionView.self), !swizzled.contains(self) {
+                    replace(#selector(getter: intrinsicContentSize), of: self,
+                            with: #selector(getter: layout_intrinsicContentSize))
+                    replace(#selector(setter: contentSize), of: self,
+                            with: #selector(layout_setContentSize(_:)))
+                    swizzled.add(self)
+                }
+                return self.init(frame: .zero, collectionViewLayout: layout)
+            }
+        }()
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: placeholderID)
         return collectionView
     }
@@ -115,26 +169,6 @@ extension UICollectionView: LayoutBacked {
         assert(hadView || node._view == nil)
     }
 
-    open override var intrinsicContentSize: CGSize {
-        guard layoutNode != nil else {
-            return super.intrinsicContentSize
-        }
-        return CGSize(
-            width: contentSize.width + contentInset.left + contentInset.right,
-            height: contentSize.height + contentInset.top + contentInset.bottom
-        )
-    }
-
-    open override var contentSize: CGSize {
-        didSet {
-            if oldValue != contentSize, let layoutNode = layoutNode {
-                let contentOffset = self.contentOffset
-                layoutNode.update()
-                self.contentOffset = contentOffset
-            }
-        }
-    }
-
     open override func didUpdateLayout(for _: LayoutNode) {
         for cell in visibleCells {
             cell.layoutNode?.update()
@@ -143,26 +177,11 @@ extension UICollectionView: LayoutBacked {
 }
 
 extension UICollectionView: LayoutDelegate {
-    public func layoutError(_ error: LayoutError) {
-        DispatchQueue.main.async {
-            var responder: UIResponder? = self.next
-            while responder != nil {
-                if let errorHandler = responder as? LayoutLoading {
-                    errorHandler.layoutError(error)
-                    break
-                }
-                responder = responder?.next ?? (responder as? UIViewController)?.parent
-            }
-            print("Layout error: \(error)")
+    public func layoutValue(forKey key: String) throws -> Any? {
+        if let layoutNode = layoutNode {
+            return try layoutNode.value(forParameterOrVariableOrConstant: key)
         }
-    }
-
-    func value(forParameterOrVariableOrConstant name: String) -> Any? {
-        guard let layoutNode = layoutNode,
-            let value = try? layoutNode.value(forParameterOrVariableOrConstant: name) else {
-            return nil
-        }
-        return value
+        return nil
     }
 }
 
@@ -243,7 +262,6 @@ private var cellDataKey = 0
 private var nodesKey = 0
 
 extension UICollectionView {
-
     private enum LayoutData {
         case success(Layout, Any, [String: Any])
         case failure(Error)
@@ -269,10 +287,20 @@ extension UICollectionView {
     ) {
         do {
             let viewClass: AnyClass = try layout.getClass()
-            guard let cellClass = viewClass as? UICollectionViewCell.Type else {
+            guard var cellClass = viewClass as? UICollectionViewCell.Type else {
                 throw LayoutError.message("\(viewClass)) is not a subclass of UICollectionViewCell")
             }
-            register(cellClass as AnyClass, forCellWithReuseIdentifier: identifier)
+            if cellClass == UICollectionViewCell.self {
+                cellClass = LayoutCollectionViewCell.self
+            } else if !cellClass.isSubclass(of: LayoutCollectionViewCell.self),
+                !swizzled.contains(cellClass) {
+                replace(#selector(getter: intrinsicContentSize), of: cellClass,
+                        with: #selector(getter: layout_intrinsicContentSize))
+                replace(#selector(sizeThatFits(_:)), of: cellClass,
+                        with: #selector(UICollectionViewCell.layout_sizeThatFits(_:)))
+                swizzled.add(cellClass)
+            }
+            register(cellClass, forCellWithReuseIdentifier: identifier)
             registerLayoutData(.success(layout, state, merge(constants)), forCellReuseIdentifier: identifier)
         } catch {
             layoutError(LayoutError(error))
@@ -333,7 +361,7 @@ extension UICollectionView {
                 assert(node._view == nil)
                 node._view = cell
                 try node.bind(to: cell) // TODO: find a better solution for binding
-                cell.setLayoutNode(node)
+                cell.layoutNode = node
                 return node
             case let .failure(error):
                 throw error
@@ -342,6 +370,40 @@ extension UICollectionView {
             layoutError(LayoutError(error))
             return LayoutNode(view: dequeueReusableCell(withReuseIdentifier: placeholderID, for: indexPath))
         }
+    }
+}
+
+private class LayoutCollectionViewCell: UICollectionViewCell {
+    open override var intrinsicContentSize: CGSize {
+        guard let layoutNode = layoutNode, layoutNode.children.isEmpty else {
+            return super.intrinsicContentSize
+        }
+        return CGSize(width: UIView.noIntrinsicMetric, height: 44)
+    }
+
+    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+        if let layoutNode = layoutNode {
+            let height = (try? layoutNode.doubleValue(forSymbol: "height")) ?? 0
+            return CGSize(width: size.width, height: CGFloat(height))
+        }
+        return super.sizeThatFits(size)
+    }
+}
+
+private extension UICollectionViewCell {
+    @objc var layout_intrinsicContentSize: CGSize {
+        guard let layoutNode = layoutNode, layoutNode.children.isEmpty else {
+            return self.layout_intrinsicContentSize
+        }
+        return CGSize(width: UIView.noIntrinsicMetric, height: 44)
+    }
+
+    @objc func layout_sizeThatFits(_ size: CGSize) -> CGSize {
+        if let layoutNode = layoutNode {
+            let height = (try? layoutNode.doubleValue(forSymbol: "height")) ?? 0
+            return CGSize(width: size.width, height: CGFloat(height))
+        }
+        return self.layout_sizeThatFits(size)
     }
 }
 
@@ -378,20 +440,5 @@ extension UICollectionViewCell: LayoutBacked {
     open override func didInsertChildNode(_ node: LayoutNode, at index: Int) {
         // Insert child views into `contentView` instead of directly
         contentView.didInsertChildNode(node, at: index)
-    }
-
-    open override var intrinsicContentSize: CGSize {
-        guard let layoutNode = layoutNode, layoutNode.children.isEmpty else {
-            return super.intrinsicContentSize
-        }
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 44)
-    }
-
-    open override func sizeThatFits(_ size: CGSize) -> CGSize {
-        if let layoutNode = layoutNode {
-            let height = (try? layoutNode.doubleValue(forSymbol: "height")) ?? 0
-            return CGSize(width: size.width, height: CGFloat(height))
-        }
-        return super.sizeThatFits(size)
     }
 }

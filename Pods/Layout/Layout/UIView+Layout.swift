@@ -3,10 +3,7 @@
 import UIKit
 import WebKit
 
-private var _cachedExpressionTypes = [Int: [String: RuntimeType]]()
-
-extension UIView {
-
+extension UIView: LayoutManaged {
     /// The view controller that owns the view - used to access layout guides
     var viewController: UIViewController? {
         var controller: UIViewController?
@@ -36,15 +33,22 @@ extension UIView {
             types["directionalLayoutMargins.\(key)"] = .cgFloat
         }
         types["semanticContentAttribute"] = .uiSemanticContentAttribute
+
+        // Layer properties
         for (name, type) in (layerClass as! CALayer.Type).cachedExpressionTypes {
             types["layer.\(name)"] = type
         }
+
+        // AutoLayout support
+        types["contentHuggingPriority.horizontal"] = .uiLayoutPriority
+        types["contentHuggingPriority.vertical"] = .uiLayoutPriority
+        types["contentCompressionResistancePriority.horizontal"] = .uiLayoutPriority
+        types["contentCompressionResistancePriority.vertical"] = .uiLayoutPriority
 
         // Explicitly disabled properties
         for name in [
             "autoresizingMask",
             "bounds",
-            "center",
             "frame",
             "topAnchor",
             "bottomAnchor",
@@ -54,14 +58,25 @@ extension UIView {
             "heightAnchor",
             "leadingAnchor",
             "trailingAnchor",
+        ] {
+            types[name] = .unavailable("Use top/left/width/height instead")
+            let name = "\(name)."
+            for key in types.keys where key.hasPrefix(name) {
+                types[key] = .unavailable("Use top/left/width/height instead")
+            }
+        }
+        for name in [
+            "firstBaselineAnchor",
+            "lastBaselineAnchor",
+        ] {
+            types[name] = .unavailable("Use firstBaseline or lastBaseline instead")
+        }
+        for name in [
+            "center",
             "centerXAnchor",
             "centerYAnchor",
         ] {
-            types[name] = .unavailable("Use top/left/width/height expressions instead")
-            let name = "\(name)."
-            for key in types.keys where key.hasPrefix(name) {
-                types[key] = .unavailable("Use top/left/width/height expressions instead")
-            }
+            types[name] = .unavailable("Use center.x or center.y instead")
         }
         for name in [
             "needsDisplayInRect",
@@ -74,8 +89,22 @@ extension UIView {
             }
         }
 
+        // Private and read-only properties
+        for name in [
+            "size",
+            "origin",
+            "position",
+        ] + [
+            "effectiveUserInterfaceLayoutDirection",
+            "safeAreaInsets",
+        ] {
+            types[name] = nil
+            let name = "\(name)."
+            for key in types.keys where key.hasPrefix(name) {
+                types[key] = nil
+            }
+        }
         #if arch(i386) || arch(x86_64)
-            // Private and read-only properties
             for name in [
                 "allowsBaselineOffsetApproximation",
                 "animationInfo",
@@ -88,6 +117,8 @@ extension UIView {
                 "customAlignmentRectInsets",
                 "customBaselineOffsetFromBottom",
                 "customFirstBaselineOffsetFromContentTop",
+                "customFirstBaselineOffsetFromTop",
+                "customScreenScale",
                 "deliversButtonsForGesturesToSuperview",
                 "deliversTouchesForGesturesToSuperview",
                 "edgesInsettingLayoutMarginsFromSafeArea",
@@ -99,19 +130,16 @@ extension UIView {
                 "interactionTintColor",
                 "invalidatingIntrinsicContentSizeAlsoInvalidatesSuperview",
                 "isBaselineRelativeAlignmentRectInsets",
+                "layoutMarginsFollowReadableWidth",
+                "maximumLayoutSize",
+                "minimumLayoutSize",
                 "needsDisplayOnBoundsChange",
                 "neverCacheContentLayoutSize",
-                "origin",
-                "position",
                 "previewingSegueTemplateStorage",
                 "rotationBy",
-                "size",
                 "skipsSubviewEnumeration",
                 "viewTraversalMark",
                 "wantsDeepColorDrawing",
-            ] + [
-                "effectiveUserInterfaceLayoutDirection",
-                "safeAreaInsets",
             ] {
                 types[name] = nil
                 let name = "\(name)."
@@ -123,18 +151,19 @@ extension UIView {
         return types
     }
 
-    class var cachedExpressionTypes: [String: RuntimeType] {
-        if let types = _cachedExpressionTypes[self.hash()] {
-            return types
-        }
-        let types = expressionTypes
-        _cachedExpressionTypes[self.hash()] = types
-        return types
-    }
-
     /// Constructor argument names and types
     @objc open class var parameterTypes: [String: RuntimeType] {
         return [:]
+    }
+
+    /// Deprecated symbols
+    /// Key is the symbol name, value is the suggested replacement
+    /// Empty value string indicates no replacement available
+    @objc open class var deprecatedSymbols: [String: String] {
+        return [
+            "topLayoutGuide.length": "safeAreaInsets.top",
+            "bottomLayoutGuide.length": "safeAreaInsets.bottom",
+        ]
     }
 
     /// The name of the String or NSAttributedString property to use for body text
@@ -142,8 +171,8 @@ extension UIView {
     @objc open class var bodyExpression: String? {
         let types = cachedExpressionTypes
         for key in ["attributedText", "attributedTitle", "text", "title"] {
-            if let type = types[key], case let .any(kind) = type.type,
-                kind is String.Type || kind is NSAttributedString.Type {
+            if let type = types[key], case let .any(subtype) = type.kind,
+                subtype is String.Type || subtype is NSAttributedString.Type {
                 return key
             }
         }
@@ -168,10 +197,14 @@ extension UIView {
     }
 
     var _safeAreaInsets: UIEdgeInsets {
-        if #available(iOS 11.0, *), let viewController = viewController {
-            // This is the root view of a controller, so we can use the inset value directly, as per
-            // https://developer.apple.com/documentation/uikit/uiview/2891103-safeareainsets
-            return viewController.view.safeAreaInsets
+        if #available(iOS 11.0, *) {
+            if let viewController = viewController {
+                // This is the root view of a controller, so we can use the inset value directly, as per
+                // https://developer.apple.com/documentation/uikit/uiview/2891103-safeareainsets
+                return viewController.view.safeAreaInsets
+            } else if let window = window {
+                return window.safeAreaInsets
+            }
         }
         return UIEdgeInsets(
             top: _layoutGuideController?.topLayoutGuide.length ?? 0,
@@ -181,11 +214,11 @@ extension UIView {
         )
     }
 
-    private var _effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+    internal var _effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         if #available(iOS 10.0, *) {
             return effectiveUserInterfaceLayoutDirection
         } else {
-            return UIApplication.shared.userInterfaceLayoutDirection
+            return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
         }
     }
 
@@ -223,7 +256,18 @@ extension UIView {
                 break
             }
         }
-        try _setValue(value, ofType: type(of: self).cachedExpressionTypes[name], forKeyPath: name)
+        switch name {
+        case "contentHuggingPriority.horizontal":
+            setContentHuggingPriority(value as! UILayoutPriority, for: .horizontal)
+        case "contentHuggingPriority.vertical":
+            setContentHuggingPriority(value as! UILayoutPriority, for: .vertical)
+        case "contentCompressionResistancePriority.horizontal":
+            setContentCompressionResistancePriority(value as! UILayoutPriority, for: .horizontal)
+        case "contentCompressionResistancePriority.vertical":
+            setContentCompressionResistancePriority(value as! UILayoutPriority, for: .vertical)
+        default:
+            try _setValue(value, ofType: type(of: self).cachedExpressionTypes[name], forKeyPath: name)
+        }
     }
 
     // Set expression value with animation (if applicable)
@@ -237,6 +281,8 @@ extension UIView {
     /// Get symbol value
     @objc open func value(forSymbol name: String) throws -> Any {
         switch name {
+        case "backgroundColor":
+            return backgroundColor ?? .clear
         case "safeAreaInsets":
             return _safeAreaInsets
         case "safeAreaInsets.top":
@@ -251,6 +297,14 @@ extension UIView {
             return _layoutGuideController?.topLayoutGuide.length ?? 0
         case "bottomLayoutGuide.length": // TODO: deprecate this
             return _layoutGuideController?.bottomLayoutGuide.length ?? 0
+        case "contentHuggingPriority.horizontal":
+            return contentHuggingPriority(for: .horizontal)
+        case "contentHuggingPriority.vertical":
+            return contentHuggingPriority(for: .vertical)
+        case "contentCompressionResistancePriority.horizontal":
+            return contentCompressionResistancePriority(for: .horizontal)
+        case "contentCompressionResistancePriority.vertical":
+            return contentCompressionResistancePriority(for: .vertical)
         default:
             break
         }
@@ -269,6 +323,8 @@ extension UIView {
                 return ltr ? layoutMargins.right : layoutMargins.left
             case "effectiveUserInterfaceLayoutDirection":
                 return _effectiveUserInterfaceLayoutDirection
+            case "layer.maskedCorners":
+                return CACornerMask()
             default:
                 break
             }
@@ -286,7 +342,7 @@ extension UIView {
     @objc open func didInsertChildNode(_ node: LayoutNode, at index: Int) {
         if let viewController = self.viewController {
             for controller in node.viewControllers {
-                viewController.addChildViewController(controller)
+                viewController.addChild(controller)
             }
         }
         if index > 0, let previous = node.parent?.children[index - 1].view {
@@ -301,7 +357,7 @@ extension UIView {
     @objc open func willRemoveChildNode(_ node: LayoutNode, at _: Int) {
         if node._view == nil { return }
         for controller in node.viewControllers {
-            controller.removeFromParentViewController()
+            controller.removeFromParent()
         }
         node.view.removeFromSuperview()
     }
@@ -313,6 +369,8 @@ extension UIView {
 extension UIImageView {
     open override class var expressionTypes: [String: RuntimeType] {
         var types = super.expressionTypes
+        types["animationImages"] = .array(of: .uiImage)
+        types["highlightedAnimationImages"] = .array(of: .uiImage)
         #if arch(i386) || arch(x86_64)
             // Private properties
             for name in [
@@ -344,7 +402,7 @@ extension UIImageView {
     }
 }
 
-private let controlEvents: [String: UIControlEvents] = [
+private let controlEvents: [String: UIControl.Event] = [
     "touchDown": .touchDown,
     "touchDownRepeat": .touchDownRepeat,
     "touchDragInside": .touchDragInside,
@@ -365,7 +423,7 @@ private let controlEvents: [String: UIControlEvents] = [
     "allEvents": .allEvents,
 ]
 
-private let controlStates: [String: UIControlState] = [
+private let controlStates: [String: UIControl.State] = [
     "normal": .normal,
     "highlighted": .highlighted,
     "disabled": .disabled,
@@ -428,7 +486,7 @@ extension UIControl {
             } else {
                 if !target.responds(to: action) {
                     guard let responder = target as? UIResponder, let next = responder.next else {
-                        throw LayoutError.message("Layout could find no suitable target for the `\(action)` action. If the method exists, it must be prefixed with @objc or @IBAction to be used with Layout")
+                        throw LayoutError.message("Layout could find no suitable target for the \(action) action. If the method exists, it must be prefixed with @objc or @IBAction to be used with Layout")
                     }
                     try bindActions(for: next)
                     return
@@ -450,7 +508,7 @@ extension UIControl {
 
 extension UIButton {
     open override class func create(with node: LayoutNode) throws -> UIButton {
-        if let type = try node.value(forExpression: "type") as? UIButtonType {
+        if let type = try node.value(forExpression: "type") as? UIButton.ButtonType {
             return self.init(type: type)
         }
         return self.init(frame: .zero)
@@ -482,12 +540,11 @@ extension UIButton {
         for (name, type) in UIImageView.cachedExpressionTypes {
             types["imageView.\(name)"] = type
         }
-
+        // Private properties
+        types["lineBreakMode"] = nil
         #if arch(i386) || arch(x86_64)
-            // Private properties
             for name in [
                 "autosizesToFit",
-                "lineBreakMode",
                 "showPressFeedback",
             ] {
                 types[name] = nil
@@ -511,7 +568,7 @@ extension UIButton {
                 case "TitleColor": setTitleColor(value as? UIColor, for: state)
                 case "TitleShadowColor": setTitleShadowColor(value as? UIColor, for: state)
                 case "Image": setImage(value as? UIImage, for: state)
-                case "BackgroundImage":setBackgroundImage(value as? UIImage, for: state)
+                case "BackgroundImage": setBackgroundImage(value as? UIImage, for: state)
                 case "AttributedTitle": setAttributedTitle(value as? NSAttributedString, for: state)
                 default:
                     break
@@ -519,6 +576,31 @@ extension UIButton {
                 return
             }
             try super.setValue(value, forExpression: name)
+        }
+    }
+
+    open override func value(forSymbol name: String) throws -> Any {
+        switch name {
+        case "title": return title(for: .normal) ?? ""
+        case "titleColor": return titleColor(for: .normal) as Any
+        case "titleShadowColor": return titleShadowColor(for: .normal) as Any
+        case "image": return image(for: .normal) as Any
+        case "backgroundImage": return backgroundImage(for: .normal) as Any
+        case "attributedTitle": return attributedTitle(for: .normal) as Any
+        default:
+            if let (prefix, state) = controlStates.first(where: { name.hasPrefix($0.key) }) {
+                switch name[prefix.endIndex ..< name.endIndex] {
+                case "Title": return title(for: state) as Any
+                case "TitleColor": return titleColor(for: state) as Any
+                case "TitleShadowColor": return titleShadowColor(for: state) as Any
+                case "Image": return image(for: state) as Any
+                case "BackgroundImage": return backgroundImage(for: state) as Any
+                case "AttributedTitle": return attributedTitle(for: state) as Any
+                default:
+                    break
+                }
+            }
+            return try super.value(forSymbol: name)
         }
     }
 }
@@ -543,6 +625,7 @@ extension UILabel {
         types["textAlignment"] = .nsTextAlignment
         types["lineBreakMode"] = .nsLineBreakMode
         types["baselineAdjustment"] = .uiBaselineAdjustment
+        types["enablesMarqueeWhenAncestorFocused"] = .bool
 
         #if arch(i386) || arch(x86_64)
             // Private properties
@@ -567,6 +650,18 @@ extension UILabel {
         #endif
         return types
     }
+
+    open override func setValue(_ value: Any, forExpression name: String) throws {
+        if #available(iOS 12.0, *) {} else {
+            switch name {
+            case "enablesMarqueeWhenAncestorFocused":
+                return // does nothing
+            default:
+                break
+            }
+        }
+        try super.setValue(value, forExpression: name)
+    }
 }
 
 private let dragAndDropOptions: [String: RuntimeType] = [
@@ -587,6 +682,8 @@ extension UITextField {
         types["leftViewMode"] = .uiTextFieldViewMode
         types["rightViewMode"] = .uiTextFieldViewMode
         types["minimumFontSize"] = .cgFloat
+        types["passwordRules"] = .uiTextInputPasswordRules
+        types["textContentType"] = .uiTextContentType
         for (name, type) in dragAndDropOptions {
             types[name] = type
         }
@@ -609,6 +706,7 @@ extension UITextField {
                 "displaySecureTextUsingPlainText",
                 "drawsAsAtom",
                 "inactiveHasDimAppearance",
+                "isDevicePasscodeEntry",
                 "isUndoEnabled",
                 "labelOffset",
                 "nonEditingLinebreakMode",
@@ -647,6 +745,18 @@ extension UITextField {
         case "returnKeyType": returnKeyType = value as! UIReturnKeyType
         case "enablesReturnKeyAutomatically": enablesReturnKeyAutomatically = value as! Bool
         case "isSecureTextEntry": isSecureTextEntry = value as! Bool
+        case "passwordRules":
+            #if swift(>=4.1.5) || (!swift(>=4) && swift(>=3.4))
+                // TODO: warn about unavailability
+                if #available(iOS 12.0, *) {
+                    passwordRules = value as? UITextInputPasswordRules
+                }
+            #endif
+        case "textContentType":
+            // TODO: warn about unavailability
+            if #available(iOS 10.0, *) {
+                textContentType = value as? UITextContentType
+            }
         case "smartQuotesType":
             // TODO: warn about unavailability
             if #available(iOS 11.0, *) {
@@ -677,7 +787,6 @@ extension UITextView {
     open override class var expressionTypes: [String: RuntimeType] {
         var types = super.expressionTypes
         types["textAlignment"] = .nsTextAlignment
-        types["lineBreakMode"] = .nsLineBreakMode
         types["dataDetectorTypes"] = .uiDataDetectorTypes
         for (name, type) in textInputTraits {
             types[name] = type
@@ -751,7 +860,7 @@ extension UISearchBar {
         var types = super.expressionTypes
         types["barPosition"] = .uiBarPosition
         types["barStyle"] = .uiBarStyle
-        types["scopeButtonTitles"] = RuntimeType(Array<String>.self)
+        types["scopeButtonTitles"] = .array(of: .string)
         types["searchBarStyle"] = .uiSearchBarStyle
         for (name, type) in textInputTraits {
             types[name] = type
@@ -811,13 +920,9 @@ extension UISearchBar {
     }
 }
 
-private let controlSegments: [String: UISegmentedControlSegment] = [
-    "any": .any,
-    "left": .left,
-    "center": .center,
-    "right": .right,
-    "alone": .alone,
-]
+private let controlSegments = RuntimeType.uiSegmentedControlSegment.values.mapValues {
+    $0 as! UISegmentedControl.Segment
+}
 
 extension UISegmentedControl: TitleTextAttributes {
     open override class func create(with node: LayoutNode) throws -> UISegmentedControl {
@@ -914,24 +1019,24 @@ extension UISegmentedControl: TitleTextAttributes {
     }
 
     var titleColor: UIColor? {
-        get { return titleTextAttributes(for: .normal)?[NSAttributedStringKey.foregroundColor] as? UIColor }
+        get { return titleTextAttributes(for: .normal)?[NSAttributedString.Key.foregroundColor] as? UIColor }
         set { setTitleColor(newValue, for: .normal) }
     }
 
     var titleFont: UIFont? {
-        get { return titleTextAttributes(for: .normal)?[NSAttributedStringKey.font] as? UIFont }
+        get { return titleTextAttributes(for: .normal)?[NSAttributedString.Key.font] as? UIFont }
         set { setTitleFont(newValue, for: .normal) }
     }
 
-    private func setTitleColor(_ color: UIColor?, for state: UIControlState) {
+    private func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
         var attributes = titleTextAttributes(for: state) ?? [:]
-        attributes[NSAttributedStringKey.foregroundColor] = color
+        attributes[NSAttributedString.Key.foregroundColor] = color
         setTitleTextAttributes(attributes, for: state)
     }
 
-    private func setTitleFont(_ font: UIFont?, for state: UIControlState) {
+    private func setTitleFont(_ font: UIFont?, for state: UIControl.State) {
         var attributes = titleTextAttributes(for: state) ?? [:]
-        attributes[NSAttributedStringKey.font] = font
+        attributes[NSAttributedString.Key.font] = font
         setTitleTextAttributes(attributes, for: state)
     }
 
@@ -1177,7 +1282,7 @@ extension UIProgressView {
 
 extension UIInputView {
     open override class func create(with node: LayoutNode) throws -> UIInputView {
-        let inputViewStyle = try node.value(forExpression: "inputViewStyle") as? UIInputViewStyle ?? .default
+        let inputViewStyle = try node.value(forExpression: "inputViewStyle") as? UIInputView.Style ?? .default
         return self.init(frame: .zero, inputViewStyle: inputViewStyle)
     }
 
@@ -1187,14 +1292,16 @@ extension UIInputView {
 
     open override class var expressionTypes: [String: RuntimeType] {
         var types = super.expressionTypes
+        // Read-only properties
+        types["inputViewStyle"] = nil
+        // Private properties
         #if arch(i386) || arch(x86_64)
-            // Private and read-only properties
             for name in [
+                "assertSizingWithPredictionBar",
+                "backgroundEdgeInsets",
                 "contentRatio",
                 "leftContentViewSize",
                 "rightContentViewSize",
-            ] + [
-                "inputViewStyle",
             ] {
                 types[name] = nil
                 let name = "\(name)."
@@ -1264,12 +1371,52 @@ extension UIRefreshControl {
     }
 }
 
+extension UIVisualEffectView {
+    open override class func create(with node: LayoutNode) throws -> UIVisualEffectView {
+        let defaultStyle = RuntimeType.uiBlurEffect_Style.values["regular"]! as! UIBlurEffect.Style
+        var effect = try node.value(forExpression: "effect") as? UIVisualEffect
+        let style = try node.value(forExpression: "effect.style") as? UIBlurEffect.Style
+        if effect == nil {
+            effect = UIBlurEffect(style: style ?? defaultStyle)
+        } else if let style = style {
+            switch effect {
+            case nil, is UIBlurEffect:
+                effect = UIBlurEffect(style: style)
+            case is UIVibrancyEffect:
+                effect = UIVibrancyEffect(blurEffect: UIBlurEffect(style: style))
+            case let effect:
+                throw LayoutError.message("\(type(of: effect)) does not have a style property")
+            }
+        }
+        return self.init(effect: effect)
+    }
+
+    open override class var expressionTypes: [String: RuntimeType] {
+        var types = super.expressionTypes
+        for (key, type) in UIView.cachedExpressionTypes {
+            types["contentView.\(key)"] = type
+        }
+        #if arch(i386) || arch(x86_64)
+            // Private properties
+            types["backgroundEffects"] = nil
+            types["contentEffects"] = nil
+        #endif
+        return types
+    }
+
+    open override func didInsertChildNode(_ node: LayoutNode, at index: Int) {
+        // Insert child views into `contentView` instead of directly
+        contentView.didInsertChildNode(node, at: index)
+    }
+}
+
 private var baseURLKey = 1
 
 extension UIWebView {
     open override class var expressionTypes: [String: RuntimeType] {
         var types = super.expressionTypes
         types["baseURL"] = .url
+        types["delegate"] = RuntimeType(UIWebViewDelegate.self)
         types["htmlString"] = .string
         types["request"] = .urlRequest
         types["paginationMode"] = .uiWebPaginationMode
@@ -1333,6 +1480,7 @@ extension WKWebView {
         types["fileURL"] = .url
         types["readAccessURL"] = .url
         types["htmlString"] = .string
+        types["navigationDelegate"] = RuntimeType(WKNavigationDelegate.self)
         types["request"] = .urlRequest
         types["uiDelegate"] = RuntimeType(WKUIDelegate.self)
         types["UIDelegate"] = nil // TODO: find a way to automate this renaming

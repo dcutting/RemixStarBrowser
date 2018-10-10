@@ -3,13 +3,22 @@
 import UIKit
 
 /// Protocol for views or view controllers that can load and display a LayoutNode
-public protocol LayoutLoading: class {
+public protocol LayoutLoading: LayoutDelegate {
+    /// The loaded LayoutNode instance
+    /// A default implementation of this property is provided for UIView and UIViewControllers
     var layoutNode: LayoutNode? { get set }
-    func layoutError(_ error: LayoutError)
+
+    /// Called immediately after the layoutNode is set. Will not be called
+    /// in the event of an error, or if layoutNode is set to nil
+    func layoutDidLoad(_ layoutNode: LayoutNode)
+
+    /// Fetch a localized string constant for a given key.
+    /// These strings are assumed to be constant for the duration of the layout tree's lifecycle
+    /// The default implementation dynamically loads the string from the Localizable.strings file
+    func layoutString(forKey key: String) -> String?
 }
 
 public extension LayoutLoading {
-
     /// Load a named Layout xml file from a local resource bundle
     func loadLayout(
         named: String? = nil,
@@ -42,6 +51,7 @@ public extension LayoutLoading {
         constants: [String: Any]...,
         completion: ((LayoutError?) -> Void)? = nil
     ) {
+        ReloadManager.addObserver(self)
         loader.loadLayoutNode(
             withContentsOfURL: xmlURL,
             relativeTo: relativeTo,
@@ -71,23 +81,7 @@ public extension LayoutLoading {
         }
     }
 
-    /// Default error handler implementation - bubbles error up to the first
-    /// responder that will handle it, or asserts if no handler is found
-    func layoutError(_ error: LayoutError) {
-        DispatchQueue.main.async {
-            var responder = (self as? UIResponder)?.next
-            while responder != nil {
-                if let errorHandler = responder as? LayoutLoading {
-                    errorHandler.layoutError(error)
-                    return
-                }
-                responder = responder?.next ?? (responder as? UIViewController)?.parent
-            }
-            assertionFailure("Layout error: \(error)")
-        }
-    }
-
-    // Used by LayoutViewController
+    // Used by LayoutLoading protocol
     internal var loader: LayoutLoader {
         guard let loader = objc_getAssociatedObject(self, &loaderKey) as? LayoutLoader else {
             let loader = LayoutLoader()
@@ -98,18 +92,20 @@ public extension LayoutLoading {
     }
 }
 
-/// Default implementation of LayoutLoading for views
 public extension LayoutLoading where Self: UIView {
+    /// Default layoutNode implementation for views
     var layoutNode: LayoutNode? {
         get {
             return objc_getAssociatedObject(self, &layoutNodeKey) as? LayoutNode
         }
         set {
+            layoutNode?.unmount()
             objc_setAssociatedObject(self, &layoutNodeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             layoutNode?.unmount()
             if let layoutNode = layoutNode {
                 do {
                     try layoutNode.mount(in: self)
+                    layoutDidLoad(layoutNode)
                 } catch {
                     layoutError(LayoutError(error, for: layoutNode))
                 }
@@ -118,22 +114,48 @@ public extension LayoutLoading where Self: UIView {
     }
 }
 
-/// Default implementation of LayoutLoading for view controllers
 public extension LayoutLoading where Self: UIViewController {
+    /// Default layoutNode implementation for view controllers
     var layoutNode: LayoutNode? {
         get {
             return objc_getAssociatedObject(self, &layoutNodeKey) as? LayoutNode
         }
         set {
+            layoutNode?.unmount()
             objc_setAssociatedObject(self, &layoutNodeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             layoutNode?.unmount()
             if let layoutNode = layoutNode {
                 do {
                     try layoutNode.mount(in: self)
+                    layoutDidLoad(layoutNode)
                 } catch {
                     layoutError(LayoutError(error, for: layoutNode))
                 }
             }
+        }
+    }
+}
+
+public extension LayoutLoading {
+    /// Default layoutDidLoad(_:) implementation - does nothing
+    public func layoutDidLoad(_: LayoutNode) {}
+
+    /// Default layoutString implementation - bubbles request up to the first responder
+    /// that will handle it, or dynamically loads localized string  from Localizable.strings
+    /// file in the local resources if no overridden implementation is found
+    func layoutString(forKey key: String) -> String? {
+        var responder = (self as? UIResponder)?.next
+        while responder != nil {
+            if let stringHandler = responder as? LayoutLoading {
+                return stringHandler.layoutString(forKey: key)
+            }
+            responder = responder?.next ?? (responder as? UIViewController)?.parent
+        }
+        do {
+            return try loader.loadLocalizedStrings()[key]
+        } catch {
+            layoutError(LayoutError(error))
+            return nil
         }
     }
 }

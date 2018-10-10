@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "Layout.h"
 
 FOUNDATION_EXPORT double LayoutVersionNumber;
 FOUNDATION_EXPORT const unsigned char LayoutVersionString[];

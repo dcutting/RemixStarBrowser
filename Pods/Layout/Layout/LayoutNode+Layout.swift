@@ -3,7 +3,6 @@
 import Foundation
 
 extension LayoutNode {
-
     /// Create a new LayoutNode instance from a Layout template
     convenience init(
         layout: Layout,
@@ -34,7 +33,7 @@ extension LayoutNode {
             let _class: AnyClass = try layout.getClass()
             var expressions = layout.expressions
             if let body = layout.body {
-                guard let viewClass = _class as? UIView.Type, let bodyExpression = viewClass.bodyExpression else {
+                guard case let bodyExpression?? = _class.bodyExpression else {
                     throw LayoutError("\(layout.className) does not support inline (X)HTML content")
                 }
                 expressions[bodyExpression] = body
@@ -84,7 +83,6 @@ extension LayoutNode {
 }
 
 extension Layout {
-
     // Experimental - extracts a layout template from an existing node
     // TODO: this isn't a lossless conversion - find a better approach
     init(_ node: LayoutNode) {
@@ -98,6 +96,7 @@ extension Layout {
             body: nil,
             xmlPath: nil, // TODO: what if the layout is currently loading this? Race condition!
             templatePath: nil,
+            childrenTagIndex: nil,
             relativePath: nil,
             rootURL: node.rootURL
         )

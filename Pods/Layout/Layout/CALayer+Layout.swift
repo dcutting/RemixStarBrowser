@@ -2,9 +2,7 @@
 
 import QuartzCore
 
-private var _cachedExpressionTypes = [Int: [String: RuntimeType]]()
-
-extension CALayer {
+extension CALayer: LayoutConfigurable {
     /// Expression names and types
     @objc class var expressionTypes: [String: RuntimeType] {
         var types = allPropertyTypes()
@@ -19,55 +17,37 @@ extension CALayer {
         ] {
             types[key] = .cgFloat
         }
-        types["contentsGravity"] = RuntimeType([
-            "center",
-            "top",
-            "bottom",
-            "left",
-            "right",
-            "topLeft",
-            "topRight",
-            "bottomLeft",
-            "bottomRight",
-            "resize",
-            "resizeAspect",
-            "resizeAspectFill",
-        ] as Set<String>)
+        types["contentsGravity"] = .caLayerContentsGravity
         types["edgeAntialiasingMask"] = .caEdgeAntialiasingMask
-        types["fillMode"] = RuntimeType([
-            "backwards",
-            "forwards",
-            "both",
-            "removed",
-        ] as Set<String>)
-        types["minificationFilter"] = RuntimeType([
-            "nearest",
-            "linear",
-        ] as Set<String>)
-        types["magnificationFilter"] = RuntimeType([
-            "nearest",
-            "linear",
-        ] as Set<String>)
+        types["fillMode"] = .caMediaTimingFillMode
+        types["minificationFilter"] = .caLayerContentsFilter
+        types["magnificationFilter"] = .caLayerContentsFilter
         types["maskedCorners"] = .caCornerMask
         // Explicitly disabled properties
         for name in [
             "bounds",
             "frame",
-            "position",
         ] {
-            types[name] = .unavailable("Use top/left/width/height expressions instead")
+            types[name] = .unavailable("Use top/left/width/height instead")
             let name = "\(name)."
             for key in types.keys where key.hasPrefix(name) {
-                types[key] = .unavailable("Use top/left/width/height expressions instead")
+                types[key] = .unavailable("Use top/left/width/height instead")
             }
         }
         for name in [
-            "anchorPoint",
             "needsDisplayInRect",
         ] {
             types[name] = .unavailable()
             for key in types.keys where key.hasPrefix(name) {
                 types[key] = .unavailable()
+            }
+        }
+        for name in [
+            "position",
+        ] {
+            types[name] = .unavailable("Use center.x or center.y instead")
+            for key in types.keys where key.hasPrefix(name) {
+                types[key] = .unavailable("Use center.x or center.y instead")
             }
         }
 
@@ -89,9 +69,12 @@ extension CALayer {
                 "contentsMultiplyByColor",
                 "contentsOpaque",
                 "contentsScaling",
+                "contentsSwizzle",
                 "continuousCorners",
                 "cornerContentsCenter",
-                "cornerContentsMaskEdges",
+                "cornerContentsMasksEdges",
+                "definesDisplayRegionOfInterest",
+                "disableUpdateMask",
                 "doubleBounds",
                 "doublePosition",
                 "flipsHorizontalAxis",
@@ -123,15 +106,6 @@ extension CALayer {
                 }
             }
         #endif
-        return types
-    }
-
-    class var cachedExpressionTypes: [String: RuntimeType] {
-        if let types = _cachedExpressionTypes[self.hash()] {
-            return types
-        }
-        let types = expressionTypes
-        _cachedExpressionTypes[self.hash()] = types
         return types
     }
 }

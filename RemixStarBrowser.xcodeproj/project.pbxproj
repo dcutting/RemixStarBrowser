@@ -439,7 +439,6 @@
 				C84CA7221FC0F183004BBF8C /* Resources */,
 				C84CA7231FC0F183004BBF8C /* [OCSP] Generate Fitnesse Test System Scripts */,
 				91354687BE06A636B9DEA0BD /* [CP] Embed Pods Frameworks */,
-				A0397458215003E8E5DD2741 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -459,7 +458,6 @@
 				C8DF4B1A1FBDE49200066C3B /* Frameworks */,
 				C8DF4B1B1FBDE49200066C3B /* Resources */,
 				2E921622F2903681DA7A982D /* [CP] Embed Pods Frameworks */,
-				E78D8292853E85586009C491 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -587,21 +585,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A0397458215003E8E5DD2741 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcceptanceTests/Pods-AcceptanceTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A9B700057F419DB96612ED0E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,21 +616,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${OCSP_SUPPORT_FILE_DIR}/ocsp-generate-fitnesse-test-system-scripts.sh \"${OCSP_BUNDLE_RESOURCES_DIR}\"";
-		};
-		E78D8292853E85586009C491 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RemixStarBrowser/Pods-RemixStarBrowser-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

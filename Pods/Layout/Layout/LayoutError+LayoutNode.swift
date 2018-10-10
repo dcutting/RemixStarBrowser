@@ -16,9 +16,30 @@ extension LayoutError {
         switch error {
         case let error as SymbolError where error.description.contains("Unknown property"):
             if error.description.contains("expression") {
-                var suggestions = node.availableSymbols(forExpression: error.symbol)
+                let symbol: String
                 if let subError = error.error as? SymbolError {
-                    suggestions = bestMatches(for: subError.symbol, in: suggestions)
+                    symbol = subError.symbol
+                } else {
+                    symbol = error.symbol
+                }
+                let suggestions = bestMatches(
+                    for: symbol, in: node.availableSymbols(forExpression: error.symbol)
+                )
+                self.init(LayoutError.unknownSymbol(error, suggestions), for: node)
+            } else {
+                let suggestions = bestMatches(for: error.symbol, in: node.availableExpressions)
+                self.init(LayoutError.unknownExpression(error, suggestions), for: node)
+            }
+        case let error as SymbolError where error.description.contains("static property"):
+            if error.description.contains("expression") {
+                let symbol: String
+                if let subError = error.error as? SymbolError {
+                    symbol = subError.symbol
+                } else {
+                    symbol = error.symbol
+                }
+                guard let suggestions = staticPropertyMatches(for: symbol) else {
+                    fallthrough
                 }
                 self.init(LayoutError.unknownSymbol(error, suggestions), for: node)
             } else {
@@ -39,50 +60,84 @@ extension LayoutError {
     }
 }
 
-func bestMatches(for symbol: String, in suggestions: [String]) -> [String] {
-    let matchThreshold = 3 // Minimum characters needed to count as a match
-    let symbol = symbol.lowercased()
-    // Find all matches containing the string
-    var matches = suggestions.filter {
-        let match = $0.lowercased()
-        guard let range = match.range(of: symbol) else {
-            return false
+private func staticPropertyMatches(for key: String) -> [String]? {
+    var tail = key
+    var head = ""
+    while tail.isCapitalized, let range = tail.range(of: ".") {
+        if !head.isEmpty {
+            head += "."
         }
-        return match.distance(from: range.lowerBound, to: range.upperBound) >= matchThreshold
+        head += String(tail[..<range.lowerBound])
+        tail = String(tail[range.upperBound...])
     }
-    if !matches.isEmpty {
-        return matches.sorted { lhs, rhs in
-            let lhsMatch = lhs.lowercased()
-            guard let lhsRange = lhsMatch.range(of: symbol) else {
-                return false
+    guard !head.isEmpty, let type = RuntimeType.type(named: head) else {
+        return nil
+    }
+    switch type.kind {
+    case let .options(_, values):
+        return bestMatches(for: tail, in: Set(values.keys))
+    case let .any(type as NSObject.Type):
+        var suffix = head.components(separatedBy: ".").last!
+        for prefix in ["UI", "NS"] {
+            if suffix.hasPrefix(prefix) {
+                suffix = String(suffix[prefix.endIndex ..< suffix.endIndex])
+                break
             }
-            let rhsMatch = rhs.lowercased()
-            guard let rhsRange = rhsMatch.range(of: symbol) else {
-                return true
-            }
-            let lhsDistance = lhsMatch.distance(from: lhsRange.lowerBound, to: lhsRange.upperBound)
-            let rhsDistance = rhsMatch.distance(from: rhsRange.lowerBound, to: rhsRange.upperBound)
-            if lhsDistance == rhsDistance {
-                return lhsMatch.count < rhsMatch.count // Prefer the shortest match
-            }
-            return lhsDistance > rhsDistance // Prefer best match
         }
-    }
-    // Find all matches with a common prefix
-    matches = suggestions.filter {
-        $0.lowercased().commonPrefix(with: symbol).count >= matchThreshold
-    }
-    if !matches.isEmpty {
-        // Sort suggestions by longest common prefix with symbol
-        return matches.sorted { lhs, rhs in
-            let lhsLength = lhs.lowercased().commonPrefix(with: symbol).count
-            let rhsLength = rhs.lowercased().commonPrefix(with: symbol).count
-            if lhsLength == rhsLength {
-                return lhs.count < rhs.count // Prefer the shortest match
+        var keys = Set<String>()
+        var numberOfMethods: CUnsignedInt = 0
+        let methods = class_copyMethodList(object_getClass(type.self), &numberOfMethods)!
+        for i in 0 ..< Int(numberOfMethods) {
+            let selector: Selector = method_getName(methods[i])
+            var name = String(describing: selector)
+            guard !name.contains(":"), !name.hasPrefix("_") else {
+                continue
             }
-            return lhsLength > rhsLength
+            if name.hasSuffix(suffix) {
+                name.removeLast(suffix.count)
+            }
+            keys.insert(name)
         }
+        return bestMatches(for: tail, in: keys)
+    default:
+        return nil
     }
-    // Sort all suggestions alphabetically
-    return suggestions.sorted()
+}
+
+func bestMatches(for symbol: String, in suggestions: Set<String>) -> [String] {
+    func levenshtein(_ lhs: String, _ rhs: String) -> Int {
+        var dist = [[Int]]()
+        for i in 0 ... lhs.count {
+            dist.append([i])
+        }
+        for j in 1 ... rhs.count {
+            dist[0].append(j)
+        }
+        for i in 1 ... lhs.count {
+            let lhs = lhs[lhs.index(lhs.startIndex, offsetBy: i - 1)]
+            for j in 1 ... rhs.count {
+                if lhs == rhs[rhs.index(rhs.startIndex, offsetBy: j - 1)] {
+                    dist[i].append(dist[i - 1][j - 1])
+                } else {
+                    dist[i].append(min(min(dist[i - 1][j] + 1, dist[i][j - 1] + 1), dist[i - 1][j - 1] + 1))
+                }
+            }
+        }
+        return dist[lhs.count][rhs.count]
+    }
+    let lowercasedSymbol = symbol.lowercased()
+    // Sort suggestions by Levenshtein distance
+    return suggestions
+        .compactMap { (string) -> (String, Int)? in
+            let lowercaseString = string.lowercased()
+            // Eliminate keyPaths unless symbol itself is a keyPath or is part of result
+            guard !lowercaseString.contains(".") || symbol.contains(".") ||
+                lowercaseString.hasPrefix("\(lowercasedSymbol).") else {
+                return nil
+            }
+            return (string, levenshtein(string.lowercased(), lowercasedSymbol))
+        }
+        // Sort by Levenshtein distance
+        .sorted { $0.1 < $1.1 }
+        .map { $0.0 }
 }

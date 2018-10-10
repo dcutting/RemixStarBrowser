@@ -3,7 +3,6 @@
 import Foundation
 
 extension Layout {
-
     public init(xmlData: Data, url: URL? = nil, relativeTo: String? = #file) throws {
         let xml: [XMLNode]
         do {
@@ -30,41 +29,15 @@ extension Layout {
         var body = ""
         var isHTML = false
         var children = [Layout]()
+        var childrenTagIndex: Int?
         var parameters = [String: RuntimeType]()
         var macros = [String: String]()
         for node in childNodes {
             switch node {
             case let .node(_, attributes, childNodes):
-                if isHTML { // <param> is a valid html tag, so check if we're in an HTML context first
-                    body += try LayoutError.wrap({ try node.toHTML() }, in: className, in: url)
-                } else if node.isParameter {
+                if node.isMacro {
                     guard childNodes.isEmpty else {
-                        throw LayoutError("<param> node should not contain children", in: className, in: url)
-                    }
-                    for key in ["name", "type"] {
-                        guard let value = attributes[key], !value.isEmpty else {
-                            throw LayoutError("<param> \(key) is a required attribute", in: className, in: url)
-                        }
-                    }
-                    var name = ""
-                    var type: RuntimeType?
-                    for (key, value) in attributes {
-                        switch key {
-                        case "name":
-                            name = value
-                        case "type":
-                            guard let runtimeType = RuntimeType(value) else {
-                                throw LayoutError("Unknown or unsupported type \(value) in <param>. Try using Any instead", in: className, in: url)
-                            }
-                            type = runtimeType
-                        default:
-                            throw LayoutError("Unexpected attribute `\(key)` in <param>", in: className, in: url)
-                        }
-                    }
-                    parameters[name] = type
-                } else if node.isMacro {
-                    guard childNodes.isEmpty else {
-                        throw LayoutError("<macro> node should not contain children", in: className, in: url)
+                        throw LayoutError("<macro> node should not contain sub-nodes", in: className, in: url)
                     }
                     for key in ["name", "value"] {
                         guard let value = attributes[key], !value.isEmpty else {
@@ -80,15 +53,49 @@ extension Layout {
                         case "value":
                             expression = value
                         default:
-                            throw LayoutError("Unexpected attribute `\(key)` in <macro>", in: className, in: url)
+                            throw LayoutError("Unexpected attribute \(key) in <macro>", in: className, in: url)
                         }
                     }
                     macros[name] = expression
+                } else if node.isChildren {
+                    guard childNodes.isEmpty else {
+                        throw LayoutError("<children> node should not contain sub-nodes", in: className, in: url)
+                    }
+                    for key in attributes.keys {
+                        throw LayoutError("Unexpected attribute \(key) in <children>", in: className, in: url)
+                    }
+                    childrenTagIndex = children.count
+                } else if isHTML { // <param> is a valid html tag, so check if we're in an HTML context first
+                    body += try LayoutError.wrap({ try node.toHTML() }, in: className, in: url)
+                } else if node.isParameter {
+                    guard childNodes.isEmpty else {
+                        throw LayoutError("<param> node should not contain sub-nodes", in: className, in: url)
+                    }
+                    for key in ["name", "type"] {
+                        guard let value = attributes[key], !value.isEmpty else {
+                            throw LayoutError("<param> \(key) is a required attribute", in: className, in: url)
+                        }
+                    }
+                    var name = ""
+                    var type: RuntimeType?
+                    for (key, value) in attributes {
+                        switch key {
+                        case "name":
+                            name = value
+                        case "type":
+                            guard let runtimeType = RuntimeType.type(named: value) else {
+                                throw LayoutError("Unknown or unsupported type \(value) in <param>. Try using Any instead", in: className, in: url)
+                            }
+                            type = runtimeType
+                        default:
+                            throw LayoutError("Unexpected attribute \(key) in <param>", in: className, in: url)
+                        }
+                    }
+                    parameters[name] = type
                 } else if node.isHTML {
                     body = try LayoutError.wrap({ try body.xmlEncoded() + node.toHTML() }, in: className, in: url)
                     isHTML = true
                 } else {
-                    body = ""
                     try LayoutError.wrap({
                         try children.append(Layout(xmlNode: node, url: url, relativeTo: relativeTo))
                     }, in: className, in: url)
@@ -139,18 +146,12 @@ extension Layout {
             body: body.isEmpty ? nil : body,
             xmlPath: xmlPath,
             templatePath: templatePath,
+            childrenTagIndex: childrenTagIndex,
             relativePath: relativeTo,
             rootURL: url
         )
     }
 }
-
-// http://w3c.github.io/html/syntax.html#void-elements
-private let emptyHTMLTags: Set<String> = [
-    "area", "base", "br", "col", "embed", "hr",
-    "img", "input", "link", "meta", "param",
-    "source", "track", "wbr",
-]
 
 private extension XMLNode {
     func toHTML() throws -> String {

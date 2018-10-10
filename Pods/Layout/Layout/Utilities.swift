@@ -2,40 +2,6 @@
 
 import UIKit
 
-struct IntOptionSet: OptionSet {
-    let rawValue: Int
-    init(rawValue: Int) {
-        self.rawValue = rawValue
-    }
-}
-
-struct UIntOptionSet: OptionSet {
-    let rawValue: UInt
-    init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-}
-
-// Convert any object to a string
-func stringify(_ value: Any) throws -> String {
-    switch try unwrap(value) {
-    case let bool as Bool:
-        return bool ? "true" : "false"
-    case let number as NSNumber:
-        if let int = Int64(exactly: number) {
-            return "\(int)"
-        }
-        if let uint = UInt64(exactly: number) {
-            return "\(uint)"
-        }
-        return "\(number)"
-    case let value as NSAttributedString:
-        return value.string
-    case let value:
-        return "\(value)"
-    }
-}
-
 // Flatten an array of dictionaries
 func merge(_ dictionaries: [[String: Any]]) -> [String: Any] {
     var result = [String: Any]()
@@ -95,25 +61,37 @@ func urlFromString(_ path: String, relativeTo baseURL: URL? = nil) -> URL {
     }
 }
 
+// Internal API for overriding built-in methods
+func replace(_ sela: Selector, of cls: AnyClass, with selb: Selector) {
+    let swizzledMethod = class_getInstanceMethod(cls, selb)!
+    let originalMethod = class_getInstanceMethod(cls, sela)!
+    method_exchangeImplementations(originalMethod, swizzledMethod)
+}
+
+// MARK: Approximate equality
+
 private let precision: CGFloat = 0.001
 
 extension CGPoint {
-    func isNearlyEqual(to other: CGPoint?) -> Bool {
-        guard let other = other else { return false }
+    func isNearlyEqual(to other: CGPoint) -> Bool {
         return abs(x - other.x) <= precision && abs(y - other.y) <= precision
     }
 }
 
 extension CGSize {
-    func isNearlyEqual(to other: CGSize?) -> Bool {
-        guard let other = other else { return false }
+    func isNearlyEqual(to other: CGSize) -> Bool {
         return abs(width - other.width) <= precision && abs(height - other.height) <= precision
     }
 }
 
+extension CGRect {
+    func isNearlyEqual(to other: CGRect) -> Bool {
+        return size.isNearlyEqual(to: other.size) && origin.isNearlyEqual(to: other.origin)
+    }
+}
+
 extension UIEdgeInsets {
-    func isNearlyEqual(to other: UIEdgeInsets?) -> Bool {
-        guard let other = other else { return false }
+    func isNearlyEqual(to other: UIEdgeInsets) -> Bool {
         return
             abs(left - other.left) <= precision &&
             abs(right - other.right) <= precision &&
@@ -122,10 +100,31 @@ extension UIEdgeInsets {
     }
 }
 
-#if swift(>=4)
-#else
+// MARK: Backwards compatibility
 
-    // Swift 4 compatibility helpers
+struct IntOptionSet: OptionSet {
+    let rawValue: Int
+    init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+}
+
+struct UIntOptionSet: OptionSet {
+    let rawValue: UInt
+    init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+}
+
+#if !swift(>=3.4)
+
+    extension UIFont {
+        typealias Weight = UIFontWeight
+    }
+
+#endif
+
+#if !swift(>=4)
 
     extension NSAttributedString {
         struct DocumentType {
@@ -142,10 +141,6 @@ extension UIEdgeInsets {
         static let foregroundColor = NSForegroundColorAttributeName
         static let font = NSFontAttributeName
         static let paragraphStyle = NSParagraphStyleAttributeName
-    }
-
-    extension UIFont {
-        typealias Weight = UIFontWeight
     }
 
     extension UIFont.Weight {
@@ -165,11 +160,11 @@ extension UIEdgeInsets {
             static let traits = UIFontDescriptorTraitsAttribute
         }
 
-        typealias TraitKey = String
+        typealias TraitKey = NSString
     }
 
     extension UIFontDescriptor.TraitKey {
-        static let weight = UIFontWeightTrait
+        static let weight = UIFontWeightTrait as NSString
     }
 
     extension UILayoutPriority {
@@ -177,48 +172,214 @@ extension UIEdgeInsets {
         init(rawValue: Float) { self = rawValue }
 
         static let required = UILayoutPriorityRequired
+        static let defaultHigh = UILayoutPriorityDefaultHigh
+        static let defaultLow = UILayoutPriorityDefaultLow
+        static let fittingSizeLevel = UILayoutPriorityFittingSizeLevel
     }
 
-    extension Int64 {
-        init?(exactly number: NSNumber) {
-            self.init(exactly: Double(number))
+#endif
+
+#if !swift(>=4.1.5)
+
+    typealias UIScrollViewDecelerationRate = CGFloat
+
+#endif
+
+#if !swift(>=4.2)
+
+    extension UIContentSizeCategory {
+        static let didChangeNotification = NSNotification.Name.UIContentSizeCategoryDidChange
+    }
+
+    extension NSAttributedString {
+        typealias Key = NSAttributedStringKey
+    }
+
+    extension NSLayoutConstraint {
+        typealias Axis = UILayoutConstraintAxis
+    }
+
+    extension UIFont {
+        typealias TextStyle = UIFontTextStyle
+    }
+
+    extension UIFontDescriptor {
+        typealias SymbolicTraits = UIFontDescriptorSymbolicTraits
+    }
+
+    extension UIAccessibilityTraits {
+        static var tabBar: UIAccessibilityTraits {
+            if #available(iOS 10, *) {
+                return UIAccessibilityTraitTabBar
+            }
+            preconditionFailure("UIAccessibilityTraitTabBar is not available")
+        }
+
+        static let none = UIAccessibilityTraitNone
+        static let button = UIAccessibilityTraitButton
+        static let link = UIAccessibilityTraitLink
+        static let header = UIAccessibilityTraitHeader
+        static let searchField = UIAccessibilityTraitSearchField
+        static let image = UIAccessibilityTraitImage
+        static let selected = UIAccessibilityTraitSelected
+        static let playsSound = UIAccessibilityTraitPlaysSound
+        static let keyboardKey = UIAccessibilityTraitKeyboardKey
+        static let staticText = UIAccessibilityTraitStaticText
+        static let summaryElement = UIAccessibilityTraitSummaryElement
+        static let notEnabled = UIAccessibilityTraitNotEnabled
+        static let updatesFrequently = UIAccessibilityTraitUpdatesFrequently
+        static let startsMediaSession = UIAccessibilityTraitStartsMediaSession
+        static let adjustable = UIAccessibilityTraitAdjustable
+        static let allowsDirectInteraction = UIAccessibilityTraitAllowsDirectInteraction
+        static let causesPageTurn = UIAccessibilityTraitCausesPageTurn
+    }
+
+    extension UIActivity {
+        typealias ActivityType = UIActivityType
+    }
+
+    extension UIView {
+        typealias ContentMode = UIViewContentMode
+        typealias AutoresizingMask = UIViewAutoresizing
+        typealias TintAdjustmentMode = UIViewTintAdjustmentMode
+
+        static let noIntrinsicMetric = UIViewNoIntrinsicMetric
+
+        @nonobjc func bringSubviewToFront(_ subview: UIView) {
+            bringSubview(toFront: subview)
         }
     }
 
-    extension Double {
-        init(truncating number: NSNumber) {
-            self.init(number)
+    extension UIViewController {
+        @nonobjc func addChild(_ child: UIViewController) {
+            addChildViewController(child)
+        }
+
+        @nonobjc func removeFromParent() {
+            removeFromParentViewController()
         }
     }
 
-    extension CGFloat {
-        init(truncating number: NSNumber) {
-            self.init(number)
+    extension UIControl {
+        typealias State = UIControlState
+        typealias Event = UIControlEvents
+        typealias ContentVerticalAlignment = UIControlContentVerticalAlignment
+        typealias ContentHorizontalAlignment = UIControlContentHorizontalAlignment
+    }
+
+    extension UIBarButtonItem {
+        typealias SystemItem = UIBarButtonSystemItem
+        typealias Style = UIBarButtonItemStyle
+    }
+
+    extension UIButton {
+        typealias ButtonType = UIButtonType
+    }
+
+    extension UIActivityIndicatorView {
+        typealias Style = UIActivityIndicatorViewStyle
+    }
+
+    extension UIProgressView {
+        typealias Style = UIProgressViewStyle
+    }
+
+    extension UIInputView {
+        typealias Style = UIInputViewStyle
+    }
+
+    extension UIDatePicker {
+        typealias Mode = UIDatePickerMode
+    }
+
+    extension UITextField {
+        typealias BorderStyle = UITextBorderStyle
+        typealias ViewMode = UITextFieldViewMode
+    }
+
+    extension UITabBar {
+        typealias ItemPositioning = UITabBarItemPositioning
+    }
+
+    extension UITabBarItem {
+        typealias SystemItem = UITabBarSystemItem
+    }
+
+    extension UITableView {
+        typealias Style = UITableViewStyle
+
+        static let automaticDimension = UITableViewAutomaticDimension
+    }
+
+    extension UITableViewCell {
+        typealias CellStyle = UITableViewCellStyle
+        typealias AccessoryType = UITableViewCellAccessoryType
+        typealias FocusStyle = UITableViewCellFocusStyle
+        typealias SelectionStyle = UITableViewCellSelectionStyle
+        typealias SeparatorStyle = UITableViewCellSeparatorStyle
+    }
+
+    extension UISearchBar {
+        typealias Style = UISearchBarStyle
+    }
+
+    extension UISegmentedControl {
+        typealias Segment = UISegmentedControlSegment
+    }
+
+    extension UIScrollView {
+        typealias DecelerationRate = UIScrollViewDecelerationRate
+        typealias IndicatorStyle = UIScrollViewIndicatorStyle
+        typealias IndexDisplayMode = UIScrollViewIndexDisplayMode
+        typealias KeyboardDismissMode = UIScrollViewKeyboardDismissMode
+    }
+
+    extension UIScrollViewDecelerationRate {
+        static let fast = UIScrollViewDecelerationRateFast
+        static let normal = UIScrollViewDecelerationRateNormal
+    }
+
+    extension UICollectionView {
+        typealias ScrollDirection = UICollectionViewScrollDirection
+    }
+
+    extension UICollectionViewFlowLayout {
+        static var automaticSize: CGSize {
+            if #available(iOS 10, *) {
+                return UICollectionViewFlowLayoutAutomaticSize
+            }
+            preconditionFailure("UICollectionViewFlowLayoutAutomaticSize is not available")
         }
     }
 
-    extension Float {
-        init(truncating number: NSNumber) {
-            self.init(number)
-        }
+    extension UIStackView {
+        typealias Alignment = UIStackViewAlignment
+        typealias Distribution = UIStackViewDistribution
     }
 
-    extension Int {
-        init(truncating number: NSNumber) {
-            self.init(number)
-        }
+    extension UIWebView {
+        typealias PaginationMode = UIWebPaginationMode
+        typealias PaginationBreakingMode = UIWebPaginationBreakingMode
     }
 
-    extension UInt {
-        init(truncating number: NSNumber) {
-            self.init(number)
-        }
+    extension UIAlertController {
+        typealias Style = UIAlertControllerStyle
     }
 
-    extension Bool {
-        init(truncating number: NSNumber) {
-            self.init(number)
-        }
+    extension UIImagePickerController {
+        typealias CameraCaptureMode = UIImagePickerControllerCameraCaptureMode
+        typealias CameraDevice = UIImagePickerControllerCameraDevice
+        typealias CameraFlashMode = UIImagePickerControllerCameraFlashMode
+        typealias SourceType = UIImagePickerControllerSourceType
+        typealias QualityType = UIImagePickerControllerQualityType
+    }
+
+    extension UISplitViewController {
+        typealias DisplayMode = UISplitViewControllerDisplayMode
+    }
+
+    extension UIBlurEffect {
+        typealias Style = UIBlurEffectStyle
     }
 
 #endif

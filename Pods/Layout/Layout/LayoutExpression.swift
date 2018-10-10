@@ -3,6 +3,12 @@
 import UIKit
 import Foundation
 
+func clearLayoutExpressionCache() {
+    _colorCache.removeAll()
+    _colorAssetCache.removeAll()
+    _imageAssetCache.removeAllObjects()
+}
+
 private let ignoredSymbols: Set<Expression.Symbol> = [
     .variable("pi"),
     .variable("true"),
@@ -30,6 +36,26 @@ private func cast(_ anyValue: Any, as type: RuntimeType) throws -> Any {
     guard let value = type.cast(anyValue) else {
         let value = try unwrap(anyValue)
         throw Expression.Error.message("\(Swift.type(of: value)) is not compatible with expected type \(type)")
+    }
+    return value
+}
+
+private func stringify(_ value: Any) throws -> String {
+    switch try unwrap(value) {
+    case let bundle as Bundle:
+        return bundle.bundleIdentifier ?? bundle.bundleURL.absoluteString
+    case let value:
+        return AnyExpression.stringify(value)
+    }
+}
+
+private func isNil(_ value: Any) -> Bool {
+    return AnyExpression.isNil(value)
+}
+
+private func unwrap(_ value: Any) throws -> Any {
+    guard let value = AnyExpression.unwrap(value) else {
+        throw AnyExpression.Error.message("Unexpected nil value")
     }
     return value
 }
@@ -94,13 +120,58 @@ private func stringToAsset(_ string: String) throws -> (name: String, bundle: Bu
     if parts.count > 2 {
         throw Expression.Error.message("Invalid XCAsset name format: \(string)")
     }
-    guard let bundle = Bundle(identifier: identifier) ?? Bundle.allBundles.first(where: {
-        $0.infoDictionary?[kCFBundleNameKey as String] as? String == identifier
-    }) else {
+
+    func bundleDescription(_ identifier: String) -> String {
         let nameOrIdentifier = identifier.contains(".") ? "identifier" : "name"
-        throw Expression.Error.message("Could not locate bundle with \(nameOrIdentifier) \(identifier)")
+        return "\(nameOrIdentifier) \(identifier)"
     }
-    return (parts[1], bundle, nil)
+
+    var match: Bundle?
+    for framework in Bundle.allFrameworks {
+        let name = framework.infoDictionary?[kCFBundleNameKey as String] as? String
+        guard framework.bundleIdentifier == identifier || name == identifier else {
+            continue
+        }
+
+        var _bundle = framework
+        // Check for a resource bundle with the same name/identifier as the framework
+        // This is a common structure for bundled resources when using Cocoapods modules
+        if let name = name,
+            let bundle = framework.url(forResource: name, withExtension: "bundle").flatMap({
+                Bundle(url: $0)
+            }) {
+            _bundle = bundle
+        }
+
+        #if arch(i386) || arch(x86_64)
+            if match != nil, match != framework {
+                throw Expression.Error.message("Multiple matches for bundle with \(bundleDescription(identifier))")
+            }
+            match = _bundle
+        #else
+            return (parts[1], _bundle, nil)
+        #endif
+    }
+    for _bundle in Bundle.allBundles {
+        let name = _bundle.infoDictionary?[kCFBundleNameKey as String] as? String
+        guard _bundle.bundleIdentifier == identifier || name == identifier else {
+            continue
+        }
+
+        #if arch(i386) || arch(x86_64)
+            if match != nil, match != _bundle {
+                throw Expression.Error.message("Multiple matches for bundle with \(bundleDescription(identifier))")
+            }
+            match = _bundle
+        #else
+            match = _bundle
+            return (parts[1], match, nil)
+        #endif
+    }
+    if let match = match {
+        return (parts[1], match, nil)
+    }
+    throw Expression.Error.message("Could not locate bundle with \(bundleDescription(identifier))")
 }
 
 private var _colorAssetCache = [String: UIColor]()
@@ -108,18 +179,18 @@ func stringToColorAsset(_ string: String) throws -> UIColor? {
     if let color = _colorAssetCache[string] {
         return color
     }
-    let asset = try stringToAsset(string)
+    let (name, bundle, traits) = try stringToAsset(string)
     if #available(iOS 11.0, *) {
-        if let color = UIColor(named: asset.name, in: asset.bundle, compatibleWith: asset.traits) {
+        if let color = UIColor(named: name, in: bundle, compatibleWith: traits) {
             _colorAssetCache[string] = color
             return color
         }
-        if let bundle = asset.bundle {
-            throw Expression.Error.message("Color named `\(asset.name)` not found in bundle \(bundle.bundleIdentifier ?? "<unknown>")")
+        if let bundle = bundle {
+            throw Expression.Error.message("Color named '\(name)' not found in bundle \(bundle.bundleIdentifier ?? "<unknown>")")
         }
         return nil
     }
-    if asset.bundle != nil {
+    if bundle != nil {
         throw Expression.Error.message("Named colors are only supported in iOS 11 and above")
     }
     return nil
@@ -136,7 +207,7 @@ func stringToImageAsset(_ string: String) throws -> UIImage? {
         return image
     }
     if let bundle = bundle {
-        throw Expression.Error.message("Image named `\(name)` not found in bundle \(bundle.bundleIdentifier ?? "<unknown>")")
+        throw Expression.Error.message("Image named '\(name)' not found in bundle \(bundle.bundleIdentifier ?? "<unknown>")")
     }
     return nil
 }
@@ -144,16 +215,28 @@ func stringToImageAsset(_ string: String) throws -> UIImage? {
 struct LayoutExpression {
     let evaluate: () throws -> Any
     let symbols: Set<String>
+    let isConstant: Bool
 
-    var isConstant: Bool { return symbols.isEmpty }
-
-    init(evaluate: @escaping () throws -> Any, symbols: Set<String>) {
+    init(evaluate: @escaping () throws -> Any, symbols: Set<String>, isConstant: Bool) {
         self.symbols = symbols
-        if symbols.isEmpty, let value = try? evaluate() {
-            self.evaluate = { value }
+        self.isConstant = isConstant
+        if isConstant {
+            do {
+                let value = try evaluate()
+                self.evaluate = { value }
+            } catch {
+                self.evaluate = { throw error }
+            }
         } else {
+            assert(!symbols.isEmpty)
             self.evaluate = evaluate
         }
+    }
+
+    init(error: Error) {
+        symbols = []
+        isConstant = true
+        evaluate = { throw error }
     }
 
     init?(doubleExpression: String, for node: LayoutNode) {
@@ -174,23 +257,29 @@ struct LayoutExpression {
 
     private init?(percentageExpression: String,
                   for prop: String, in node: LayoutNode,
-                  symbols: [Expression.Symbol: Expression.Symbol.Evaluator] = [:]) {
-
-        var symbols = symbols
-        symbols[.postfix("%")] = { [unowned node] args in
-            try node.doubleValue(forSymbol: prop) / 100 * args[0]
-        }
+                  impureSymbols: (AnyExpression.Symbol) -> AnyExpression.SymbolEvaluator? = { _ in nil }) {
         guard let expression = LayoutExpression(
             anyExpression: percentageExpression,
             type: .cgFloat,
-            numericSymbols: symbols,
+            impureSymbols: { symbol in
+                if case .postfix("%") = symbol {
+                    return { [unowned node] anyArgs in
+                        guard let value = anyArgs[0] as? Double else {
+                            throw Expression.Error.message("Type mismatch")
+                        }
+                        return try node.doubleValue(forSymbol: prop) / 100 * value
+                    }
+                }
+                return impureSymbols(symbol)
+            },
             for: node
         ) else {
             return nil
         }
         self.init(
             evaluate: expression.evaluate,
-            symbols: Set(expression.symbols.map { $0 == "%" ? prop : $0 })
+            symbols: Set(expression.symbols.map { $0 == "%" ? prop : $0 }),
+            isConstant: expression.isConstant
         )
     }
 
@@ -207,15 +296,21 @@ struct LayoutExpression {
         guard let expression = LayoutExpression(
             percentageExpression: sizeExpression,
             for: "parent.containerSize.\(prop)", in: node,
-            symbols: [.variable("auto"): { [unowned node] _ in
-                try node.doubleValue(forSymbol: sizeProp)
-            }]
+            impureSymbols: { symbol in
+                if case .variable("auto") = symbol {
+                    return { [unowned node] _ in
+                        try node.doubleValue(forSymbol: sizeProp)
+                    }
+                }
+                return nil
+            }
         ) else {
             return nil
         }
         self.init(
             evaluate: expression.evaluate,
-            symbols: Set(expression.symbols.map { $0 == "auto" ? sizeProp : $0 })
+            symbols: Set(expression.symbols.map { $0 == "auto" ? sizeProp : $0 }),
+            isConstant: expression.isConstant
         )
     }
 
@@ -232,15 +327,21 @@ struct LayoutExpression {
         guard let expression = LayoutExpression(
             percentageExpression: contentSizeExpression,
             for: "containerSize.\(prop)", in: node,
-            symbols: [.variable("auto"): { [unowned node] _ in
-                try node.doubleValue(forSymbol: sizeProp)
-            }]
+            impureSymbols: { symbol in
+                if case .variable("auto") = symbol {
+                    return { [unowned node] _ in
+                        try node.doubleValue(forSymbol: sizeProp)
+                    }
+                }
+                return nil
+            }
         ) else {
             return nil
         }
         self.init(
             evaluate: expression.evaluate,
-            symbols: Set(expression.symbols.map { $0 == "auto" ? sizeProp : $0 })
+            symbols: Set(expression.symbols.map { $0 == "auto" ? sizeProp : $0 }),
+            isConstant: expression.isConstant
         )
     }
 
@@ -252,41 +353,39 @@ struct LayoutExpression {
         self.init(contentSizeExpression: contentHeightExpression, for: "height", in: node)
     }
 
-    // symbols are assumed to be pure - i.e. they will always return the same value
-    // numericSymbols are assumed to be impure - i.e. they won't always return the same value
     private init?(anyExpression: String,
                   type: RuntimeType,
                   nullable: Bool = false,
-                  symbols: [AnyExpression.Symbol: AnyExpression.SymbolEvaluator] = [:],
-                  numericSymbols: [AnyExpression.Symbol: Expression.Symbol.Evaluator] = [:],
-                  lookup: @escaping (String) -> Any? = { _ in nil },
+                  constants: @escaping (String) -> Any? = { _ in nil },
+                  pureSymbols: (AnyExpression.Symbol) -> AnyExpression.SymbolEvaluator? = { _ in nil },
+                  impureSymbols: (AnyExpression.Symbol) -> AnyExpression.SymbolEvaluator? = { _ in nil },
                   for node: LayoutNode) {
         do {
             self.init(
                 anyExpression: try parseExpression(anyExpression),
                 type: type,
                 nullable: nullable,
-                symbols: symbols,
-                numericSymbols: numericSymbols,
-                lookup: lookup,
+                constants: constants,
+                pureSymbols: pureSymbols,
+                impureSymbols: impureSymbols,
                 for: node
             )
         } catch {
-            self.init(evaluate: { throw error }, symbols: [])
+            self.init(error: error)
         }
     }
 
-    // symbols are assumed to be pure - i.e. they will always return the same value
-    // numericSymbols are assumed to be impure - i.e. they won't always return the same value
     private init?(anyExpression parsedExpression: ParsedLayoutExpression,
                   type: RuntimeType,
                   nullable: Bool,
-                  symbols: [AnyExpression.Symbol: AnyExpression.SymbolEvaluator] = [:],
-                  numericSymbols: [AnyExpression.Symbol: Expression.Symbol.Evaluator] = [:],
-                  lookup: @escaping (String) -> Any? = { _ in nil },
+                  constants: @escaping (String) -> Any? = { _ in nil },
+                  pureSymbols: (AnyExpression.Symbol) -> AnyExpression.SymbolEvaluator? = { _ in nil },
+                  impureSymbols: (AnyExpression.Symbol) -> AnyExpression.SymbolEvaluator? = { _ in nil },
                   macroReferences: [String] = [],
                   for node: LayoutNode) {
-
+        if parsedExpression.isEmpty {
+            return nil
+        }
         func staticConstant(for key: String) throws -> Any? {
             var tail = key
             var head = ""
@@ -297,175 +396,220 @@ struct LayoutExpression {
                 head += String(tail[..<range.lowerBound])
                 tail = String(tail[range.upperBound...])
             }
-            guard !head.isEmpty, let type = RuntimeType(head) else {
+            guard !head.isEmpty, let type = RuntimeType.type(named: head) else {
                 return nil
             }
-            switch type.type {
-            case let .enum(_, values):
-                return values[tail]
-            case let .options(_, values):
-                return values[tail]
-            case let .any(type):
-                guard let cls = type as? NSObject.Type else {
-                    fallthrough
+            guard let value: Any = {
+                switch type.kind {
+                case let .options(_, values):
+                    return values[tail]
+                case let .any(type as NSObject.Type):
+                    if !tail.isEmpty {
+                        if !type.responds(to: Selector(tail)) {
+                            var suffix = head.components(separatedBy: ".").last!
+                            for prefix in ["UI", "NS"] {
+                                if suffix.hasPrefix(prefix) {
+                                    suffix = String(suffix[prefix.endIndex ..< suffix.endIndex])
+                                    break
+                                }
+                            }
+                            let newTail = tail + suffix
+                            guard type.responds(to: Selector(newTail)) else {
+                                return nil
+                            }
+                            tail = newTail
+                        }
+                        return type.value(forKeyPath: tail)
+                    }
+                    return type
+                default:
+                    return nil
                 }
+            }() else {
                 if !tail.isEmpty {
-                    guard cls.responds(to: Selector(tail)) else {
-                        var suffix = head.components(separatedBy: ".").last!
-                        for prefix in ["UI", "NS"] {
-                            if suffix.hasPrefix(prefix) {
-                                suffix = String(suffix[prefix.endIndex ..< suffix.endIndex])
-                                break
-                            }
-                        }
-                        let newTail = tail + suffix
-                        guard cls.responds(to: Selector(newTail)) else {
-                            throw SymbolError("Cannot access static property `\(tail)` of class \(head)", for: key)
-                        }
-                        return cls.value(forKeyPath: newTail)
-                    }
-                    return cls.value(forKeyPath: tail)
+                    throw SymbolError("Unknown static property \(key)", for: key)
                 }
-                return cls
-            default:
-                break
+                throw SymbolError("Unsupported type \(type)", for: key)
             }
-            if !tail.isEmpty {
-                throw SymbolError("Cannot access static property `\(tail)` of type \(head)", for: key)
+            return value
+        }
+        func unescapedName(_ name: String) -> String {
+            if name.first == "`" {
+                return String(name.dropFirst().dropLast())
             }
-            throw SymbolError("Unsupported type \(type)", for: key)
+            return name
         }
-        if parsedExpression.isEmpty {
-            return nil
-        }
-        var constants = [String: Any]()
-        var symbols = symbols
+        var allConstants = [String: Any]()
         var macroSymbols = [String: Set<String>]()
-        for symbol in parsedExpression.symbols where symbols[symbol] == nil &&
-            numericSymbols[symbol] == nil && !ignoredSymbols.contains(symbol) {
-            if case let .variable(name) = symbol, let first = name.first, !"'\"".contains(first) {
-                var key = name
-                if key.count >= 2, key.first == "`", key.last == "`" {
-                    key = String(key.dropFirst().dropLast())
+        var pureMacros = [Expression.Symbol: ([Any]) throws -> Any]()
+        let expression = AnyExpression(
+            parsedExpression.expression,
+            impureSymbols: { symbol in
+                if let fn = impureSymbols(symbol) {
+                    return fn
                 }
-                let macro = node.expression(forMacro: key)
-                let circular = (macro != nil) ? macroReferences.contains(key) : false
-                do {
-                    if let macro = macro, !circular {
-                        guard let macroExpression = LayoutExpression(
-                            anyExpression: try parseExpression(macro),
-                            type: type,
-                            nullable: nullable,
-                            symbols: symbols,
-                            numericSymbols: numericSymbols,
-                            lookup: lookup,
-                            macroReferences: macroReferences + [key],
-                            for: node
-                        ) else {
-                            symbols[symbol] = { _ in
-                                throw SymbolError("Empty expression for `\(key)` macro", for: key)
+                switch symbol {
+                case let .variable(name):
+                    if "'\"".contains(name.first ?? " ") { return nil }
+                    let key = unescapedName(name)
+                    let macro = node.expression(forMacro: key)
+                    let circular = (macro != nil) ? macroReferences.contains(key) : false
+                    do {
+                        if let macro = macro, !circular {
+                            guard let macroExpression = LayoutExpression(
+                                anyExpression: try parseExpression(macro),
+                                type: .any,
+                                nullable: nullable,
+                                constants: constants,
+                                pureSymbols: pureSymbols,
+                                impureSymbols: impureSymbols,
+                                macroReferences: macroReferences + [key],
+                                for: node
+                            ) else {
+                                return { _ in
+                                    throw SymbolError("Empty expression for \(key) macro", for: key)
+                                }
                             }
-                            continue
-                        }
-                        macroSymbols[key] = macroExpression.symbols
-                        symbols[symbol] = { _ in try SymbolError.wrap(macroExpression.evaluate, for: key) }
-                    } else if let value = try lookup(key) ?? node.constantValue(forSymbol: key) ??
-                        staticConstant(for: key) {
-                        constants[name] = value
-                    } else if circular {
-                        symbols[symbol] = { [unowned node] _ in
-                            do {
-                                return try node.value(forSymbol: key)
-                            } catch {
-                                throw SymbolError("Macro `\(key)` references a nonexistent symbol of the same name (macros cannot reference themselves)", for: key)
+                            macroSymbols[key] = macroExpression.symbols
+                            let macroFn: ([Any]) throws -> Any = { _ in
+                                try SymbolError.wrap(macroExpression.evaluate, for: key)
+                            }
+                            if macroExpression.isConstant {
+                                pureMacros[symbol] = macroFn
+                                return nil
+                            }
+                            return macroFn
+                        } else if let value = try constants(key) ?? type.values[key] ??
+                            node.constantValue(forSymbol: key) ?? staticConstant(for: key) {
+                            allConstants[name] = value
+                            return nil
+                        } else if circular {
+                            return { [unowned node] _ in
+                                do {
+                                    return try node.value(forSymbol: key)
+                                } catch {
+                                    throw SymbolError("Macro \(key) references a nonexistent symbol of the same name (macros cannot reference themselves)", for: key)
+                                }
+                            }
+                        } else if ignoredSymbols.contains(symbol) || pureSymbols(symbol) != nil {
+                            return nil
+                        } else {
+                            return { [unowned node] _ in
+                                try node.value(forSymbol: key)
                             }
                         }
-                    } else {
-                        symbols[symbol] = { [unowned node] _ in
-                            try node.value(forSymbol: key)
-                        }
+                    } catch {
+                        return { _ in throw error }
                     }
-                } catch {
-                    symbols[symbol] = { _ in throw error }
+                default:
+                    return nil
                 }
-            }
-        }
-        let evaluator: AnyExpression.Evaluator? = numericSymbols.isEmpty ? nil : { symbol, anyArgs in
-            guard let fn = numericSymbols[symbol] else { return nil }
-            var args = [Double]()
-            for arg in anyArgs {
-                if let doubleValue = arg as? Double {
-                    args.append(doubleValue)
-                } else if let cgFloatValue = arg as? CGFloat {
-                    args.append(Double(cgFloatValue))
-                } else if let numberValue = arg as? NSNumber {
-                    args.append(Double(truncating: numberValue))
-                } else {
+            },
+            pureSymbols: { symbol in
+                if let fn = pureSymbols(symbol) ?? pureMacros[symbol] {
+                    return fn
+                }
+                switch symbol {
+                case let .variable(name):
+                    return allConstants[name].map { value in
+                        { _ in value }
+                    }
+                case let .function(name, .exactly(arity))
+                    where !standardSymbols.contains(symbol):
+                    let key = unescapedName(name)
+                    do {
+                        let string: String
+                        if "'\"".contains(name.first ?? " ") {
+                            string = String(name.dropFirst().dropLast())
+                        } else if let value = (try constants(key) ?? node.constantValue(forSymbol: key) ?? staticConstant(for: key)) {
+                            guard let value = value as? String else {
+                                return nil
+                            }
+                            string = value
+                        } else if name != "[]" {
+                            throw SymbolError("Unknown function \(key)()", for: key)
+                        } else {
+                            return nil
+                        }
+                        let formatString = try FormatString(string)
+                        let types = formatString.types.map { RuntimeType($0) }
+                        if arity > types.count {
+                            // TODO: this should probably be a warning, since there are legitimate cases where this
+                            // might arise - e.g. if a string doesn't use a param in one locale but does in others
+                            throw SymbolError("Too many arguments (\(arity)) for format string '\(string)' for key \(name)", for: key)
+                        } else if arity < types.count {
+                            throw SymbolError("Too few arguments (\(arity)) for format string '\(string)' for key \(name)", for: key)
+                        }
+                        return { args in
+                            let args = zip(types, args).map { type, value in
+                                type.cast(value) ?? value
+                            }
+                            do {
+                                return try formatString.print(arguments: args)
+                            } catch {
+                                throw SymbolError("\(error)", for: key)
+                            }
+                        }
+                    } catch {
+                        return { _ in throw SymbolError("\(error)", for: key) }
+                    }
+                case .infix(","):
+                    return { args in
+                        args.flatMap { $0 as? [Any] ?? [$0] }
+                    }
+                default:
                     return nil
                 }
             }
-            return try fn(args)
-        }
-        let expression = AnyExpression(
-            parsedExpression.expression,
-            options: [.boolSymbols, .pureSymbols],
-            constants: constants,
-            symbols: symbols,
-            evaluator: evaluator
         )
         self.init(
             evaluate: {
-                let anyValue = try expression.evaluate()
-                if nullable, optionalValue(of: anyValue) == nil {
+                let anyValue: Any = try expression.evaluate()
+                if nullable, isNil(anyValue) {
                     return anyValue
                 }
                 return try cast(anyValue, as: type)
             },
-            symbols: Set(expression.symbols.flatMap { symbol -> [String] in
+            symbols: Set(parsedExpression.symbols.flatMap { symbol -> [String] in
                 switch symbol {
                 case _ where ignoredSymbols.contains(symbol):
                     return []
-                case let .variable(string):
-                    if let symbols = macroSymbols[string] {
+                case let .variable(name), let .array(name), let .function(name, _):
+                    if let symbols = macroSymbols[name] {
                         return Array(symbols)
                     }
-                    return [string]
+                    return [name]
                 case let .postfix(string):
                     return [string]
                 default:
                     return []
                 }
-            })
+            }),
+            isConstant: expression.symbols.isEmpty
         )
     }
 
-    private init?(interpolatedStringExpression expression: String,
-                  symbols: [AnyExpression.Symbol: AnyExpression.SymbolEvaluator] = [:],
-                  numericSymbols: [AnyExpression.Symbol: Expression.Symbol.Evaluator] = [:],
-                  lookup: @escaping (String) -> Any? = { _ in nil },
-                  for node: LayoutNode) {
-
+    private init?(interpolatedStringExpression expression: String, for node: LayoutNode) {
         enum ExpressionPart {
             case string(String)
             case expression(() throws -> Any)
         }
 
         do {
+            var isConstant = true
             var expressionSymbols = Set<String>()
-            let parts: [ExpressionPart] = try parseStringExpression(expression).flatMap { part in
+            let parts: [ExpressionPart] = try parseStringExpression(expression).compactMap { part in
                 switch part {
                 case let .expression(parsedExpression):
                     guard let expression = LayoutExpression(
                         anyExpression: parsedExpression,
                         type: .any,
                         nullable: true,
-                        symbols: symbols,
-                        numericSymbols: numericSymbols,
-                        lookup: lookup,
                         for: node
                     ) else {
                         return nil
                     }
+                    isConstant = isConstant && expression.isConstant
                     expressionSymbols.formUnion(expression.symbols)
                     return .expression(expression.evaluate)
                 case let .string(string):
@@ -488,10 +632,11 @@ struct LayoutExpression {
                         }
                     }
                 },
-                symbols: expressionSymbols
+                symbols: expressionSymbols,
+                isConstant: isConstant
             )
         } catch {
-            self.init(evaluate: { throw error }, symbols: [])
+            self.init(error: error)
         }
     }
 
@@ -507,7 +652,8 @@ struct LayoutExpression {
                 }
                 return try parts.map(stringify).joined()
             },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
@@ -516,63 +662,97 @@ struct LayoutExpression {
             return nil
         }
         var symbols = expression.symbols
-        for symbol in ["font", "textColor", "textAlignment", "lineBreakMode"] {
-            if node.viewExpressionTypes[symbol] != nil {
-                symbols.insert(symbol)
-            }
+        for symbol in ["font", "textColor", "textAlignment", "lineBreakMode", "titleColor", "titleLabel.font"]
+            where node.viewExpressionTypes[symbol] != nil {
+            symbols.insert(symbol)
         }
         func makeToken(_ index: Int) -> String {
             return "$(\(index))"
         }
+        var previousHTMLString = ""
+        var previousAttributedString = NSAttributedString()
         self.init(
-            evaluate: {
-                var substrings = [NSAttributedString]()
+            evaluate: { [unowned node] in
+                var parts = [Any]() // String or NSAttributedString
                 var htmlString = ""
+                func appendPart(_ part: Any) {
+                    let token = makeToken(parts.count)
+                    if htmlString.contains(token) {
+                        parts.append(token)
+                        appendPart(part)
+                        return
+                    }
+                    htmlString += token
+                    parts.append(part)
+                }
+                var containsHTML = false
                 for part in try expression.evaluate() as! [Any] {
                     switch part {
                     case let part as NSAttributedString:
-                        while true {
-                            let token = makeToken(substrings.count)
-                            if htmlString.contains(token) {
-                                substrings.append(NSAttributedString(string: token))
-                            } else {
-                                htmlString += token
-                                substrings.append(part)
-                                break
-                            }
-                        }
+                        appendPart(part)
                     default:
-                        htmlString += try stringify(part)
+                        let substring = try stringify(part)
+                        if ["<", ">", "&"].contains(where: { substring.contains($0) }) {
+                            // Potentially affects html structure
+                            htmlString += substring
+                            containsHTML = true
+                        } else {
+                            appendPart(part)
+                        }
                     }
                 }
-                let result = try NSMutableAttributedString(
-                    data: htmlString.data(using: .utf8, allowLossyConversion: true) ?? Data(),
-                    options: [
-                        NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
-                        NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue,
-                    ],
-                    documentAttributes: nil
-                )
+                if htmlString != previousHTMLString {
+                    previousHTMLString = htmlString
+                    if containsHTML {
+                        // LayoutLoader.atomic is needed here to avoid a concurrency issue caused by
+                        // the attributedString HTML parser spinning its own runloop instance
+                        // https://github.com/schibsted/layout/issues/9
+                        previousAttributedString = try LayoutLoader.atomic {
+                            try NSAttributedString(
+                                data: htmlString.data(using: .utf8, allowLossyConversion: true) ?? Data(),
+                                options: [
+                                    NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                                    NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue,
+                                ],
+                                documentAttributes: nil
+                            )
+                        }
+                    } else {
+                        previousAttributedString = NSAttributedString(string: htmlString, attributes: [
+                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIFont.defaultSize),
+                        ])
+                    }
+                }
+                let result = NSMutableAttributedString(attributedString: previousAttributedString)
+
                 let correctFont: UIFont
                 if symbols.contains("font"), let font = try node.value(forSymbol: "font") as? UIFont {
                     correctFont = font
+                } else if symbols.contains("titleLabel.font"),
+                    let font = try node.value(forSymbol: "titleLabel.font") as? UIFont {
+                    // TODO: find a less hacky solution for this
+                    correctFont = font
                 } else {
-                    correctFont = UIFont.systemFont(ofSize: 17)
+                    correctFont = .systemFont(ofSize: UIFont.defaultSize)
                 }
                 let range = NSMakeRange(0, result.string.utf16.count)
                 result.enumerateAttributes(in: range, options: []) { attribs, range, _ in
                     var attribs = attribs
-                    if let font = attribs[NSAttributedStringKey.font] as? UIFont {
+                    if let font = attribs[NSAttributedString.Key.font] as? UIFont {
                         let traits = font.fontDescriptor.symbolicTraits
                         var descriptor = correctFont.fontDescriptor
                         descriptor = descriptor.withSymbolicTraits(traits) ?? descriptor
-                        attribs[NSAttributedStringKey.font] = UIFont(descriptor: descriptor, size: correctFont.pointSize)
+                        attribs[NSAttributedString.Key.font] = UIFont(descriptor: descriptor, size: correctFont.pointSize)
                         result.setAttributes(attribs, range: range)
                     }
                 }
                 if symbols.contains("textColor"),
                     let color = try node.value(forSymbol: "textColor") as? UIColor {
-                    result.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
+                    result.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+                } else if symbols.contains("titleColor"),
+                    // TODO: support UIButton states (like selectedTitleColor, etc.) correctly
+                    let color = try node.value(forSymbol: "titleColor") as? UIColor {
+                    result.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
                 }
 
                 // Paragraph style
@@ -588,18 +768,23 @@ struct LayoutExpression {
                 let style = NSMutableParagraphStyle()
                 style.alignment = alignment
                 style.lineBreakMode = linebreakMode
-                result.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: range)
+                result.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
 
                 // Substitutions
-                for (i, substring) in substrings.enumerated().reversed() {
+                for (i, part) in parts.enumerated().reversed() {
                     let range = (result.string as NSString).range(of: makeToken(i))
                     if range.location != NSNotFound {
-                        result.replaceCharacters(in: range, with: substring)
+                        if let part = part as? NSAttributedString {
+                            result.replaceCharacters(in: range, with: part)
+                        } else if let part = part as? String {
+                            result.replaceCharacters(in: range, with: part)
+                        }
                     }
                 }
                 return result
             },
-            symbols: symbols
+            symbols: symbols,
+            isConstant: symbols.isEmpty // TODO: detect if textColor, etc symbols are constant
         )
     }
 
@@ -609,6 +794,9 @@ struct LayoutExpression {
         }
 
         func font(named name: String) -> UIFont? {
+            if UIFont.responds(to: Selector(name)), let font = UIFont.value(forKey: name) as? UIFont {
+                return font
+            }
             if let font = UIFont(name: name, size: UIFont.defaultSize),
                 font.fontName.lowercased() == name.lowercased() {
                 return font
@@ -618,6 +806,10 @@ struct LayoutExpression {
                 let descriptor = UIFontDescriptor().withFamily(font.familyName)
                 return UIFont(descriptor: descriptor, size: UIFont.defaultSize)
             }
+            let name = name + "Font"
+            if UIFont.responds(to: Selector(name)), let font = UIFont.value(forKey: name) as? UIFont {
+                return font
+            }
             return nil
         }
 
@@ -625,13 +817,13 @@ struct LayoutExpression {
         func fontPart(for string: String) -> Any? {
             switch string.lowercased() {
             case "italic":
-                return UIFontDescriptorSymbolicTraits.traitItalic
+                return UIFontDescriptor.SymbolicTraits.traitItalic
             case "condensed":
-                return UIFontDescriptorSymbolicTraits.traitCondensed
+                return UIFontDescriptor.SymbolicTraits.traitCondensed
             case "expanded":
-                return UIFontDescriptorSymbolicTraits.traitExpanded
+                return UIFontDescriptor.SymbolicTraits.traitExpanded
             case "monospace", "monospaced":
-                return UIFontDescriptorSymbolicTraits.traitMonoSpace
+                return UIFontDescriptor.SymbolicTraits.traitMonoSpace
             case "system":
                 return UIFont.systemFont(ofSize: UIFont.defaultSize)
             case "systembold", "system-bold":
@@ -711,7 +903,7 @@ struct LayoutExpression {
                                         let string = String(result)
                                         result.removeAll()
                                         guard let part = font(named: string) else {
-                                            throw Expression.Error.message("Invalid font name or specifier `\(string)`")
+                                            throw Expression.Error.message("Invalid font name or specifier '\(string)'")
                                         }
                                         fontName = string
                                         parts.append(part)
@@ -730,7 +922,7 @@ struct LayoutExpression {
                             }
                         }
                         if !processResult() {
-                            throw Expression.Error.message("Invalid font name or specifier `\(string)`")
+                            throw Expression.Error.message("Invalid font name or specifier '\(string)'")
                         }
                         string = ""
                     }
@@ -748,14 +940,15 @@ struct LayoutExpression {
                 try processString()
                 return try UIFont.font(with: parts)
             },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
     init?(colorExpression: String, type: RuntimeType = .uiColor, for node: LayoutNode) {
         func nameToColorAsset(_ name: String) throws -> Any {
             guard let color = try stringToColorAsset(name) else {
-                throw Expression.Error.message("Invalid color name `\(name)`")
+                throw Expression.Error.message("Invalid color name '\(name)'")
             }
             return try cast(color, as: type)
         }
@@ -767,12 +960,12 @@ struct LayoutExpression {
                 case let .string(name):
                     if let color = try stringToColorAsset(name) {
                         let color = try cast(color, as: type)
-                        self.init(evaluate: { color }, symbols: [])
+                        self.init(evaluate: { color }, symbols: [], isConstant: true)
                         return
                     }
                     // Attempt to interpret as a color expression
                     guard let _parsedExpression = try? parseExpression(name) else {
-                        throw Expression.Error.message("Invalid color name `\(name)`")
+                        throw Expression.Error.message("Invalid color name '\(name)'")
                     }
                     parsedExpression = _parsedExpression
                 case let .expression(_parsedExpression):
@@ -784,22 +977,27 @@ struct LayoutExpression {
                     anyExpression: parsedExpression,
                     type: .any,
                     nullable: false,
-                    symbols: colorSymbols,
-                    lookup: colorLookup,
+                    pureSymbols: { symbol in
+                        if case let .variable(name) = symbol, let color = colorLookup(name) {
+                            return { _ in color }
+                        }
+                        return colorSymbols[symbol]
+                    },
                     for: node
                 ) else {
                     return nil
                 }
                 self.init(
                     evaluate: {
-                        switch try unwrap(expression.evaluate()) {
+                        switch try expression.evaluate() {
                         case let name as String:
                             return try nameToColorAsset(name)
                         case let color:
                             return try cast(color, as: type)
                         }
                     },
-                    symbols: expression.symbols
+                    symbols: expression.symbols,
+                    isConstant: expression.isConstant
                 )
             } else if #available(iOS 11.0, *) {
                 guard let expression = LayoutExpression(stringExpression: colorExpression, for: node) else {
@@ -807,20 +1005,21 @@ struct LayoutExpression {
                 }
                 self.init(
                     evaluate: { try nameToColorAsset(expression.evaluate() as! String) },
-                    symbols: expression.symbols
+                    symbols: expression.symbols,
+                    isConstant: expression.isConstant
                 )
             } else {
                 throw Expression.Error.message("Named colors are only supported in iOS 11 and above")
             }
         } catch {
-            self.init(evaluate: { throw error }, symbols: [])
+            self.init(error: error)
         }
     }
 
     init?(imageExpression: String, type: RuntimeType = .uiImage, for node: LayoutNode) {
         func nameToImageAsset(_ name: String) throws -> Any {
             guard let image = try stringToImageAsset(name) else {
-                throw Expression.Error.message("Invalid image name `\(name)`")
+                throw Expression.Error.message("Image named '\(name)' not found in main bundle")
             }
             return try cast(image, as: type)
         }
@@ -832,12 +1031,12 @@ struct LayoutExpression {
                 case let .string(name):
                     if let image = try stringToImageAsset(name) {
                         let image = try cast(image, as: type)
-                        self.init(evaluate: { image }, symbols: [])
+                        self.init(evaluate: { image }, symbols: [], isConstant: true)
                         return
                     }
                     // Attempt to interpret as an image expression
                     guard let _parsedExpression = try? parseExpression(name) else {
-                        throw Expression.Error.message("Invalid image name `\(name)`")
+                        throw Expression.Error.message("Invalid image name '\(name)'")
                     }
                     parsedExpression = _parsedExpression
                 case let .expression(_parsedExpression):
@@ -855,7 +1054,17 @@ struct LayoutExpression {
                 }
                 self.init(
                     evaluate: {
-                        let anyValue = try expression.evaluate()
+                        let anyValue: Any
+                        do {
+                            anyValue = try expression.evaluate()
+                        } catch let error as SymbolError {
+                            // TODO: find a less stringly-typed solution for this
+                            if imageExpression.description == error.symbol,
+                                "\(error)".contains("Unknown property") {
+                                throw Expression.Error.message("Image named '\(error.symbol)' not found in main bundle")
+                            }
+                            throw error
+                        }
                         if isNil(anyValue) {
                             // Explicitly allow empty images
                             return UIImage()
@@ -867,7 +1076,8 @@ struct LayoutExpression {
                             return try cast(image, as: type)
                         }
                     },
-                    symbols: expression.symbols
+                    symbols: expression.symbols,
+                    isConstant: expression.isConstant
                 )
             } else {
                 guard let expression = LayoutExpression(stringExpression: imageExpression, for: node) else {
@@ -875,11 +1085,12 @@ struct LayoutExpression {
                 }
                 self.init(
                     evaluate: { try nameToImageAsset(expression.evaluate() as! String) },
-                    symbols: expression.symbols
+                    symbols: expression.symbols,
+                    isConstant: expression.isConstant
                 )
             }
         } catch {
-            self.init(evaluate: { throw error }, symbols: [])
+            self.init(error: error)
         }
     }
 
@@ -887,7 +1098,6 @@ struct LayoutExpression {
         guard let expression = LayoutExpression(interpolatedStringExpression: urlExpression, for: node) else {
             return nil
         }
-        // TODO: optimize for constant URLs
         // TODO: should empty string return nil instead of URL with empy path?
         self.init(
             evaluate: {
@@ -907,7 +1117,8 @@ struct LayoutExpression {
                 }
                 return try urlFromString(parts.map(stringify).joined())
             },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
@@ -915,7 +1126,6 @@ struct LayoutExpression {
         guard let expression = LayoutExpression(interpolatedStringExpression: urlRequestExpression, for: node) else {
             return nil
         }
-        // TODO: optimize for constant URLs
         self.init(
             evaluate: {
                 let parts = try expression.evaluate() as! [Any]
@@ -936,30 +1146,46 @@ struct LayoutExpression {
                 }
                 return try URLRequest(url: urlFromString(parts.map(stringify).joined()))
             },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
-    init?(enumExpression: String, type: RuntimeType, for node: LayoutNode) {
-        guard case let .enum(_, values) = type.type else { preconditionFailure() }
+    init?(visualEffectExpression: String, for node: LayoutNode) {
+        let constants = RuntimeType.uiBlurEffect_Style.values
+        let defaultStyle = constants["regular"] as! UIBlurEffect.Style
+        let functions: [AnyExpression.Symbol: AnyExpression.SymbolEvaluator] = [
+            .function("UIBlurEffect", arity: 0): { _ in
+                UIBlurEffect(style: defaultStyle)
+            },
+            .function("UIBlurEffect", arity: 1): { args in
+                guard let style = args[0] as? UIBlurEffect.Style else {
+                    throw Expression.Error.message("\(Swift.type(of: args[0])) is not compatible with expected type \(UIBlurEffect.Style.self)")
+                }
+                return UIBlurEffect(style: style)
+            },
+            .function("UIVibrancyEffect", arity: 0): { _ in
+                UIVibrancyEffect(blurEffect: UIBlurEffect(style: defaultStyle))
+            },
+            .function("UIVibrancyEffect", arity: 1): { args in
+                let blurEffect: UIBlurEffect
+                switch args[0] {
+                case let style as UIBlurEffect.Style:
+                    blurEffect = UIBlurEffect(style: style)
+                case let blur as UIBlurEffect:
+                    blurEffect = blur
+                default:
+                    throw Expression.Error.message("\(Swift.type(of: args[0])) is not compatible with expected type \(UIBlurEffect.self)")
+                }
+                return UIVibrancyEffect(blurEffect: blurEffect)
+            },
+        ]
         self.init(
-            anyExpression: enumExpression,
-            type: type,
-            symbols: [:],
-            lookup: { name in values[name] },
-            for: node
-        )
-    }
-
-    init?(optionsExpression: String, type: RuntimeType, for node: LayoutNode) {
-        guard case let .options(_, values) = type.type else { preconditionFailure() }
-        self.init(
-            anyExpression: optionsExpression,
-            type: type,
-            symbols: [.infix(","): { args in
-                args.flatMap { $0 as? NSArray ?? [$0] }
-            }],
-            lookup: { name in values[name] },
+            anyExpression: visualEffectExpression,
+            type: RuntimeType(UIVisualEffect.self),
+            nullable: true,
+            constants: { constants[$0] },
+            pureSymbols: { functions[$0] },
             for: node
         )
     }
@@ -970,7 +1196,8 @@ struct LayoutExpression {
         }
         self.init(
             evaluate: { Selector(try expression.evaluate() as! String) },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
@@ -990,7 +1217,7 @@ struct LayoutExpression {
                         var invalidType: RuntimeType?
                         while let _parent = parent {
                             if let type = _parent._parameters[name] {
-                                switch type.type {
+                                switch type.kind {
                                 case let .any(subtype):
                                     switch subtype {
                                     case is String.Type,
@@ -1016,7 +1243,8 @@ struct LayoutExpression {
                                 evaluate: {
                                     throw Expression.Error.message("Outlet parameters must be of type String, not \(type)")
                                 },
-                                symbols: []
+                                symbols: [],
+                                isConstant: false
                             )
                             return
                         }
@@ -1031,7 +1259,8 @@ struct LayoutExpression {
         }
         self.init(
             evaluate: { try expression.evaluate() as! String },
-            symbols: expression.symbols
+            symbols: expression.symbols,
+            isConstant: expression.isConstant
         )
     }
 
@@ -1039,25 +1268,13 @@ struct LayoutExpression {
         self.init(
             anyExpression: classExpression,
             type: RuntimeType(class: `class`),
-            symbols: [:],
-            lookup: { name in classFromString(name) },
-            for: node
-        )
-    }
-
-    init?(arrayExpression: String, type: RuntimeType, for node: LayoutNode) {
-        self.init(
-            anyExpression: arrayExpression,
-            type: type,
-            symbols: [.infix(","): { args in
-                args.flatMap { $0 as? NSArray ?? [$0] }
-            }],
+            constants: classFromString,
             for: node
         )
     }
 
     init?(expression: String, type: RuntimeType, for node: LayoutNode) {
-        switch type.type {
+        switch type.kind {
         case let .any(subtype):
             switch subtype {
             case is String.Type, is NSString.Type:
@@ -1076,24 +1293,20 @@ struct LayoutExpression {
                 self.init(urlExpression: expression, for: node)
             case is URLRequest.Type, is NSURLRequest.Type:
                 self.init(urlRequestExpression: expression, for: node)
-            case is NSArray.Type:
-                self.init(arrayExpression: expression, type: type, for: node)
+            case is UIVisualEffect.Type:
+                self.init(visualEffectExpression: expression, for: node)
             default:
                 self.init(anyExpression: expression, type: type, nullable: false, for: node)
             }
         case let .class(subtype):
             self.init(classExpression: expression, class: subtype, for: node)
-        case .struct:
+        case .struct, .options:
             self.init(anyExpression: expression, type: type, nullable: false, for: node)
-        case .enum:
-            self.init(enumExpression: expression, type: type, for: node)
-        case .options:
-            self.init(optionsExpression: expression, type: type, for: node)
         case .pointer("CGColor"):
             self.init(colorExpression: expression, type: type, for: node)
         case .pointer("CGImage"):
             self.init(imageExpression: expression, type: type, for: node)
-        case .pointer, .protocol:
+        case .pointer, .protocol, .array:
             self.init(anyExpression: expression, type: type, nullable: true, for: node)
         }
     }

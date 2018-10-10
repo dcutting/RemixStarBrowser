@@ -15,74 +15,62 @@ extension NSObject {
             return [:]
         }
         var allProperties = [String: RuntimeType]()
-        func addProperty(name: String, type: RuntimeType) {
+        func addProperty(_ name: String, _ type: RuntimeType) {
             allProperties[name] = type
-            let availability = type.availability
-            switch type.type {
+            switch type.kind {
             case let .struct(type):
                 switch type {
                 case "CGPoint":
-                    allProperties[name] = RuntimeType(CGPoint.self, availability)
                     for key in ["x", "y"] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "CGSize":
-                    allProperties[name] = RuntimeType(CGSize.self, availability)
                     for key in ["width", "height"] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "CGVector":
-                    allProperties[name] = RuntimeType(CGVector.self, availability)
                     for key in ["dx", "dy"] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "CGRect":
-                    allProperties[name] = RuntimeType(CGRect.self, availability)
-                    allProperties["\(name).origin"] = RuntimeType(CGPoint.self, availability)
-                    allProperties["\(name).size"] = RuntimeType(CGSize.self, availability)
+                    allProperties["\(name).origin"] = .cgPoint
+                    allProperties["\(name).size"] = .cgSize
                     for key in [
                         "x", "y",
                         "width", "height",
                         "origin.x", "origin.y",
                         "size.width", "size.height",
                     ] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "CGAffineTransform":
-                    allProperties[name] = RuntimeType(CGAffineTransform.self, availability)
                     for key in [
                         "rotation",
                         "scale", "scale.x", "scale.y",
                         "translation.x", "translation.y",
                     ] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "CATransform3D":
-                    allProperties[name] = RuntimeType(CATransform3D.self, availability)
                     for key in [
                         "rotation", "rotation.x", "rotation.y", "rotation.z",
                         "scale", "scale.x", "scale.y", "scale.z",
                         "translation.x", "translation.y", "translation.z",
                         "m34", // Used for perspective
                     ] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "UIEdgeInsets":
-                    allProperties[name] = RuntimeType(UIEdgeInsets.self, availability)
                     for key in ["top", "left", "bottom", "right"] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "UIOffset":
-                    allProperties[name] = RuntimeType(UIOffset.self, availability)
                     for key in ["horizontal", "vertical"] {
-                        allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 case "NSDirectionalEdgeInsets":
-                    if #available(iOS 11.0, *) {
-                        allProperties[name] = RuntimeType(NSDirectionalEdgeInsets.self, availability)
-                        for key in ["top", "leading", "bottom", "trailing"] {
-                            allProperties["\(name).\(key)"] = RuntimeType(CGFloat.self, availability)
-                        }
+                    for key in ["top", "leading", "bottom", "trailing"] {
+                        allProperties["\(name).\(key)"] = .cgFloat
                     }
                 default:
                     break
@@ -113,7 +101,7 @@ extension NSObject {
                     guard let type = RuntimeType(objCType: objCType) else {
                         continue
                     }
-                    if case let .any(type) = type.type, type is Bool.Type,
+                    if case let .any(type) = type.kind, type is Bool.Type,
                         let attrib = attribs.first(where: { $0.hasPrefix("Gis") }) {
                         name = String(attrib.unicodeScalars.dropFirst())
                     }
@@ -121,7 +109,7 @@ extension NSObject {
                     if !typeName.hasPrefix("("), typeName.contains("_") { // We don't want to mess with private stuff
                         continue
                     }
-                    addProperty(name: name, type: type)
+                    addProperty(name, type)
                 }
             }
         }
@@ -156,14 +144,36 @@ extension NSObject {
                 guard let type = RuntimeType(objCType: objCType) else {
                     continue
                 }
-                if case let .any(type) = type.type, type is Bool.Type,
+                if case let .any(type) = type.kind, type is Bool.Type,
                     instancesRespond(to: Selector(isName)) {
                     name = isName
                 }
-                addProperty(name: name, type: type)
+                addProperty(name, type)
             }
-            ctype.deallocate(capacity: maxChars)
+            ctype.deallocate()
         }
+        // Accessibility properties (TODO: find a way to automate this)
+        if conforms(to: UIAccessibilityIdentification.self) ||
+            self is UIView.Type || self is UIBarItem.Type || self is UIImage.Type {
+            addProperty("accessibilityIdentifier", .string)
+        }
+        addProperty("isAccessibilityElement", .bool)
+        addProperty("accessibilityLabel", .string)
+        addProperty("accessibilityAttributedLabel", .nsAttributedString)
+        addProperty("accessibilityHint", .string)
+        addProperty("accessibilityAttributedHint", .nsAttributedString)
+        addProperty("accessibilityValue", .string)
+        addProperty("accessibilityAttributedValue", .nsAttributedString)
+        addProperty("accessibilityTraits", .uiAccessibilityTraits)
+        addProperty("accessibilityFrame", .cgRect)
+        addProperty("accessibilityPath", .uiBezierPath)
+        addProperty("accessibilityActivationPoint", .cgPoint)
+        addProperty("accessibilityLanguage", .string)
+        addProperty("accessibilityElementsHidden", .bool)
+        addProperty("accessibilityViewIsModal", .bool)
+        addProperty("shouldGroupAccessibilityChildren", .bool)
+        addProperty("accessibilityNavigationStyle", .uiAccessibilityNavigationStyle)
+
         // Memoize properties
         objc_setAssociatedObject(self, &propertiesKey, allProperties, .OBJC_ASSOCIATION_RETAIN)
         return allProperties
@@ -214,7 +224,7 @@ extension NSObject {
             guard responds(to: selector) else {
                 return false
             }
-            switch type.type {
+            switch type.kind {
             case let .any(type):
                 let method = class_getMethodImplementation(Swift.type(of: self), selector)
                 switch type {
@@ -263,16 +273,31 @@ extension NSObject {
             return false
         }
         guard responds(to: Selector(setter)) else {
+            if #available(iOS 11.0, *) {} else {
+                switch key {
+                case "accessibilityAttributedLabel":
+                    accessibilityLabel = (value as? NSAttributedString)?.string
+                    return true
+                case "accessibilityAttributedHint":
+                    accessibilityHint = (value as? NSAttributedString)?.string
+                    return true
+                case "accessibilityAttributedValue":
+                    accessibilityValue = (value as? NSAttributedString)?.string
+                    return true
+                default:
+                    break
+                }
+            }
             if self is NSValue {
-                throw SymbolError("Cannot set property `\(key)` of immutable \(Swift.type(of: self))", for: key)
+                throw SymbolError("Cannot set property \(key) of immutable \(Swift.type(of: self))", for: key)
             }
             let mirror = Mirror(reflecting: self)
             if mirror.children.contains(where: { $0.label == key }) {
                 throw LayoutError("\(classForCoder) \(key) property must be prefixed with @objc to be set at runtime")
             }
-            throw SymbolError("Unknown property `\(key)` of \(classForCoder)", for: key)
+            throw SymbolError("Unknown property \(key) of \(classForCoder)", for: key)
         }
-        setValue(isNil(value) ? nil : value, forKey: key)
+        setValue(value, forKey: key)
         return true
     }
 
@@ -463,9 +488,9 @@ extension NSObject {
                 prevTarget.setValue(value, forKey: prevKey)
                 return
             }
-            throw SymbolError("No valid setter found for property `\(key)` of \(target.classForCoder)", for: name)
+            throw SymbolError("No valid setter found for property \(key) of \(target.classForCoder)", for: name)
         }
-        throw SymbolError("Cannot set property `\(key)` of immutable \(target.classForCoder)", for: name)
+        throw SymbolError("Cannot set property \(key) of immutable \(target.classForCoder)", for: name)
     }
 
     /// Safe version of value(forKey:)
@@ -485,7 +510,7 @@ extension NSObject {
             case "y":
                 return point.y
             default:
-                throw SymbolError("Unknown property `\(key)` of CGPoint", for: key)
+                throw SymbolError("Unknown property \(key) of CGPoint", for: key)
             }
         case let size as CGSize:
             switch key {
@@ -494,7 +519,7 @@ extension NSObject {
             case "height":
                 return size.height
             default:
-                throw SymbolError("Unknown property `\(key)` of CGSize", for: key)
+                throw SymbolError("Unknown property \(key) of CGSize", for: key)
             }
         case let vector as CGVector:
             switch key {
@@ -503,7 +528,7 @@ extension NSObject {
             case "dy":
                 return vector.dy
             default:
-                throw SymbolError("Unknown property `\(key)` of CGVector", for: key)
+                throw SymbolError("Unknown property \(key) of CGVector", for: key)
             }
         case let rect as CGRect:
             switch key {
@@ -532,16 +557,16 @@ extension NSObject {
             case "midY":
                 return rect.midY
             default:
-                throw SymbolError("Unknown property `\(key)` of CGRect", for: key)
+                throw SymbolError("Unknown property \(key) of CGRect", for: key)
             }
         case is CGAffineTransform:
-            throw SymbolError("Unknown property `\(key)` of CGAffineTransform", for: key)
+            throw SymbolError("Unknown property \(key) of CGAffineTransform", for: key)
         case let transform as CATransform3D:
             switch key {
             case "m34":
                 return transform.m34 // Used for perspective
             default:
-                throw SymbolError("Unknown property `\(key)` of CATransform3D", for: key)
+                throw SymbolError("Unknown property \(key) of CATransform3D", for: key)
             }
         case let insets as UIEdgeInsets:
             switch key {
@@ -554,7 +579,7 @@ extension NSObject {
             case "right":
                 return insets.right
             default:
-                throw SymbolError("Unknown property `\(key)` of UIEdgeInsets", for: key)
+                throw SymbolError("Unknown property \(key) of UIEdgeInsets", for: key)
             }
         case let offset as UIOffset:
             switch key {
@@ -563,14 +588,26 @@ extension NSObject {
             case "vertical":
                 return offset.vertical
             default:
-                throw SymbolError("Unknown property `\(key)` of UIOffset", for: key)
+                throw SymbolError("Unknown property \(key) of UIOffset", for: key)
             }
         default:
+            if #available(iOS 11.0, *) {} else {
+                switch key {
+                case "accessibilityAttributedLabel":
+                    return accessibilityLabel.map(NSAttributedString.init(string:))
+                case "accessibilityAttributedHint":
+                    return accessibilityHint.map(NSAttributedString.init(string:))
+                case "accessibilityAttributedValue":
+                    return accessibilityValue.map(NSAttributedString.init(string:))
+                default:
+                    break
+                }
+            }
             let mirror = Mirror(reflecting: self)
             if mirror.children.contains(where: { $0.label == key }) {
                 throw LayoutError("\(classForCoder) \(key) property must be prefixed with @objc to be accessed at runtime")
             }
-            throw SymbolError("Unknown property `\(key)` of \(classForCoder)", for: key)
+            throw SymbolError("Unknown property \(key) of \(classForCoder)", for: key)
         }
     }
 
@@ -578,7 +615,13 @@ extension NSObject {
     /// Checks that the property exists, and is gettable, but doesn't validate the type
     func _value(ofType type: RuntimeType?, forKeyPath name: String) throws -> Any? {
         guard let range = name.range(of: ".", options: .backwards) else {
-            return try _value(ofType: type, forKey: name)
+            do {
+                return try _value(ofType: type, forKey: name)
+            } catch let error as SymbolError {
+                var description = error.description
+                description = description.replacingOccurrences(of: " of \(classForCoder)", with: "")
+                throw SymbolError(description, for: name)
+            }
         }
         var prevKey = name
         var prevTarget: NSObject?

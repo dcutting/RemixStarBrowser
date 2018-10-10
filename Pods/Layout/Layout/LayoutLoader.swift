@@ -4,12 +4,16 @@ import Foundation
 
 typealias LayoutLoaderCallback = (LayoutNode?, LayoutError?) -> Void
 
+func clearLayoutLoaderCache() {
+    cache.removeAll()
+}
+
 // Cache for previously loaded layouts
 private var cache = [URL: Layout]()
-private let queue = DispatchQueue(label: "com.Layout")
+private let queue = DispatchQueue(label: "com.Layout.LayoutLoader")
+private var reloadLock = 0
 
 private extension Layout {
-
     /// Merges the contents of the specified layout into this one
     /// Will fail if the layout class is not a subclass of this one
     func merged(with layout: Layout) throws -> Layout {
@@ -33,19 +37,43 @@ private extension Layout {
         for (key, value) in layout.macros { // TODO: what about collisions?
             macros[key] = value
         }
-        return Layout(
+        let result = Layout(
             className: layout.className,
             id: layout.id ?? id,
             expressions: expressions,
             parameters: parameters,
             macros: macros,
-            children: children + layout.children,
+            children: children,
             body: layout.body ?? body,
             xmlPath: layout.xmlPath,
             templatePath: templatePath,
+            childrenTagIndex: childrenTagIndex,
             relativePath: layout.relativePath, // TODO: is this correct?
             rootURL: rootURL
         )
+        return insertChildren(layout.children, into: result)
+    }
+
+    // Insert children into hierarchy
+    private func insertChildren(_ children: [Layout], into layout: Layout) -> Layout {
+        func _insertChildren(_ children: [Layout], into layout: inout Layout) -> Bool {
+            if let index = layout.childrenTagIndex {
+                layout.children.insert(contentsOf: children, at: index)
+                return true
+            }
+            for (index, var child) in layout.children.enumerated() {
+                if _insertChildren(children, into: &child) {
+                    layout.children[index] = child
+                    return true
+                }
+            }
+            return false
+        }
+        var layout = layout
+        if !_insertChildren(children, into: &layout) {
+            layout.children += children
+        }
+        return layout
     }
 
     /// Recursively load all nested layout templates
@@ -102,8 +130,17 @@ class LayoutLoader {
     private var _constants: [String: Any] = [:]
     private var _strings: [String: String]?
 
+    /// Used for protecting operations that must not be interupted by a reload.
+    /// Any reload attempts that happen inside the block will be ignored
+    static func atomic<T>(_ protected: () throws -> T) rethrows -> T {
+        queue.sync { reloadLock += 1 }
+        defer { queue.sync { reloadLock -= 1 } }
+        return try protected()
+    }
+
     // MARK: LayoutNode loading
 
+    /// Loads a named XML layout file from the app resources folder
     public func loadLayoutNode(
         named: String,
         bundle: Bundle = Bundle.main,
@@ -126,6 +163,7 @@ class LayoutLoader {
         )
     }
 
+    /// Loads a local or remote XML layout file with the specified URL
     public func loadLayoutNode(
         withContentsOfURL xmlURL: URL,
         relativeTo: String? = #file,
@@ -161,9 +199,13 @@ class LayoutLoader {
         )
     }
 
+    /// Reloads the most recently loaded XML layout file
     public func reloadLayoutNode(withCompletion completion: @escaping LayoutLoaderCallback) {
-        queue.sync { cache.removeAll() }
-        guard let xmlURL = _originalURL, _dataTask == nil else {
+        guard let xmlURL = _originalURL, _dataTask == nil, queue.sync(execute: {
+            guard reloadLock == 0 else { return false }
+            cache.removeAll()
+            return true
+        }) else {
             completion(nil, nil)
             return
         }
@@ -213,8 +255,8 @@ class LayoutLoader {
     ) {
         _dataTask?.cancel()
         _dataTask = nil
-        _originalURL = xmlURL
-        _xmlURL = xmlURL
+        _originalURL = xmlURL.standardizedFileURL
+        _xmlURL = _originalURL
         _strings = nil
 
         func processLayoutData(_ data: Data) throws {
@@ -230,6 +272,7 @@ class LayoutLoader {
 
         // If it's a bundle resource url, replace with equivalent source url
         if xmlURL.isFileURL {
+            let xmlURL = xmlURL.standardizedFileURL
             let bundlePath = Bundle.main.bundleURL.absoluteString
             if xmlURL.absoluteString.hasPrefix(bundlePath) {
                 if _projectDirectory == nil, let relativeTo = relativeTo,
@@ -322,7 +365,7 @@ class LayoutLoader {
         return [:]
     }
 
-    // MARK: Internal APIs exposed for LayoutViewController
+    // MARK: Internal APIs exposed for LayoutConsole
 
     func setSourceURL(_ sourceURL: URL, for path: String) {
         _setSourceURL(sourceURL, for: path)
@@ -388,11 +431,11 @@ class LayoutLoader {
     }
 
     private func _findProjectDirectory(at path: String) -> URL? {
-        if let projectDirectory = _projectDirectory, path.hasPrefix(projectDirectory.path) {
+        var url = URL(fileURLWithPath: path).standardizedFileURL
+        if let projectDirectory = _projectDirectory,
+            url.absoluteString.hasPrefix(projectDirectory.absoluteString) {
             return projectDirectory
         }
-
-        var url = URL(fileURLWithPath: path).standardizedFileURL
         if !url.hasDirectoryPath {
             url.deleteLastPathComponent()
         }
@@ -416,7 +459,10 @@ class LayoutLoader {
         usingCache: Bool
     ) throws -> URL? {
         if let filePath = sourcePaths[path], FileManager.default.fileExists(atPath: filePath) {
-            return URL(fileURLWithPath: filePath)
+            let url = URL(fileURLWithPath: filePath).standardizedFileURL
+            if url.absoluteString.hasPrefix(directory.absoluteString) {
+                return url
+            }
         }
         guard let files = try? FileManager.default.contentsOfDirectory(atPath: directory.path) else {
             return nil

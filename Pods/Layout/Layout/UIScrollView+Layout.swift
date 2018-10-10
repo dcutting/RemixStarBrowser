@@ -3,7 +3,6 @@
 import Foundation
 
 extension UIScrollView {
-
     open override class var expressionTypes: [String: RuntimeType] {
         var types = super.expressionTypes
         types["contentInsetAdjustmentBehavior"] = .uiScrollViewContentInsetAdjustmentBehavior
@@ -13,7 +12,7 @@ extension UIScrollView {
         types["zoomScale"] = .cgFloat
         types["maximumZoomScale"] = .cgFloat
         types["minimumZoomScale"] = .cgFloat
-        types["decelerationRate"] = .cgFloat
+        types["decelerationRate"] = .uiScrollView_DecelerationRate
 
         #if arch(i386) || arch(x86_64)
             // Private properties

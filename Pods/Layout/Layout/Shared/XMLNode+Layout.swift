@@ -10,7 +10,7 @@ extension XMLNode {
                 return false
             }
             for key in attributes.keys {
-                if ["top", "left", "bottom", "right", "width", "height", "backgroundColor"].contains(key) {
+                if layoutSymbols.contains(key) {
                     return true
                 }
                 if key.hasPrefix("layer.") {
@@ -32,6 +32,13 @@ extension XMLNode {
 
     public var isMacro: Bool {
         guard case .node("macro", _, _) = self else {
+            return false
+        }
+        return true
+    }
+
+    public var isChildren: Bool {
+        guard case .node("children", _, _) = self else {
             return false
         }
         return true

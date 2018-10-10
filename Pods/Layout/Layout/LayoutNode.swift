@@ -6,7 +6,6 @@ import UIKit
 /// The LayoutNode retains its view/view controller, so any references
 /// from the view back to the node should be weak
 public class LayoutNode: NSObject {
-
     /// The view managed by this node
     /// Accessing this property will instantiate the view if it doesn't already exist
     public var view: UIView {
@@ -72,15 +71,28 @@ public class LayoutNode: NSObject {
     /// Get the view controller class without side-effects of accessing view
     public var viewControllerClass: UIViewController.Type? { return _class as? UIViewController.Type }
 
+    /// Global legacy rendering mode toggle - affects all LayoutNodes created after setting
+    public static var useLegacyLayoutMode: Bool?
+
     // For internal use
-    private(set) var _class: AnyClass
+    private(set) var _class: LayoutManaged.Type
     @objc var _view: UIView?
     private(set) var _viewController: UIViewController?
     private(set) var _originalExpressions: [String: String]
     private var _usesAutoLayout = false
+    private var _useLegacyLayoutMode: Bool
     var _parameters: [String: RuntimeType]
     var _macros: [String: String]
     var rootURL: URL?
+
+    private var _managed: LayoutManaged? {
+        return _viewController ?? _view
+    }
+
+    private var _isRightToLeftLayout: Bool {
+        return _view?._effectiveUserInterfaceLayoutDirection ??
+            UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
+    }
 
     func expression(forMacro name: String) -> String? {
         attempt(completeSetup)
@@ -99,25 +111,33 @@ public class LayoutNode: NSObject {
         guard !_setupComplete else { return }
         _setupComplete = true
 
+        assert(Thread.isMainThread)
+
         defer { _updateLock -= 1 }
         _updateLock += 1
 
         if _view == nil {
             if let controllerClass = viewControllerClass {
-                _viewController = try LayoutError.wrap({
-                    try controllerClass.create(with: self)
+                let viewController = try _viewController ?? LayoutError.wrap({
+                    let viewController = try controllerClass.create(with: self)
+                    _viewController = viewController
+                    return viewController
                 }, for: self)
-                _view = _viewController!.view
+                _view = viewController.view
             } else {
                 _view = try LayoutError.wrap({
                     try viewClass.create(with: self)
                 }, for: self)
-                assert(_view != nil)
             }
         }
-        if let layoutBacked = (_viewController ?? _view) as? LayoutBacked {
-            layoutBacked.setLayoutNode(self)
-        }
+
+        // Every Layout-managed view and viewController gets a layoutNode reference
+        _viewController?._setLayoutNode(self, retained: false)
+        _view?._setLayoutNode(self, retained: false)
+
+        // TODO: since this only has to be done once per app launch, is there a
+        // better place we can call it?
+        UIView._swizzle()
 
         // AutoLayout support
         _usesAutoLayout = _view!.constraints.contains {
@@ -135,22 +155,16 @@ public class LayoutNode: NSObject {
         overrideExpressions()
         updateObservers()
 
-        var index = 0
-        for child in children {
-            if let viewController = _view?.viewController {
-                if viewController.shouldInsertChildNode(child, at: index) {
+        if let managed = _managed {
+            var index = 0
+            for child in children {
+                if managed.shouldInsertChildNode(child, at: index) {
                     child.parent = self
-                    viewController.didInsertChildNode(child, at: index)
+                    managed.didInsertChildNode(child, at: index)
                     index += 1
                 } else {
                     children.remove(at: index)
                 }
-            } else if _view?.shouldInsertChildNode(child, at: index) == true {
-                child.parent = self
-                _view?.didInsertChildNode(child, at: index)
-                index += 1
-            } else {
-                children.remove(at: index)
             }
         }
     }
@@ -158,14 +172,14 @@ public class LayoutNode: NSObject {
     private var _observingContentSizeCategory = false
     private func _stopObservingContentSizeCategory() {
         if _observingContentSizeCategory {
-            NotificationCenter.default.removeObserver(self, name: .UIContentSizeCategoryDidChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
+            _observingContentSizeCategory = false
         }
     }
 
     private var _observingFrame = false
     private func _stopObservingFrame() {
         if _observingFrame {
-            removeObserver(self, forKeyPath: "_view.translatesAutoresizingMaskIntoConstraints")
             removeObserver(self, forKeyPath: "_view.frame")
             removeObserver(self, forKeyPath: "_view.bounds")
             _observingFrame = false
@@ -174,11 +188,7 @@ public class LayoutNode: NSObject {
 
     private var _observingInsets = false
     private var _shouldObserveInsets: Bool {
-        guard let viewControllerClass = viewControllerClass else {
-            return false
-        }
-        return !(viewControllerClass is UITabBarController.Type) &&
-            !(viewControllerClass is UINavigationController.Type)
+        return viewControllerClass != nil || parent == nil
     }
     private func _stopObservingInsets() {
         if #available(iOS 11.0, *), _observingInsets {
@@ -190,72 +200,85 @@ public class LayoutNode: NSObject {
     private func stopObserving() {
         _stopObservingContentSizeCategory()
         _stopObservingFrame()
-        _stopObservingInsets()
     }
 
     // Depends on presence of parent - must be called again if parent is added or removed
     private func updateObservers() {
-        if _observingContentSizeCategory, parent != nil {
+        if parent != nil {
             _stopObservingContentSizeCategory()
-        } else if !_observingContentSizeCategory, parent == nil {
-            NotificationCenter.default.addObserver(self, selector: #selector(contentSizeCategoryChanged), name: .UIContentSizeCategoryDidChange, object: nil)
+        } else if !_observingContentSizeCategory {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(contentSizeCategoryChanged),
+                name: UIContentSizeCategory.didChangeNotification,
+                object: nil
+            )
+            _observingContentSizeCategory = true
         }
         if !_observingFrame {
-            addObserver(self, forKeyPath: "_view.translatesAutoresizingMaskIntoConstraints", options: [.new, .old], context: nil)
             addObserver(self, forKeyPath: "_view.frame", options: .new, context: nil)
             addObserver(self, forKeyPath: "_view.bounds", options: .new, context: nil)
             _observingFrame = true
         }
-        if _observingInsets, !_shouldObserveInsets {
-            _stopObservingInsets()
-        } else if #available(iOS 11.0, *), !_observingInsets, _shouldObserveInsets {
-            addObserver(self, forKeyPath: "_view.safeAreaInsets", options: .new, context: nil)
-            _observingInsets = true
+    }
+
+    private var _previousBounds = CGRect.zero
+    private var _previousSafeAreaInsets = UIEdgeInsets.zero
+    private var _anyChildDependsOnContentOffset: Bool?
+    fileprivate func updateLayout() {
+        guard _setupComplete, _updateLock == 0, let view = _view else {
+            return
+        }
+        if _shouldObserveInsets, !view._safeAreaInsets.isNearlyEqual(to: _previousSafeAreaInsets) {
+            _previousSafeAreaInsets = view._safeAreaInsets
+            update()
+        } else if !view.bounds.size.isNearlyEqual(to: _previousBounds.size) {
+            return // Don't update the frame inside layoutSubviews, or we'll create an infinite loop
+        } else if view is UIScrollView, !view.bounds.origin.isNearlyEqual(to: _previousBounds.origin) {
+            if _anyChildDependsOnContentOffset == nil {
+                _anyChildDependsOnContentOffset = anyExpressionDependsOn([
+                    "contentOffset", "contentOffset.x", "contentOffset.y",
+                    "bounds", "bounds.origin", "bounds.origin.x", "bounds.origin.y",
+                    "bounds.x", "bounds.y",
+                ], recursive: true)
+            }
+            if _anyChildDependsOnContentOffset == true {
+                children.forEach { $0.update() }
+            }
+            _previousBounds.origin = view.bounds.origin
         }
     }
 
-    var _anyChildDependsOnContentOffset: Bool?
+    // called by UITableView/UICollectionView as cells are loaded
+    private var _anyExpressionDependsOnContentSize: Bool?
+    internal func contentSizeChanged() {
+        if _anyExpressionDependsOnContentSize == nil {
+            _anyExpressionDependsOnContentSize = anyExpressionDependsOn([
+                "inferredSize.width", "inferredSize.height",
+                "inferredContentSize.width", "inferredContentSize.height",
+                "contentSize", "contentSize.width", "contentSize.height",
+                "bounds", "bounds.size", "bounds.size.width", "bounds.size.height",
+                "bounds.width", "bounds.height",
+            ], recursive: false)
+        }
+        if _anyExpressionDependsOnContentSize == true, _view?.window != nil {
+            update()
+        }
+    }
+
     public override func observeValue(
         forKeyPath _: String?,
         of _: Any?,
         change: [NSKeyValueChangeKey: Any]?,
         context _: UnsafeMutableRawPointer?
     ) {
-        guard _setupComplete, _updateLock == 0, _evaluating.isEmpty, let new = change?[.newKey] else {
+        guard _setupComplete, _updateLock == 0, _evaluating.isEmpty,
+            root._setupComplete, root._updateLock == 0, root._evaluating.isEmpty,
+            let view = _view, !view.bounds.size.isNearlyEqual(to: _previousBounds.size) else {
             return
         }
-        switch new {
-        case let rect as CGRect:
-            if !rect.size.isNearlyEqual(to: _previousBounds.size) {
-                if root._view?.superview != nil, root._setupComplete,
-                    root._updateLock == 0, root._evaluating.isEmpty {
-                    root.update()
-                }
-            } else if _view is UIScrollView, !rect.origin.isNearlyEqual(to: _previousBounds.origin) {
-                if _anyChildDependsOnContentOffset == nil {
-                    _anyChildDependsOnContentOffset = anyExpressionDependsOn([
-                        "contentOffset", "contentOffset.x", "contentOffset.y",
-                        "bounds", "bounds.origin", "bounds.origin.x", "bounds.origin.y",
-                        "bounds.x", "bounds.y",
-                    ])
-                }
-                if _anyChildDependsOnContentOffset == true {
-                    children.forEach { $0.update() }
-                }
-            }
-        case let insets as UIEdgeInsets:
-            if _view?.window != nil, !insets.isNearlyEqual(to: _previousSafeAreaInsets) {
-                // If not yet mounted, safe area insets can't be valid
-                update()
-            }
-            _previousSafeAreaInsets = insets
-        case let useAutoresizing as Bool:
-            if useAutoresizing != change?[.oldKey] as? Bool {
-                update()
-            }
-        default:
-            preconditionFailure()
-        }
+        root.update()
+        _previousBounds = view.bounds
     }
 
     @objc private func contentSizeCategoryChanged() {
@@ -276,11 +299,12 @@ public class LayoutNode: NSObject {
         expressions: [String: String] = [:],
         children: [LayoutNode] = []
     ) throws {
-        guard `class` is UIView.Type || `class` is UIViewController.Type else {
+        guard let _class = `class` as? LayoutManaged.Type,
+            _class is UIView.Type || _class is UIViewController.Type else {
             throw LayoutError.message("\(`class`) is not a subclass of UIView or UIViewController")
         }
-        _class = `class`
-        _state = try! unwrap(state)
+        self._class = _class
+        _state = AnyExpression.unwrap(state)!
         self.id = id
         self.constants = merge(constants)
         self.expressions = expressions
@@ -289,20 +313,37 @@ public class LayoutNode: NSObject {
         _parameters = [:]
         _macros = [:]
         _originalExpressions = expressions
+        _useLegacyLayoutMode = LayoutNode.useLegacyLayoutMode ?? true
 
         super.init()
 
         // Merge expressions with defaults
-        let defaultExpressions = viewControllerClass?.defaultExpressions ?? viewClass.defaultExpressions
-        for (key, value) in defaultExpressions {
-            guard !hasExpression(key) else { continue }
+        for (key, value) in _class.defaultExpressions where !hasExpression(key) {
             switch key {
-            case "left" where hasExpression("width") && hasExpression("right"),
-                 "right" where hasExpression("width") && hasExpression("left"),
-                 "width" where hasExpression("left") && hasExpression("right"),
-                 "top" where hasExpression("height") && hasExpression("bottom"),
-                 "bottom" where hasExpression("height") && hasExpression("top"),
-                 "height" where hasExpression("top") && hasExpression("bottom"):
+            case "center.x" where hasExpression(in: ["left", "right", "leading", "trailing"]),
+                 "left" where hasExpression(in: ["leading", "trailing"]) ||
+                     (hasExpression(in: ["center.x", "right"]) && hasExpression("width")),
+                 "leading" where hasExpression(in: ["left", "right"]) ||
+                     (hasExpression(in: ["center.x", "trailing"]) && hasExpression("width")),
+                 "right" where hasExpression(in: ["leading", "trailing"]) ||
+                     (hasExpression(in: ["center.x", "left"]) && hasExpression("width")),
+                 "trailing" where hasExpression(in: ["left", "right"]) ||
+                     (hasExpression(in: ["center.x", "leading"]) && hasExpression("width")),
+                 "width" where (hasExpression("left") && hasExpression("right")) ||
+                     (hasExpression("leading") && hasExpression("trailing")),
+                 "center.y" where
+                     hasExpression(in: ["top", "bottom", "firstBaseline", "lastBaseline"]),
+                 "top" where
+                     hasExpression(in: ["center.y", "firstBaseline", "lastBaseline"]) ||
+                     (hasExpression("height") && hasExpression("bottom")),
+                 "bottom" where
+                     hasExpression(in: ["center.y", "firstBaseline", "lastBaseline"]) ||
+                     (hasExpression("height") && hasExpression("top")),
+                 "height" where hasExpression("top") && hasExpression("bottom"),
+                 "firstBaseline" where
+                     hasExpression(in: ["top", "bottom", "center.y", "lastBaseline"]),
+                 "lastBaseline" where
+                     hasExpression(in: ["top", "bottom", "center.y", "firstBaseline"]):
                 break // Redundant
             default:
                 _originalExpressions[key] = value
@@ -311,7 +352,31 @@ public class LayoutNode: NSObject {
         }
     }
 
-    /// Create a node for managing a view controller instance
+    /// Create a node for managing a view controller
+    public convenience init(
+        viewController: UIViewController.Type,
+        id: String? = nil,
+        outlet: String? = nil,
+        state: Any = (),
+        constants: [String: Any]...,
+        expressions: [String: String] = [:],
+        children: [LayoutNode] = []
+    ) {
+        var expressions = expressions
+        if let outlet = outlet {
+            expressions["outlet"] = outlet
+        }
+        try! self.init(
+            class: viewController,
+            id: id,
+            state: state,
+            constants: merge(constants),
+            expressions: expressions,
+            children: children
+        )
+    }
+
+    /// Create a node for managing a specific view controller instance
     public convenience init(
         viewController: UIViewController,
         id: String? = nil,
@@ -321,15 +386,10 @@ public class LayoutNode: NSObject {
         expressions: [String: String] = [:],
         children: [LayoutNode] = []
     ) {
-        assert(Thread.isMainThread)
-
-        var expressions = expressions
-        if let outlet = outlet {
-            expressions["outlet"] = outlet
-        }
-        try! self.init(
-            class: viewController.classForCoder,
+        self.init(
+            viewController: type(of: viewController),
             id: id,
+            outlet: outlet,
             state: state,
             constants: merge(constants),
             expressions: expressions,
@@ -337,12 +397,11 @@ public class LayoutNode: NSObject {
         )
 
         _viewController = viewController
-        _view = viewController.view
     }
 
-    /// Create a node for managing a view instance
+    /// Create a node for managing a view
     public convenience init(
-        view: UIView? = nil,
+        view: UIView.Type = UIView.self,
         id: String? = nil,
         outlet: String? = nil,
         state: Any = (),
@@ -350,15 +409,34 @@ public class LayoutNode: NSObject {
         expressions: [String: String] = [:],
         children: [LayoutNode] = []
     ) {
-        assert(Thread.isMainThread)
-
         var expressions = expressions
         if let outlet = outlet {
             expressions["outlet"] = outlet
         }
         try! self.init(
-            class: view?.classForCoder ?? UIView.self,
+            class: view,
             id: id,
+            state: state,
+            constants: merge(constants),
+            expressions: expressions,
+            children: children
+        )
+    }
+
+    /// Create a node for managing a specific view instance
+    public convenience init(
+        view: UIView,
+        id: String? = nil,
+        outlet: String? = nil,
+        state: Any = (),
+        constants: [String: Any]...,
+        expressions: [String: String] = [:],
+        children: [LayoutNode] = []
+    ) {
+        self.init(
+            view: type(of: view),
+            id: id,
+            outlet: outlet,
             state: state,
             constants: merge(constants),
             expressions: expressions,
@@ -369,9 +447,8 @@ public class LayoutNode: NSObject {
     }
 
     deinit {
-        if let layoutBacked = (_viewController ?? _view) as? LayoutBacked, layoutBacked.layoutNode == self {
-            layoutBacked.setLayoutNode(nil)
-        }
+        _viewController?._setLayoutNode(nil, retained: false)
+        _view?._setLayoutNode(nil, retained: false)
         stopObserving()
     }
 
@@ -380,18 +457,19 @@ public class LayoutNode: NSObject {
     /// Test if the specified expression is valid for a given view or view controller class
     /// NOTE: only used by UIDesigner - should we deprecate this?
     public static func isValidExpressionName(
-        _ name: String, for viewOrViewControllerClass: AnyClass) -> Bool {
+        _ name: String, for viewOrViewControllerClass: AnyClass
+    ) -> Bool {
         switch name {
-        case "top", "left", "bottom", "right", "width", "height", "outlet":
+        case "top", "left", "leading", "trailing",
+             "bottom", "right", "width", "height",
+             "center.x", "center.y", "firstBaseline", "lastBaseline",
+             "outlet":
             return true
         default:
-            if let viewClass = viewOrViewControllerClass as? UIView.Type {
-                return viewClass.cachedExpressionTypes[name]?.isAvailable == true
-            } else if let viewControllerClass = viewOrViewControllerClass as? UIViewController.Type {
-                return viewControllerClass.cachedExpressionTypes[name]?.isAvailable ??
-                    UIView.cachedExpressionTypes[name]?.isAvailable == true
+            guard let cls = viewOrViewControllerClass as? LayoutManaged.Type else {
+                preconditionFailure("\(viewOrViewControllerClass) is not a UIView or UIViewController subclass")
             }
-            preconditionFailure("\(viewOrViewControllerClass) is not a UIView or UIViewController subclass")
+            return (cls.cachedExpressionTypes[name] ?? UIView.cachedExpressionTypes[name])?.isAvailable == true
         }
     }
 
@@ -426,24 +504,50 @@ public class LayoutNode: NSObject {
             if expressions[name] != nil {
                 return true
             }
-            _originalExpressions[name] = nil // Prevents false postives when overridden
+            _originalExpressions[name] = nil // Prevents false positives when overridden
         }
         return false
     }
 
+    func hasExpression(in names: [String]) -> Bool {
+        return names.contains(where: hasExpression)
+    }
+
     private func redundantExpressionErrors() -> Set<LayoutError> {
         var errors = Set<LayoutError>()
-        if hasExpression("bottom"),
-            !value(forSymbol: "height", dependsOn: "bottom"),
-            !value(forSymbol: "top", dependsOn: "bottom") {
-            errors.insert(LayoutError(SymbolError("Expression for bottom is redundant",
-                                                  for: "bottom"), for: self))
+        if hasExpression("leading"),
+            !value(forSymbol: "width", dependsOn: "leading"),
+            !value(forSymbol: "left", dependsOn: "leading") {
+            errors.insert(LayoutError(SymbolError("Expression for leading is redundant",
+                                                  for: "leading"), for: self))
+        }
+        if hasExpression("trailing"),
+            !value(forSymbol: "width", dependsOn: "trailing"),
+            !value(forSymbol: "left", dependsOn: "trailing") {
+            errors.insert(LayoutError(SymbolError("Expression for trailing is redundant",
+                                                  for: "trailing"), for: self))
         }
         if hasExpression("right"),
             !value(forSymbol: "width", dependsOn: "right"),
             !value(forSymbol: "left", dependsOn: "right") {
             errors.insert(LayoutError(SymbolError("Expression for right is redundant",
                                                   for: "right"), for: self))
+        }
+        if hasExpression("bottom"),
+            !value(forSymbol: "height", dependsOn: "bottom"),
+            !value(forSymbol: "top", dependsOn: "bottom") {
+            errors.insert(LayoutError(SymbolError("Expression for bottom is redundant",
+                                                  for: "bottom"), for: self))
+        }
+        if hasExpression("center.x"), !value(forSymbol: "left", dependsOn: "center.x") {
+            errors.insert(LayoutError(SymbolError("Expression for center.x is redundant",
+                                                  for: "center.x"), for: self))
+        }
+        for key in ["center.y", "firstBaseline", "lastBaseline"] {
+            if hasExpression(key), !value(forSymbol: "top", dependsOn: key) {
+                errors.insert(LayoutError(SymbolError("Expression for \(key) is redundant",
+                                                      for: key), for: self))
+            }
         }
         return errors
     }
@@ -473,31 +577,42 @@ public class LayoutNode: NSObject {
         }
     }
 
-    private func bubbleUnhandledError() {
-        guard let error = _unhandledError else {
-            return
+    private var _unhandledWarnings = [String]()
+    private func showUnhandledWarnings() {
+        if !_unhandledWarnings.isEmpty, _view?.window != nil {
+            for warning in _unhandledWarnings {
+                LayoutConsole.showWarning(warning)
+            }
+            _unhandledWarnings.removeAll()
         }
+    }
+
+    private func bubbleUnhandledErrors() {
         if let parent = parent {
-            if parent._unhandledError == nil ||
+            parent._unhandledWarnings += _unhandledWarnings
+            _unhandledWarnings.removeAll()
+            if let error = _unhandledError, parent._unhandledError == nil ||
                 (parent._unhandledError?.isTransient == true && !error.isTransient) {
                 parent._unhandledError = LayoutError(error, for: parent)
                 if error.isTransient {
                     _unhandledError = nil
                 }
-                parent.bubbleUnhandledError()
             }
+            parent.bubbleUnhandledErrors()
             return
         }
-        if let delegate = self.target(for: #selector(LayoutDelegate.layoutNode(_:didDetectError:))) {
-            if error.isTransient {
-                _unhandledError = nil
-            }
-            delegate.layoutNode?(self, didDetectError: error)
+        showUnhandledWarnings()
+        guard let error = _unhandledError else {
             return
         }
-        if !error.isTransient {
-            assertionFailure("Layout error: \(error)")
+        guard let delegate = delegate else {
+            LayoutConsole.showError(error)
+            return
         }
+        if error.isTransient {
+            _unhandledError = nil
+        }
+        delegate.layoutError(error)
     }
 
     // Attempt a throwing operation but catch the error and bubble it up the Layout hierarchy
@@ -510,7 +625,7 @@ public class LayoutNode: NSObject {
                 _unhandledError = error
                 // Don't bubble if we're in the middle of evaluating an expression
                 if _evaluating.isEmpty {
-                    bubbleUnhandledError()
+                    bubbleUnhandledErrors()
                 }
             }
             return nil
@@ -536,7 +651,7 @@ public class LayoutNode: NSObject {
             _state = oldState
         } else {
             let oldState = _state
-            _state = try! unwrap(newState)
+            _state = AnyExpression.unwrap(newState)!
             let oldType = type(of: oldState)
             assert(oldType == Void.self || oldType == type(of: _state), "Cannot change type of state after initialization")
             equal = areEqual(oldState, _state)
@@ -553,10 +668,8 @@ public class LayoutNode: NSObject {
             _variables = members
             return true
         }
-        // TODO: what about nested objects?
         var equal = true
-        let mirror = Mirror(reflecting: _state)
-        for (name, value) in mirror.children {
+        for (name, value) in Mirror(reflecting: _state).children {
             if let name = name, (equal && areEqual(_variables[name] as Any, value)) == false {
                 _variables[name] = value
                 equal = false
@@ -592,13 +705,13 @@ public class LayoutNode: NSObject {
                     overrideExpressions()
                 }
                 setUpPositionConstraints()
-                bubbleUnhandledError()
+                bubbleUnhandledErrors()
             }
         }
     }
 
     /// The root node of this layout tree (unretained)
-    private var _root: LayoutNode?
+    private weak var _root: LayoutNode?
     public var root: LayoutNode {
         if _root == nil {
             _root = parent?.root ?? self
@@ -615,6 +728,15 @@ public class LayoutNode: NSObject {
         return nil
     }
 
+    /// The previous visible sibling
+    var previousVisible: LayoutNode? {
+        var previous = self.previous
+        while previous?.isHidden == true {
+            previous = previous?.previous
+        }
+        return previous
+    }
+
     /// The next sibling of the node within its parent
     /// Returns nil if this is a root node, or is the last child of its parent
     var next: LayoutNode? {
@@ -623,6 +745,15 @@ public class LayoutNode: NSObject {
             return siblings[index + 1]
         }
         return nil
+    }
+
+    /// The next visible sibling
+    var nextVisible: LayoutNode? {
+        var next = self.next
+        while next?.isHidden == true {
+            next = next?.next
+        }
+        return next
     }
 
     // Find a node by id, starting with the children and then progressing to siblings and parents
@@ -679,11 +810,7 @@ public class LayoutNode: NSObject {
             if let owner = _owner {
                 try? child.bind(to: owner)
             }
-            if let viewController = _viewController {
-                viewController.didInsertChildNode(child, at: index)
-            } else {
-                _view?.didInsertChildNode(child, at: index)
-            }
+            _managed?.didInsertChildNode(child, at: index)
         }
     }
 
@@ -698,11 +825,7 @@ public class LayoutNode: NSObject {
     /// Note: this will not necessarily trigger an update in either node
     public func removeFromParent() {
         if let index = parent?.children.index(where: { $0 === self }) {
-            if let viewController = parent?._viewController {
-                viewController.willRemoveChildNode(self, at: index)
-            } else {
-                parent?._view?.willRemoveChildNode(self, at: index)
-            }
+            parent?._managed?.willRemoveChildNode(self, at: index)
             unbind()
             parent?.children.remove(at: index)
             parent = nil
@@ -710,16 +833,16 @@ public class LayoutNode: NSObject {
         }
         _view?.removeFromSuperview()
         for controller in viewControllers {
-            controller.removeFromParentViewController()
+            controller.removeFromParent()
         }
     }
 
     // Experimental - used for nested XML reference loading
     internal func update(with layout: Layout) throws {
-        let newClass: AnyClass = try layout.getClass()
-        let oldClass: AnyClass = _class
-        guard newClass.isSubclass(of: oldClass) else {
-            throw LayoutError("Cannot replace \(oldClass) with \(newClass)", for: self)
+        let _newClass: AnyClass = try layout.getClass()
+        let oldClass = _class
+        guard let newClass = _newClass as? LayoutManaged.Type, _newClass.isSubclass(of: oldClass) else {
+            throw LayoutError("Cannot replace \(oldClass) with \(_newClass)", for: self)
         }
 
         for child in children {
@@ -742,7 +865,6 @@ public class LayoutNode: NSObject {
             }
 
             if _setupComplete {
-
                 // NOTE: this convoluted update process is needed to ensure that if the
                 // class changes, the new view or controller is inserted at the correct
                 // position in the hierarchy
@@ -769,13 +891,13 @@ public class LayoutNode: NSObject {
                 unmount()
                 if let parent = parent, let index = parent.children.index(of: self) {
                     oldView?.removeFromSuperview()
-                    oldViewController?.removeFromParentViewController()
+                    oldViewController?.removeFromParent()
                     parent.insertChild(self, at: index)
                 } else if let superview = oldView?.superview,
                     let index = superview.subviews.index(of: oldView!) {
                     if let parentViewController = oldViewController?.parent {
-                        oldViewController?.removeFromParentViewController()
-                        parentViewController.addChildViewController(viewController!)
+                        oldViewController?.removeFromParent()
+                        parentViewController.addChild(viewController!)
                     }
                     oldView!.removeFromSuperview()
                     superview.insertSubview(view, at: index)
@@ -823,33 +945,55 @@ public class LayoutNode: NSObject {
         // layout props
         if !hasExpression("width") {
             _getters["width"] = nil
-            if hasExpression("left"), hasExpression("right") {
-                expressions["width"] = "right - left"
+            if hasExpression("leading"), hasExpression("trailing") {
+                expressions["width"] = "100% - leading - trailing"
+            } else if hasExpression("left"), hasExpression("right") {
+                expressions["width"] = _useLegacyLayoutMode ? "right - left" : "100% - right - left"
             } else if !(_view is UIScrollView), _view is UIImageView || _usesAutoLayout ||
-                _view?.intrinsicContentSize.width != UIViewNoIntrinsicMetric {
+                _view?.intrinsicContentSize.width != UIView.noIntrinsicMetric {
                 expressions["width"] = "100% == 0 ? auto : min(auto, 100%)"
             } else if parent != nil {
                 expressions["width"] = "100%"
             }
         }
-        if !hasExpression("left"), hasExpression("right") {
+        if !hasExpression("left") {
             _getters["left"] = nil
-            expressions["left"] = "right - width"
+            if _isRightToLeftLayout, hasExpression("trailing") {
+                expressions["left"] = "trailing"
+            } else if !_isRightToLeftLayout, hasExpression("leading") {
+                expressions["left"] = "leading"
+            } else if _isRightToLeftLayout, hasExpression("leading") {
+                expressions["left"] = "leading + width"
+            } else if !_isRightToLeftLayout, hasExpression("trailing") {
+                expressions["left"] = "trailing + width"
+            } else if hasExpression("right") {
+                expressions["left"] = _useLegacyLayoutMode ? "right - width" : "100% - right - width"
+            } else if hasExpression("center.x") {
+                expressions["left"] = "center.x - width * layer.anchorPoint.x"
+            }
         }
         if !hasExpression("height") {
             _getters["height"] = nil
             if hasExpression("top"), hasExpression("bottom") {
-                expressions["height"] = "bottom - top"
+                expressions["height"] = _useLegacyLayoutMode ? "bottom - top" : "100% - bottom - top"
             } else if !(_view is UIScrollView), _view is UIImageView || _usesAutoLayout ||
-                _view?.intrinsicContentSize.height != UIViewNoIntrinsicMetric {
+                _view?.intrinsicContentSize.height != UIView.noIntrinsicMetric {
                 expressions["height"] = "auto"
             } else if parent != nil {
                 expressions["height"] = "100%"
             }
         }
-        if !hasExpression("top"), hasExpression("bottom") {
+        if !hasExpression("top") {
             _getters["top"] = nil
-            expressions["top"] = "bottom - height"
+            if hasExpression("bottom") {
+                expressions["top"] = _useLegacyLayoutMode ? "bottom - height" : "100% - bottom - height"
+            } else if hasExpression("center.y") {
+                expressions["top"] = "center.y - height * layer.anchorPoint.y"
+            } else if hasExpression("firstBaseline") {
+                expressions["top"] = "firstBaseline - firstBaselineOffset"
+            } else if hasExpression("lastBaseline") {
+                expressions["top"] = "lastBaseline - lastBaselineOffset"
+            }
         }
     }
 
@@ -905,19 +1049,21 @@ public class LayoutNode: NSObject {
 
     // Returns all expressions that can be set on the node
     // Used for generating error suggestions
-    var availableExpressions: [String] {
-        var expressions = Array(layoutSymbols)
-        expressions += ["outlet", "id", "xml", "template"]
-        expressions += _parameters.keys
-        if let controllerClass = viewControllerClass {
-            expressions +=
-                Array(controllerClass.expressionTypes.flatMap { $0.value.isAvailable ? $0.key : nil }) +
-                Array(UIView.expressionTypes.flatMap { $0.value.isAvailable ? $0.key : nil })
-        } else {
-            expressions += Array(viewClass.expressionTypes.flatMap { $0.value.isAvailable ? $0.key : nil })
+    lazy var availableExpressions: Set<String> = {
+        var expressions = layoutSymbols
+        expressions.formUnion(["outlet", "id", "xml", "template"])
+        expressions.formUnion(self._parameters.keys)
+        expressions.formUnion(self._class.expressionTypes.compactMap {
+            $0.value.isAvailable ? $0.key : nil
+        })
+        if self._class is UIViewController.Type {
+            // TODO: disallow setting view properties directly if type is a UIViewController
+            expressions.formUnion(UIView.expressionTypes.compactMap {
+                $0.value.isAvailable ? $0.key : nil
+            })
         }
         return expressions
-    }
+    }()
 
     private func keys(in values: [String: Any], matching type: RuntimeType) -> [String] {
         var matches = [String]()
@@ -932,43 +1078,49 @@ public class LayoutNode: NSObject {
     }
 
     // Returns all symbols that can be referenced in an expression
-    func availableSymbols(forExpression name: String) -> [String] {
-        var symbols = [String]()
-        var type: RuntimeType
+    func availableSymbols(forExpression name: String) -> Set<String> {
+        var symbols = Set(layoutSymbols)
+        let type: RuntimeType
         switch name {
-        case "left", "right", "top", "bottom":
-            type = .cgFloat
-        case "width", "height":
-            type = .cgFloat
-            symbols.append("auto")
         case "outlet", "id", "xml", "template":
             type = .string
+        case "center":
+            type = .cgPoint
+        case "width", "height", "contentSize.width", "contentSize.height":
+            symbols.insert("auto")
+            fallthrough
+        case _ where layoutSymbols.contains(name):
+            type = .cgFloat
         default:
-            func validKeys(in types: [String: RuntimeType]) -> [String] {
-                return types.flatMap { $0.key != name && $0.value == type ? $0.key : nil }
-            }
-            if let controllerClass = viewControllerClass {
-                type = controllerClass.expressionTypes[name] ?? UIView.expressionTypes[name] ?? .any
-                symbols += validKeys(in: controllerClass.expressionTypes)
-                symbols += validKeys(in: UIView.expressionTypes)
-            } else {
-                type = viewClass.expressionTypes[name] ?? .any
-                symbols += validKeys(in: viewClass.expressionTypes)
-            }
+            type = _class.expressionTypes[name] ??
+                // TODO: disallow setting view properties directly if type is a UIViewController
+                UIView.expressionTypes[name] ?? .any
         }
-        symbols += type.values.keys
+        func validKeys(in types: [String: RuntimeType]) -> [String] {
+            return types.compactMap { $0.key != name && $0.value == type ? $0.key : nil }
+        }
+        symbols.formUnion(validKeys(in: _class.expressionTypes))
+        if _class is UIViewController.Type {
+            // TODO: disallow setting view properties directly if type is a UIViewController
+            symbols.formUnion(validKeys(in: UIView.expressionTypes))
+        }
+        if type.swiftType == UIVisualEffect.self {
+            // TODO: any way to generalize this?
+            symbols.formUnion(RuntimeType.uiBlurEffect_Style.values.keys)
+        }
+        symbols.formUnion(type.values.keys)
         // TODO: basing the search on type is not especially effective because
         // you can use symbols of other types inside an expression, but if we
         // don't filter it somehow then there will be too many possible results
         var node: LayoutNode? = self
         while let _node = node {
-            symbols += keys(in: _node.constants, matching: type)
+            symbols.formUnion(keys(in: _node.constants, matching: type))
             for (key, value) in _node._variables where type.matches(value) {
-                symbols.append(key)
+                symbols.insert(key)
             }
             if _node != self {
                 for (key, _type) in _node._parameters where type == _type {
-                    symbols.append(key)
+                    symbols.insert(key)
                 }
                 // TODO: macros?
             }
@@ -995,9 +1147,9 @@ public class LayoutNode: NSObject {
             _evaluating.append(symbol)
             defer { _evaluating.removeLast() }
             switch symbol {
-            case "left", "right":
+            case "left", "right", "leading", "trailing", "center.x":
                 expression = LayoutExpression(xExpression: string, for: self)
-            case "top", "bottom":
+            case "top", "bottom", "center.y", "firstBaseline", "lastBaseline":
                 expression = LayoutExpression(yExpression: string, for: self)
             case "width":
                 expression = LayoutExpression(widthExpression: string, for: self)
@@ -1006,7 +1158,7 @@ public class LayoutNode: NSObject {
             case "outlet":
                 expression = LayoutExpression(outletExpression: string, for: self)
                 if let expression = expression, !expression.isConstant {
-                    throw SymbolError("Expression for `\(symbol)` must be a constant or literal value", for: symbol)
+                    throw SymbolError("Expression for \(symbol) must be a constant or literal value", for: symbol)
                 }
             default:
                 let type: RuntimeType
@@ -1047,11 +1199,12 @@ public class LayoutNode: NSObject {
                         let _ = try? viewController.value(forSymbol: symbol) {
                         throw SymbolError(fatal: "\(_class).\(symbol) is private or read-only", for: symbol)
                     }
+                    // TODO: disallow setting view properties directly if type is a UIViewController
                     if let view = try? viewClass.create(with: self),
                         let _ = try? view.value(forSymbol: symbol) {
                         throw SymbolError(fatal: "\(_class).\(symbol) is private or read-only", for: symbol)
                     }
-                    throw SymbolError("Unknown property `\(symbol)` of \(_class)", for: symbol)
+                    throw SymbolError("Unknown property \(symbol) of \(_class)", for: symbol)
                 }
                 switch type.availability {
                 case .available:
@@ -1059,7 +1212,7 @@ public class LayoutNode: NSObject {
                 case let .unavailable(reason):
                     throw SymbolError(fatal: "\(_class).\(symbol) is not available\(reason.map { ". \($0)" } ?? "")", for: symbol)
                 }
-                if case let .any(kind) = type.type, kind is CGFloat.Type {
+                if case let .any(subtype) = type.kind, subtype is CGFloat.Type {
                     switch symbol {
                     case "contentSize.width":
                         expression = LayoutExpression(contentWidthExpression: string, for: self)
@@ -1118,11 +1271,11 @@ public class LayoutNode: NSObject {
                             }
                             if let macro = self.expression(forMacro: symbol) {
                                 // TODO: allow this
-                                throw SymbolError("Expression for `\(symbol)` references a macro of the same name (which is not currently supported)", for: symbol)
+                                throw SymbolError("Expression for \(symbol) references a macro of the same name (which is not currently supported)", for: symbol)
                             }
                         }
                         // TODO: allow expression to reference its previous value instead of treating this as an error
-                        throw SymbolError("Expression for `\(symbol)` references a nonexistent symbol of the same name (expressions cannot reference themselves)", for: symbol)
+                        throw SymbolError("Expression for \(symbol) references a nonexistent symbol of the same name (expressions cannot reference themselves)", for: symbol)
                     }
                     self._evaluating.append(symbol)
                     defer {
@@ -1133,7 +1286,8 @@ public class LayoutNode: NSObject {
                     cachedValue = value
                     return value
                 },
-                symbols: expression.symbols
+                symbols: expression.symbols,
+                isConstant: expression.isConstant
             )
         }
         _getters[symbol] = expression.evaluate
@@ -1147,6 +1301,9 @@ public class LayoutNode: NSObject {
         case .layout:
             _layoutExpressions[symbol] = expression
         }
+
+        // Check for deprecation
+        handleDeprecation(for: symbol)
     }
 
     private func superExpressions(for key: String) -> [String] {
@@ -1172,9 +1329,11 @@ public class LayoutNode: NSObject {
             _settingUpExpressions = false
             _expressionsSetUp = true
         }
-        for symbol in expressions.keys {
-            try LayoutError.wrap({ try setUpExpression(for: symbol) }, for: self)
-        }
+        try LayoutError.wrap({
+            for symbol in expressions.keys {
+                try setUpExpression(for: symbol)
+            }
+        }, for: self)
 
         var blocks = [(Bool) throws -> Void]()
         try LayoutError.wrap({
@@ -1196,6 +1355,7 @@ public class LayoutNode: NSObject {
                     }
                 }
             }
+            // TODO: disallow setting view properties directly if type is a UIViewController
             for key in _viewExpressions.keys.sorted() {
                 let expression = _viewExpressions[key]!
                 let keys = [key] + superExpressions(for: key)
@@ -1219,6 +1379,7 @@ public class LayoutNode: NSObject {
             for block in blocks {
                 try block(animated)
             }
+            // TODO: check if actions are dynamic, otherwise this is uneccesary
             try self.bindActions()
         }
 
@@ -1235,10 +1396,10 @@ public class LayoutNode: NSObject {
     // MARK: symbols
 
     private func localizedString(forKey key: String) throws -> String {
-        guard let delegate = self.target(for: #selector(LayoutDelegate.layoutNode(_:localizedStringForKey:))) else {
-            throw SymbolError("No layoutNode(_:localizedStringForKey:) implementation found. Unable to look up localized string", for: key)
+        guard let delegate = delegate as? LayoutLoading else {
+            throw SymbolError("No layoutString(forKey:) implementation found. Unable to look up localized string for key '\(key)'", for: key)
         }
-        guard let string = delegate.layoutNode?(self, localizedStringForKey: key) else {
+        guard let string = delegate.layoutString(forKey: key) else {
             throw SymbolError("Missing localized string", for: key)
         }
         return string
@@ -1255,21 +1416,41 @@ public class LayoutNode: NSObject {
         return try getter()
     }
 
-    private func value(forKeyPath keyPath: String, in dictionary: [String: Any]) throws -> Any? {
-        if let value = dictionary[keyPath] {
+    private func value(forKeyPath keyPath: String, in object: Any) throws -> Any? {
+        if let dictionary = object as? [String: Any] {
+            if let value = dictionary[keyPath] {
+                return value
+            }
+            guard let range = keyPath.range(of: ".") else {
+                return nil
+            }
+            let key: String = String(keyPath[keyPath.startIndex ..< range.lowerBound])
+            guard let object = dictionary[key] else {
+                return nil
+            }
+            let subKeyPath: String = String(keyPath[range.upperBound...])
+            if let value = try self.value(forKeyPath: subKeyPath, in: object) {
+                return value
+            }
+            throw SymbolError("Unknown property \(subKeyPath) in \(key)", for: keyPath)
+        }
+        guard let object = AnyExpression.unwrap(object) else {
+            return nil
+        }
+        let children = Mirror(reflecting: object).children
+        if let (_, value) = children.first(where: { $0.label == keyPath }) {
             return value
         }
         guard let range = keyPath.range(of: ".") else {
             return nil
         }
         let key: String = String(keyPath[keyPath.startIndex ..< range.lowerBound])
-        // TODO: if not a dictionary, should we use a mirror?
-        if let dictionary = dictionary[key] as? [String: Any] {
-            let subKeyPath: String = String(keyPath[range.upperBound ..< keyPath.endIndex])
-            guard let value = try value(forKeyPath: subKeyPath, in: dictionary) else {
-                throw SymbolError("Unknown property `\(subKeyPath)` in `\(key)`", for: keyPath)
+        if let (_, object) = children.first(where: { $0.label == key }) {
+            let subKeyPath: String = String(keyPath[range.upperBound...])
+            if let value = try self.value(forKeyPath: subKeyPath, in: object) {
+                return value
             }
-            return value
+            throw SymbolError("Unknown property \(subKeyPath) in \(key)", for: keyPath)
         }
         return nil
     }
@@ -1286,11 +1467,11 @@ public class LayoutNode: NSObject {
                     }
                     if expression(forMacro: symbol) != nil {
                         // TODO: allow this
-                        throw SymbolError("Expression for `\(symbol)` references a macro of the same name (which is not currently supported)", for: symbol)
+                        throw SymbolError("Expression for \(symbol) references a macro of the same name (which is not currently supported)", for: symbol)
                     }
                 }
                 // TODO: allow expression to reference its previous value instead of treating this as an error
-                throw SymbolError("Expression for `\(symbol)` references a nonexistent symbol of the same name (expressions cannot reference themselves)", for: symbol)
+                throw SymbolError("Expression for \(symbol) references a nonexistent symbol of the same name (expressions cannot reference themselves)", for: symbol)
             }
             return try value(forSymbol: symbol)
         }
@@ -1300,7 +1481,6 @@ public class LayoutNode: NSObject {
     }
 
     private func expressionIsConstant(_ name: String) -> Bool {
-        assert(hasExpression(name))
         attempt { try setUpExpression(for: name) }
         if let expression = _layoutExpressions[name] ??
             _viewControllerExpressions[name] ?? _viewExpressions[name] {
@@ -1311,7 +1491,7 @@ public class LayoutNode: NSObject {
 
     // Returns true if symbol is a constant, false if it's a variable, otherwise nil
     private func valueIsConstant(_ symbol: String) -> Bool? {
-        assert(_setupComplete)
+        attempt(completeSetup)
         do {
             if try value(forKeyPath: symbol, in: _variables) != nil {
                 return false
@@ -1343,8 +1523,11 @@ public class LayoutNode: NSObject {
             let tail: String = String(symbol[range.upperBound ..< symbol.endIndex])
             switch symbol[symbol.startIndex ..< range.lowerBound] {
             case "parent":
-                if let parent = parent {
-                    return parent.symbolIsConstant(tail)
+                switch tail {
+                case "top", "left":
+                    return true // Always zero
+                default:
+                    return parent?.symbolIsConstant(tail) ?? false
                 }
             case "previous", "next":
                 return false // TODO: if previous/next isHidden is constant, we could still get a constant value here
@@ -1368,7 +1551,7 @@ public class LayoutNode: NSObject {
         return try value(forKeyPath: name, in: _variables) ??
             value(forKeyPath: name, in: constants) ??
             parent?.value(forParameterOrVariableOrConstant: name) ??
-            _delegate?.value?(forParameterOrVariableOrConstant: name)
+            _delegate?.layoutValue(forKey: name)
     }
 
     func value(forParameterOrVariableOrConstant name: String) throws -> Any? {
@@ -1383,6 +1566,35 @@ public class LayoutNode: NSObject {
         self.viewControllerClass.map { $0.cachedExpressionTypes } ?? [:]
     }()
 
+    #if arch(i386) || arch(x86_64)
+
+        private lazy var deprecatedSymbols: [String: String] = {
+            self._class.deprecatedSymbols
+        }()
+
+        private func handleDeprecation(for symbol: String) {
+            let alternative: String
+            if let _alternative = deprecatedSymbols[symbol] {
+                alternative = _alternative
+            } else if _class is UIViewController.Type,
+                // TODO: disallow setting view properties directly if type is a UIViewController
+                _viewExpressions[symbol] != nil, _viewControllerExpressions[symbol] == nil {
+                alternative = "view.\(symbol)"
+            } else {
+                return
+            }
+            _unhandledWarnings.append(
+                "\(_class).\(symbol) is deprecated\(alternative.isEmpty ? "" : ". Use \(alternative) instead")"
+            )
+            bubbleUnhandledErrors()
+        }
+
+    #else
+
+        private func handleDeprecation(for _: String) {}
+
+    #endif
+
     private func value(forSymbol name: String, dependsOn symbol: String) -> Bool {
         var checking = [String]()
         func _value(forSymbol name: String, dependsOn symbol: String) -> Bool {
@@ -1390,7 +1602,7 @@ public class LayoutNode: NSObject {
                 return true
             }
             if let expression = _layoutExpressions[name] ?? _viewControllerExpressions[name] ??
-                _viewExpressions[name], !expression.isConstant {
+                _viewExpressions[name] {
                 checking.append(name)
                 defer { checking.removeLast() }
                 for name in expression.symbols where
@@ -1403,7 +1615,7 @@ public class LayoutNode: NSObject {
         return _value(forSymbol: name, dependsOn: symbol)
     }
 
-    private func anyExpressionDependsOn(_ symbols: [String]) -> Bool {
+    private func anyExpressionDependsOn(_ symbols: [String], recursive: Bool) -> Bool {
         for name in expressions.keys {
             if let expression = _layoutExpressions[name] ??
                 _viewControllerExpressions[name] ?? _viewExpressions[name],
@@ -1420,7 +1632,12 @@ public class LayoutNode: NSObject {
             }
             return ["parent.\(symbol)"]
         }
-        return children.contains(where: { $0.anyExpressionDependsOn(symbols) })
+        if recursive {
+            return children.contains {
+                $0.anyExpressionDependsOn(symbols, recursive: true)
+            }
+        }
+        return false
     }
 
     // Used by LayoutExpression and for unit tests
@@ -1476,9 +1693,12 @@ public class LayoutNode: NSObject {
         if let getter = _getters[symbol] {
             return try getter()
         }
+        handleDeprecation(for: symbol)
         let getter: Getter
         switch symbol {
-        case "left":
+        case "left",
+             "leading" where !_isRightToLeftLayout,
+             "trailing" where _isRightToLeftLayout:
             getter = { [unowned self] in
                 self._view?.frame.minX ?? 0
             }
@@ -1486,10 +1706,18 @@ public class LayoutNode: NSObject {
             getter = { [unowned self] in
                 self._view?.frame.width ?? 0
             }
-        case "right":
+        case "right" where _useLegacyLayoutMode:
             getter = { [unowned self] in
                 try SymbolError.wrap({
                     try self.cgFloatValue(forSymbol: "left") + self.cgFloatValue(forSymbol: "width")
+                }, for: symbol)
+            }
+        case "leading" where _isRightToLeftLayout,
+             "trailing" where !_isRightToLeftLayout,
+             "right" where !_useLegacyLayoutMode:
+            getter = { [unowned self] in
+                try SymbolError.wrap({
+                    try (self.parent?.cgFloatValue(forSymbol: "containerSize.width") ?? 0) - self.maxXValue()
                 }, for: symbol)
             }
         case "top":
@@ -1500,10 +1728,39 @@ public class LayoutNode: NSObject {
             getter = { [unowned self] in
                 self._view?.frame.height ?? 0
             }
-        case "bottom":
+        case "bottom" where _useLegacyLayoutMode:
             getter = { [unowned self] in
                 try SymbolError.wrap({
                     try self.cgFloatValue(forSymbol: "top") + self.cgFloatValue(forSymbol: "height")
+                }, for: symbol)
+            }
+        case "bottom" where !_useLegacyLayoutMode:
+            getter = { [unowned self] in
+                try SymbolError.wrap({
+                    try (self.parent?.cgFloatValue(forSymbol: "containerSize.height") ?? 0) - self.maxYValue()
+                }, for: symbol)
+            }
+        case "center.x":
+            getter = { [unowned self] in
+                try SymbolError.wrap({
+                    try self.cgFloatValue(forSymbol: "left") + self.cgFloatValue(forSymbol: "width") *
+                        self.cgFloatValue(forSymbol: "layer.anchorPoint.x")
+                }, for: symbol)
+            }
+        case "center.y":
+            getter = { [unowned self] in
+                try SymbolError.wrap({
+                    try self.cgFloatValue(forSymbol: "top") + self.cgFloatValue(forSymbol: "height") *
+                        self.cgFloatValue(forSymbol: "layer.anchorPoint.y")
+                }, for: symbol)
+            }
+        case "center":
+            getter = { [unowned self] in
+                try SymbolError.wrap({
+                    try CGPoint(
+                        x: self.cgFloatValue(forSymbol: "center.x"),
+                        y: self.cgFloatValue(forSymbol: "center.y")
+                    )
                 }, for: symbol)
             }
         case "containerSize.width":
@@ -1568,31 +1825,48 @@ public class LayoutNode: NSObject {
             getter = { [unowned self] in
                 try self.inferContentSize().height
             }
+        case "firstBaselineOffset":
+            getter = { [unowned self] in
+                try self.getFirstBaselineOffset()
+            }
+        case "lastBaselineOffset":
+            getter = { [unowned self] in
+                try self.getLastBaselineOffset()
+            }
+        case "firstBaseline":
+            getter = { [unowned self] in
+                try self.getFirstBaselineOffset() + self.cgFloatValue(forSymbol: "top")
+            }
+        case "lastBaseline":
+            getter = { [unowned self] in
+                try self.getLastBaselineOffset() + self.cgFloatValue(forSymbol: "top")
+            }
         default:
             func getterFor(_ symbol: String) -> Getter {
                 let fallback: Getter
                 if viewControllerClass != nil, viewControllerExpressionTypes[symbol] != nil {
                     fallback = { [unowned self] in
                         guard let viewController = self._viewController else {
-                            throw SymbolError("Undefined symbol `\(symbol)`", for: symbol)
+                            throw SymbolError("Unknown property \(symbol)", for: symbol)
                         }
                         return try viewController.value(forSymbol: symbol)
                     }
                 } else if viewControllerClass != nil, viewExpressionTypes[symbol] == nil {
+                    // TODO: disallow setting view properties directly if type is a UIViewController
                     fallback = { [unowned self] in
                         if let viewController = self._viewController,
                             let value = try? viewController.value(forSymbol: symbol) { // TODO: find a non-throwing solution for this
                             return value
                         }
                         guard let view = self._view else {
-                            throw SymbolError("Undefined symbol `\(symbol)`", for: symbol)
+                            throw SymbolError("Unknown property \(symbol)", for: symbol)
                         }
                         return try view.value(forSymbol: symbol)
                     }
                 } else {
                     fallback = { [unowned self] in
                         guard let view = self._view else {
-                            throw SymbolError("Undefined symbol `\(symbol)`", for: symbol)
+                            throw SymbolError("Unknown property \(symbol)", for: symbol)
                         }
                         return try view.value(forSymbol: symbol)
                     }
@@ -1605,49 +1879,230 @@ public class LayoutNode: NSObject {
                 let tail: String = String(symbol[range.upperBound ..< symbol.endIndex])
                 switch symbol[symbol.startIndex ..< range.lowerBound] {
                 case "parent":
-                    if parent != nil {
+                    switch tail {
+                    case "top", "left":
+                        getter = { 0 }
+                    case "center.x":
+                        getter = { [unowned self] in
+                            try (self.parent?.cgFloatValue(forSymbol: "containerSize.width") ??
+                                self._view?.superview?.bounds.width ?? 0) / 2
+                        }
+                    case "center.y":
+                        getter = { [unowned self] in
+                            try (self.parent?.cgFloatValue(forSymbol: "containerSize.height") ??
+                                self._view?.superview?.bounds.width ?? 0) / 2
+                        }
+                    case "firstBaseline" where parent != nil:
+                        getter = { [unowned self] in
+                            try self.parent?.cgFloatValue(forSymbol: "firstBaselineOffset") ?? 0
+                        }
+                    case "lastBaseline" where parent != nil:
+                        getter = { [unowned self] in
+                            try self.parent?.cgFloatValue(forSymbol: "lastBaselineOffset") ?? 0
+                        }
+                    case "width", "containerSize.width",
+                         "right" where _useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            try self.parent?.cgFloatValue(forSymbol: "containerSize.width") ??
+                                self._view?.superview?.bounds.width ?? 0
+                        }
+                    case "height", "containerSize.height",
+                         "bottom" where _useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            try self.parent?.cgFloatValue(forSymbol: "containerSize.height") ??
+                                self._view?.superview?.bounds.height ?? 0
+                        }
+                    case _ where parent != nil:
                         getter = { [unowned self] in
                             try self.parent?.value(forSymbol: tail) as Any
                         }
-                    } else {
-                        switch tail {
-                        case "width", "containerSize.width":
-                            getter = { [unowned self] in
-                                self._view?.superview?.bounds.width ?? 0
-                            }
-                        case "height", "containerSize.height":
-                            getter = { [unowned self] in
-                                self._view?.superview?.bounds.height ?? 0
-                            }
-                        default:
-                            getter = {
-                                throw SymbolError("Undefined symbol `\(tail)`", for: symbol)
-                            }
+                    default:
+                        getter = {
+                            // TODO: should we allow view properties to be referenced?
+                            throw SymbolError("Unknown property \(tail)", for: symbol)
                         }
-                    }
-                case "previous" where layoutSymbols.contains(tail):
-                    getter = { [unowned self] in
-                        var previous = self.previous
-                        while previous?.isHidden == true {
-                            previous = previous?.previous
-                        }
-                        return try previous?.value(forSymbol: tail) ?? 0
                     }
                 case "previous":
-                    getter = { [unowned self] in
-                        try self.previous?.value(forSymbol: tail) as Any
-                    }
-                case "next" where layoutSymbols.contains(tail):
-                    getter = { [unowned self] in
-                        var next = self.next
-                        while next?.isHidden == true {
-                            next = next?.next
+                    switch tail {
+                    case "trailing" where _isRightToLeftLayout:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode:
+                                return try self.previousVisible?.value(forSymbol: "left") ??
+                                    self.cgFloatValue(forSymbol: "parent.width")
+                            case "leading":
+                                return try self.previousVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.width")
+                                        - $0.cgFloatValue(forSymbol: "left")
+                                } ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
                         }
-                        return try next?.value(forSymbol: tail) ?? 0
+                    case "trailing" where !_isRightToLeftLayout,
+                         "right" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode,
+                                 "leading" where !self._isRightToLeftLayout:
+                                return try self.previousVisible?.maxXValue() ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "leading" where _isRightToLeftLayout:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode:
+                                return try self.previousVisible?.maxXValue() ??
+                                    self.cgFloatValue(forSymbol: "parent.width")
+                            case "trailing":
+                                return try self.previousVisible?.maxXValue() ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "leading" where !_isRightToLeftLayout,
+                         "left" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "right" where !self._useLegacyLayoutMode,
+                                 "trailing" where !self._isRightToLeftLayout:
+                                return try self.previousVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.width")
+                                        - $0.cgFloatValue(forSymbol: "left")
+                                } ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "bottom" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "top":
+                                return try self.previousVisible?.maxYValue() ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "top" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "bottom":
+                                return try self.previousVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.height")
+                                        - $0.cgFloatValue(forSymbol: "top")
+                                } ?? 0
+                            default:
+                                return try self.previousVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "center":
+                        getter = { [unowned self] in
+                            try self.previousVisible?.value(forSymbol: tail) ?? CGPoint.zero
+                        }
+                    case _ where layoutSymbols.contains(tail):
+                        getter = { [unowned self] in
+                            try self.previousVisible?.value(forSymbol: tail) ?? 0
+                        }
+                    default:
+                        getter = { [unowned self] in
+                            try self.previous?.value(forSymbol: tail) as Any
+                        }
                     }
                 case "next":
-                    getter = { [unowned self] in
-                        try self.next?.value(forSymbol: tail) as Any
+                    switch tail {
+                    case "trailing" where _isRightToLeftLayout:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode:
+                                return try self.nextVisible?.value(forSymbol: "left") ??
+                                    self.cgFloatValue(forSymbol: "parent.width")
+                            case "leading":
+                                return try self.nextVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.width")
+                                        - $0.cgFloatValue(forSymbol: "left")
+                                } ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "trailing" where !_isRightToLeftLayout,
+                         "right" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode,
+                                 "leading" where !self._isRightToLeftLayout:
+                                return try self.nextVisible?.maxXValue() ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "leading" where _isRightToLeftLayout:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "left",
+                                 "right" where self._useLegacyLayoutMode:
+                                return try self.nextVisible?.maxXValue() ??
+                                    self.cgFloatValue(forSymbol: "parent.width")
+                            case "trailing":
+                                return try self.nextVisible?.maxXValue() ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "leading" where !_isRightToLeftLayout,
+                         "left" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "right" where !self._useLegacyLayoutMode,
+                                 "trailing" where !self._isRightToLeftLayout:
+                                return try self.nextVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.width")
+                                        - $0.cgFloatValue(forSymbol: "left")
+                                } ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "bottom" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "top":
+                                return try self.nextVisible?.maxYValue() ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "top" where !_useLegacyLayoutMode:
+                        getter = { [unowned self] in
+                            switch self._evaluating.last ?? "" {
+                            case "bottom":
+                                return try self.nextVisible.map {
+                                    try self.cgFloatValue(forSymbol: "parent.height")
+                                        - $0.cgFloatValue(forSymbol: "top")
+                                } ?? 0
+                            default:
+                                return try self.nextVisible?.value(forSymbol: tail) ?? 0
+                            }
+                        }
+                    case "center":
+                        getter = { [unowned self] in
+                            try self.nextVisible?.value(forSymbol: tail) ?? CGPoint.zero
+                        }
+                    case _ where layoutSymbols.contains(tail):
+                        getter = { [unowned self] in
+                            try self.nextVisible?.value(forSymbol: tail) ?? 0
+                        }
+                    default:
+                        getter = { [unowned self] in
+                            try self.next?.value(forSymbol: tail) as Any
+                        }
                     }
                 case "strings":
                     getter = { [unowned self] in
@@ -1655,14 +2110,109 @@ public class LayoutNode: NSObject {
                     }
                 case let head where head.hasPrefix("#"):
                     let id = String(head.dropFirst())
-                    if let node = self.node(withID: id) {
-                        getter = { [unowned node] in
-                            try node.value(forSymbol: tail) as Any
+                    weak var node = self.node(withID: id)
+                    if node != nil {
+                        switch tail {
+                        case "trailing" where _isRightToLeftLayout:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "left",
+                                     "right" where self._useLegacyLayoutMode:
+                                    return try node?.value(forSymbol: "left") ?? 0
+                                case "leading":
+                                    return try node.map {
+                                        try self.cgFloatValue(forSymbol: "parent.width")
+                                            - $0.cgFloatValue(forSymbol: "left")
+                                    } ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "trailing" where !_isRightToLeftLayout,
+                             "right" where !_useLegacyLayoutMode:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "left",
+                                     "right" where self._useLegacyLayoutMode,
+                                     "leading" where !self._isRightToLeftLayout:
+                                    return try node?.maxXValue() ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "leading" where _isRightToLeftLayout:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "left",
+                                     "right" where self._useLegacyLayoutMode,
+                                     "trailing":
+                                    return try node?.maxXValue() ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "leading" where !_isRightToLeftLayout,
+                             "left" where !_useLegacyLayoutMode:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "right" where !self._useLegacyLayoutMode,
+                                     "trailing" where !self._isRightToLeftLayout:
+                                    return try self.nextVisible.map {
+                                        try self.cgFloatValue(forSymbol: "parent.width")
+                                            - $0.cgFloatValue(forSymbol: "left")
+                                    } ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "bottom" where !_useLegacyLayoutMode:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "top":
+                                    return try node?.maxYValue() ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "top" where !_useLegacyLayoutMode:
+                            getter = { [unowned self, weak node] in
+                                switch self._evaluating.last ?? "" {
+                                case "bottom":
+                                    return try node.map {
+                                        try self.cgFloatValue(forSymbol: "parent.height")
+                                            - $0.cgFloatValue(forSymbol: "top")
+                                    } ?? 0
+                                default:
+                                    return try node?.value(forSymbol: tail) ?? 0
+                                }
+                            }
+                        case "center":
+                            getter = { [weak node] in
+                                try node?.value(forSymbol: tail) ?? CGPoint.zero
+                            }
+                        case _ where layoutSymbols.contains(tail):
+                            getter = { [weak node] in
+                                try node?.value(forSymbol: tail) ?? 0
+                            }
+                        default:
+                            getter = { [weak node] in
+                                try node?.value(forSymbol: tail) as Any
+                            }
                         }
                     } else {
                         getter = {
-                            throw SymbolError("Could not find node with id `\(id)`", for: symbol)
+                            throw SymbolError("Could not find node with id \(id)", for: symbol)
                         }
+                    }
+                case "top", "left",
+                     "bottom", "right",
+                     "width", "height",
+                     "firstBaseline", "lastBaseline",
+                     "firstBaselineOffset", "lastBaselineOffset",
+                     "containerSize", "inferredSize",
+                     "contentSize", "inferredContentSize":
+                    getter = {
+                        throw SymbolError("Unknown property \(symbol)", for: symbol)
                     }
                 default:
                     getter = getterFor(symbol)
@@ -1682,9 +2232,6 @@ public class LayoutNode: NSObject {
         return view.isHidden
     }
 
-    private var _previousSafeAreaInsets: UIEdgeInsets = .zero
-    private var _previousBounds: CGRect = .zero
-
     /// The anticipated frame for the view, based on the current state
     // TODO: should this be public?
     public var frame: CGRect {
@@ -1696,6 +2243,20 @@ public class LayoutNode: NSObject {
                 height: _evaluating.contains("height") ? 0 : try cgFloatValue(forSymbol: "height")
             )
         } ?? .zero
+    }
+
+    private func maxXValue() throws -> CGFloat {
+        if _useLegacyLayoutMode {
+            return try cgFloatValue(forSymbol: "right")
+        }
+        return try cgFloatValue(forSymbol: "left") + cgFloatValue(forSymbol: "width")
+    }
+
+    private func maxYValue() throws -> CGFloat {
+        if _useLegacyLayoutMode {
+            return try cgFloatValue(forSymbol: "bottom")
+        }
+        return try cgFloatValue(forSymbol: "top") + cgFloatValue(forSymbol: "height")
     }
 
     private var _widthDependsOnParent: Bool?
@@ -1711,7 +2272,7 @@ public class LayoutNode: NSObject {
         }
         if value(forSymbol: "width", dependsOn: "inferredSize.width"),
             !hasExpression("contentSize"), !hasExpression("contentSize.width"),
-            !_usesAutoLayout, _view?.intrinsicContentSize.width == UIViewNoIntrinsicMetric, children.isEmpty {
+            !_usesAutoLayout, _view?.intrinsicContentSize.width == UIView.noIntrinsicMetric, children.isEmpty {
             _widthDependsOnParent = true
             return true
         }
@@ -1732,7 +2293,7 @@ public class LayoutNode: NSObject {
         }
         if value(forSymbol: "height", dependsOn: "inferredSize.height"),
             !hasExpression("contentSize"), !hasExpression("contentSize.height"),
-            !_usesAutoLayout, _view?.intrinsicContentSize.height == UIViewNoIntrinsicMetric, children.isEmpty {
+            !_usesAutoLayout, _view?.intrinsicContentSize.height == UIView.noIntrinsicMetric, children.isEmpty {
             _heightDependsOnParent = true
             return true
         }
@@ -1761,7 +2322,7 @@ public class LayoutNode: NSObject {
         }
         // TODO: remove special cases
         if _view is UIStackView {
-            let isVertical = try value(forSymbol: "axis") as! UILayoutConstraintAxis == .vertical
+            let isVertical = try value(forSymbol: "axis") as! NSLayoutConstraint.Axis == .vertical
             let spacing = try cgFloatValue(forSymbol: "spacing")
             var size = CGSize.zero
             let children = self.children.filter { !$0.isHidden }
@@ -1809,10 +2370,10 @@ public class LayoutNode: NSObject {
         // Try best fit for subviews
         var size = CGSize.zero
         if let _view = _view as? UITableViewCell {
-            _view.layoutIfNeeded()
+            _view.layoutIfNeeded() // TODO: find a more performant solution for automatic cell-sizing
             _view.textLabel?.sizeToFit()
             _view.detailTextLabel?.sizeToFit()
-            switch try value(forSymbol: "style") as? UITableViewCellStyle ?? .default {
+            switch try value(forSymbol: "style") as? UITableViewCell.CellStyle ?? .default {
             case .default, .subtitle:
                 size.height = (_view.textLabel?.frame.height ?? 0) + (_view.detailTextLabel?.frame.height ?? 0)
             case .value1, .value2:
@@ -1822,26 +2383,30 @@ public class LayoutNode: NSObject {
         for child in children where !child.isHidden {
             if !child.widthDependsOnParent {
                 var left: CGFloat = 0
-                if !child.value(forSymbol: "left", dependsOn: "parent.width") {
+                if !child.value(forSymbol: "left", dependsOn: "parent.width"),
+                    !child.value(forSymbol: "top", dependsOn: "parent.containerSize.width") {
                     left = try child.cgFloatValue(forSymbol: "left")
                 }
                 size.width = try max(size.width, left + child.cgFloatValue(forSymbol: "width"))
             }
             if !child.heightDependsOnParent {
                 var top: CGFloat = 0
-                if !child.value(forSymbol: "top", dependsOn: "parent.height") {
+                if !child.value(forSymbol: "top", dependsOn: "parent.height"),
+                    !child.value(forSymbol: "top", dependsOn: "parent.containerSize.height") {
                     top = try child.cgFloatValue(forSymbol: "top")
                 }
                 size.height = try max(size.height, top + child.cgFloatValue(forSymbol: "height"))
             }
         }
-        // If zero, fill superview
-        let contentInset = try computeContentInset()
-        if size.width <= 0, let width = _view?.superview?.bounds.width {
-            size.width = width - contentInset.left - contentInset.right
-        }
-        if size.height <= 0, let height = _view?.superview?.bounds.height {
-            size.height = height - contentInset.top - contentInset.bottom
+        if children.isEmpty {
+            // If zero-sized, fill superview
+            let contentInset = try computeContentInset()
+            if size.width <= 0, let width = _view?.superview?.bounds.width {
+                size.width = width - contentInset.left - contentInset.right
+            }
+            if size.height <= 0, let height = _view?.superview?.bounds.height {
+                size.height = height - contentInset.top - contentInset.bottom
+            }
         }
         // Check for explicit width / height
         if hasExpression("contentSize.width"), !_evaluating.contains("contentSize.width") {
@@ -1870,8 +2435,13 @@ public class LayoutNode: NSObject {
             contentInset.right = try cgFloatValue(forSymbol: "contentInset.right")
         }
         if #available(iOS 11.0, *) {
+            #if swift(>=4.2)
+                typealias ContentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior
+            #else
+                typealias ContentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior
+            #endif
             let contentInsetAdjustmentBehavior = try value(forSymbol: "contentInsetAdjustmentBehavior") as!
-                UIScrollViewContentInsetAdjustmentBehavior
+                ContentInsetAdjustmentBehavior
             switch contentInsetAdjustmentBehavior {
             case .automatic, .scrollableAxes:
                 var contentInset = contentInset
@@ -1920,6 +2490,30 @@ public class LayoutNode: NSObject {
         return contentInset
     }
 
+    private func getFirstBaselineOffset() throws -> CGFloat {
+        switch _view?.forFirstBaselineLayout {
+        case let label as UILabel:
+            return ceil(label.font.ascender)
+        case let textView as UITextView:
+            return ceil(textView.textContainerInset.top +
+                (textView.font ?? UIFont.systemFont(ofSize: 17)).ascender)
+        default:
+            throw SymbolError("\(_class) does not implement firstBaseline", for: "firstBaseline")
+        }
+    }
+
+    private func getLastBaselineOffset() throws -> CGFloat {
+        switch _view?.forLastBaselineLayout {
+        case let label as UILabel:
+            return floor(frame.height + label.font.descender)
+        case let textView as UITextView:
+            return floor(textView.contentSize.height - textView.textContainerInset.bottom
+                + (textView.font ?? UIFont.systemFont(ofSize: 17)).descender)
+        default:
+            throw SymbolError("\(_class) does not implement lastBaseline", for: "lastBaseline")
+        }
+    }
+
     private func computeExplicitWidth() throws -> CGFloat? {
         if !_evaluating.contains("width"),
             !_evaluating.contains("height") || !value(forSymbol: "width", dependsOn: "height") {
@@ -1965,15 +2559,12 @@ public class LayoutNode: NSObject {
         if _usesAutoLayout {
             defer { _updateLock -= 1 }
             _updateLock += 1
-            let transform = _view.layer.transform
-            _view.layer.transform = CATransform3DIdentity
-            let frame = _view.frame
             let usesAutoresizing = _view.translatesAutoresizingMaskIntoConstraints
             _view.translatesAutoresizingMaskIntoConstraints = false
             if let width = try computeExplicitWidth() {
                 _widthConstraint?.constant = width
                 _widthConstraint?.isActive = true
-            } else if intrinsicSize.width != UIViewNoIntrinsicMetric,
+            } else if intrinsicSize.width != UIView.noIntrinsicMetric,
                 _view.constraints.contains(where: { $0.firstAttribute == .width }) {
                 _widthConstraint?.constant = intrinsicSize.width
                 _widthConstraint?.isActive = true
@@ -1983,29 +2574,26 @@ public class LayoutNode: NSObject {
             if let height = try computeExplicitHeight() {
                 _heightConstraint?.constant = height
                 _heightConstraint?.isActive = true
-            } else if intrinsicSize.height != UIViewNoIntrinsicMetric,
+            } else if intrinsicSize.height != UIView.noIntrinsicMetric,
                 _view.constraints.contains(where: { $0.firstAttribute == .height }) {
                 _widthConstraint?.constant = intrinsicSize.height
                 _widthConstraint?.isActive = true
             } else {
                 _heightConstraint?.isActive = false
             }
-            _view.layoutIfNeeded()
-            let size = _view.frame.size
+            let size = _view.systemLayoutSizeFitting(.zero)
             if usesAutoresizing {
                 _widthConstraint?.isActive = false
                 _heightConstraint?.isActive = false
                 _view.translatesAutoresizingMaskIntoConstraints = true
-                _view.frame = frame
             }
-            _view.layer.transform = transform
             if size.width > 0 || size.height > 0 {
                 return size
             }
         }
         // Try intrinsic size
         var size = intrinsicSize
-        if size.width != UIViewNoIntrinsicMetric || size.height != UIViewNoIntrinsicMetric {
+        if size.width != UIView.noIntrinsicMetric || size.height != UIView.noIntrinsicMetric {
             let explicitWidth = try computeExplicitWidth()
             if let explicitWidth = explicitWidth {
                 size.width = explicitWidth
@@ -2069,35 +2657,30 @@ public class LayoutNode: NSObject {
         guard _updateLock == 0 else { return }
         defer { _updateLock -= 1 }
         _updateLock += 1
-        try LayoutError.wrap(setUpExpressions, for: self)
-        clearCachedValues()
         try LayoutError.wrap({
+            try setUpExpressions()
+            clearCachedValues()
             try _updateExpressionValues(animated)
-        }, for: self)
-        for child in children {
-            try LayoutError.wrap({
+            for child in children {
                 try child.updateValues(animated: animated)
-            }, for: self)
-        }
+            }
+        }, for: self)
     }
 
     // Note: thrown error is always a LayoutError
     private func updateFrame() throws {
-        guard _updateLock == 0, let _view = _view else { return }
+        guard _updateLock == 0, let _view = _view, !(_view is UITabBar) else { return }
         let frame: CGRect
         defer {
             if parent == nil, _previousBounds != _view.bounds {
+                _previousBounds = _view.bounds
                 _view.superview?.setNeedsLayout()
             }
-            _previousBounds = CGRect(
-                origin: _view.bounds.origin,
-                size: frame.size
-            )
             _updateLock -= 1
         }
         _updateLock += 1
         frame = self.frame
-        if frame != _view.frame {
+        if !frame.isNearlyEqual(to: _view.frame) {
             if _view.translatesAutoresizingMaskIntoConstraints {
                 let transform = _view.layer.transform
                 _view.layer.transform = CATransform3DIdentity
@@ -2129,10 +2712,13 @@ public class LayoutNode: NSObject {
                 scrollView.contentSize = contentSize
             }
         }
-        for child in children {
-            try LayoutError.wrap(child.updateFrame, for: self)
-        }
-        _view.layoutIfNeeded()
+        try LayoutError.wrap({
+            for child in children where child._view?.superview != nil {
+                try child.updateFrame()
+            }
+        }, for: self)
+        // TODO: would it be better to apply this only to the managed view/vc
+        // and then also call didUpdateLayout on root's owner if it has that method?
         _view.didUpdateLayout(for: self)
         _view.viewController?.didUpdateLayout(for: self)
         try throwUnhandledError()
@@ -2140,10 +2726,14 @@ public class LayoutNode: NSObject {
 
     /// Re-evaluates all expressions for the node and its children
     private func update(animated: Bool) {
+        if _updateLock == 0, _view is UITableViewCell || _view is UICollectionViewCell {
+            _view?.layoutIfNeeded()
+        }
         attempt {
             try updateValues(animated: animated)
             try updateFrame()
         }
+        showUnhandledWarnings()
     }
 
     /// Re-evaluates all expressions for the node and its children
@@ -2158,24 +2748,37 @@ public class LayoutNode: NSObject {
     /// Note: thrown error is always a LayoutError
     public func mount(in viewController: UIViewController) throws {
         guard parent == nil else {
-            throw LayoutError.message("The mount() method should only be used on a root node.")
+            throw LayoutError("The mount() method should only be used on a root node.", for: self)
         }
-        try bind(to: viewController)
-        for controller in viewControllers {
-            viewController.addChildViewController(controller)
+        if viewController is LayoutLoading, viewControllerClass == type(of: viewController) {
+            throw LayoutError("Cannot mount \(viewController.classForCoder) inside an instance of itself", for: self)
         }
-        viewController.view.addSubview(view)
-        performWithoutUpdate {
+        try performWithoutUpdate {
+            try bind(to: viewController)
+            for controller in viewControllers {
+                viewController.addChild(controller)
+            }
+            if (viewController is UITableViewController && view is UITableView) ||
+                (viewController is UICollectionViewController && view is UICollectionView) {
+                throw LayoutError("Cannot replace existing \(view.classForCoder) with a new instance", for: self)
+            }
+            // Add as subview of view controller's view
+            viewController.view.addSubview(view)
             _view?.frame = viewController.view.bounds
+            _view?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         update()
+        try throwUnhandledError()
     }
 
     /// Mounts a node inside the specified view, and binds the view as its owner
     /// Note: thrown error is always a LayoutError
     @nonobjc public func mount(in view: UIView) throws {
         guard parent == nil else {
-            throw LayoutError.message("The mount() method should only be used on a root node.")
+            throw LayoutError("The mount() method should only be used on a root node.", for: self)
+        }
+        if view is LayoutLoading, viewClass == type(of: view) {
+            throw LayoutError("Cannot mount \(view.classForCoder) inside an instance of itself", for: self)
         }
         do {
             try bind(to: view)
@@ -2188,12 +2791,14 @@ public class LayoutNode: NSObject {
             }
         }
         if let viewController = view.viewController {
+            // TODO: should mounting a VC node in a view without a containing VC be an error?
             for controller in viewControllers {
-                viewController.addChildViewController(controller)
+                viewController.addChild(controller)
             }
         }
         _view.map { view.addSubview($0) }
         update()
+        try throwUnhandledError()
     }
 
     /// Unmounts and unbinds the node from its owner
@@ -2206,7 +2811,7 @@ public class LayoutNode: NSObject {
         }
         unbind()
         for controller in viewControllers {
-            controller.removeFromParentViewController()
+            controller.removeFromParent()
         }
         _view?.removeFromSuperview()
     }
@@ -2216,6 +2821,10 @@ public class LayoutNode: NSObject {
     /// Binds the node to the specified owner but doesn't attach the view or view controller(s)
     /// Note: thrown error is always a LayoutError
     public func bind(to owner: NSObject) throws {
+        try _bind(to: owner, with: nil)
+    }
+
+    private func _bind(to owner: NSObject, with viewsAndOutlets: NSMutableSet?) throws {
         guard _owner == nil || _owner == owner || _owner == _viewController else {
             throw LayoutError("Cannot re-bind an already bound node.", for: self)
         }
@@ -2223,7 +2832,7 @@ public class LayoutNode: NSObject {
         if oldDelegate == nil {
             _delegate = owner as? LayoutDelegate
         }
-        if viewControllerClass != nil, owner != _viewController, let viewController = viewController {
+        if owner != _viewController, let viewController = viewController {
             do {
                 try bind(to: viewController)
                 return
@@ -2243,8 +2852,48 @@ public class LayoutNode: NSObject {
                 try completeSetup()
             }
         }
+
+        #if arch(i386) || arch(x86_64)
+
+            let viewsAndOutlets = viewsAndOutlets ?? NSMutableSet()
+
+            // Check if this view controller instance has already been used
+            if let controller = viewController {
+                if viewsAndOutlets.contains(controller) {
+                    throw LayoutError("Duplicate \(controller.classForCoder) instance in Layout hierachy", for: self)
+                } else {
+                    viewsAndOutlets.add(controller)
+                }
+            }
+
+            // Check if view instance has already been used
+            if viewsAndOutlets.contains(view) {
+                throw LayoutError("Duplicate \(view.classForCoder) instance in Layout hierachy", for: self)
+            } else {
+                viewsAndOutlets.add(view)
+            }
+
+            // Check if an outlet with this name has already been bound
+            if let outlet = outlet {
+                if viewsAndOutlets.contains(outlet) {
+                    throw LayoutError("Duplicate outlet reference '\(outlet)'", for: self)
+                } else {
+                    viewsAndOutlets.add(outlet)
+                }
+            }
+
+        #endif
+
         if let outlet = outlet {
-            guard let type = Swift.type(of: owner).allPropertyTypes()[outlet] else {
+            let propertyTypes: [String: RuntimeType]
+            switch Swift.type(of: owner) {
+            case let managedType as LayoutManaged.Type:
+                propertyTypes = managedType.cachedExpressionTypes
+            case let objectType:
+                // TODO: this is uncached so quite expensive
+                propertyTypes = objectType.allPropertyTypes()
+            }
+            guard let type = propertyTypes[outlet] else {
                 let mirror = Mirror(reflecting: owner)
                 if mirror.children.contains(where: { $0.label == outlet }) {
                     throw LayoutError("\(owner.classForCoder) \(outlet) outlet must be prefixed with @objc or @IBOutlet to be used with Layout")
@@ -2282,20 +2931,19 @@ public class LayoutNode: NSObject {
                 throw LayoutError("outlet \(outlet) of \(owner.classForCoder) is not a \(expectedType)", for: self)
             }
         }
-        for (name, type) in viewExpressionTypes where expressions[name] == nil {
-            guard case .protocol = type.type, type.matches(owner),
-                name == "delegate" || name == "dataSource" ||
-                name.hasSuffix("Delegate") || name.hasSuffix("DataSource") else {
-                continue
+        try LayoutError.wrap({
+            for (name, type) in viewExpressionTypes where expressions[name] == nil {
+                if case let .protocol(proto) = type.kind, owner.conforms(to: proto),
+                    name == "delegate" || name == "dataSource" ||
+                    name.hasSuffix("Delegate") || name.hasSuffix("DataSource") {
+                    try self._view?.setValue(owner, forExpression: name)
+                }
             }
-            try LayoutError.wrap({
-                try self._view?.setValue(owner, forExpression: name)
-            }, for: self)
-        }
-        try bindActions()
-        for child in children {
-            try LayoutError.wrap({ try child.bind(to: owner) }, for: self)
-        }
+            try bindActions()
+            for child in children {
+                try child._bind(to: owner, with: viewsAndOutlets)
+            }
+        }, for: self)
         try throwUnhandledError()
     }
 
@@ -2303,8 +2951,18 @@ public class LayoutNode: NSObject {
     /// the view or view controller(s) from their respective parents
     public func unbind() {
         if let owner = _owner {
-            if let outlet = outlet, type(of: owner).allPropertyTypes()[outlet] != nil {
-                owner.setValue(nil, forKey: outlet)
+            if let outlet = outlet {
+                let propertyTypes: [String: RuntimeType]
+                switch Swift.type(of: owner) {
+                case let managedType as LayoutManaged.Type:
+                    propertyTypes = managedType.cachedExpressionTypes
+                case let objectType:
+                    // TODO: this is uncached so quite expensive
+                    propertyTypes = objectType.allPropertyTypes()
+                }
+                if propertyTypes[outlet] != nil {
+                    owner.setValue(nil, forKey: outlet)
+                }
             }
             if let control = view as? UIControl {
                 control.unbindActions(for: owner)
@@ -2338,7 +2996,7 @@ public class LayoutNode: NSObject {
             try control.bindActions(for: owner)
         } catch {
             if let delegate = delegate {
-                try LayoutError.wrap({ try control.bindActions(for: delegate) }, for: self)
+                try control.bindActions(for: delegate)
                 return
             }
             throw LayoutError(error, for: self)
@@ -2346,9 +3004,36 @@ public class LayoutNode: NSObject {
     }
 }
 
-private let layoutSymbols: Set<String> = [
-    "left", "right", "width", "top", "bottom", "height",
-]
+private var layoutNodeKey = 1
+
+extension NSObject {
+    var _layoutNode: LayoutNode? {
+        return objc_getAssociatedObject(self, &layoutNodeKey) as? LayoutNode
+    }
+
+    func _setLayoutNode(_ layoutNode: LayoutNode?, retained: Bool) {
+        objc_setAssociatedObject(
+            self, &layoutNodeKey, layoutNode,
+            retained ? .OBJC_ASSOCIATION_RETAIN_NONATOMIC : .OBJC_ASSOCIATION_ASSIGN
+        )
+    }
+}
+
+private var viewSwizzled = false
+
+extension UIView {
+    fileprivate static func _swizzle() {
+        guard !viewSwizzled else { return }
+        replace(#selector(layoutSubviews), of: self, with: #selector(layout_layoutSubviews))
+        viewSwizzled = true
+    }
+
+    // Swizzled layoutSubviews implementation
+    @objc private func layout_layoutSubviews() {
+        layout_layoutSubviews()
+        _layoutNode?.updateLayout()
+    }
+}
 
 private func areEqual(_ lhs: Any, _ rhs: Any) -> Bool {
     if let lhs = lhs as? AnyHashable, let rhs = rhs as? AnyHashable {

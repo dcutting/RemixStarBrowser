@@ -2,8 +2,18 @@
 
 import Foundation
 
-// Prevent cache from distorting performance test results
-private let runningInUnitTest = (NSClassFromString("XCTestCase") != nil)
+// Standard library symbols
+let standardSymbols = Set(Expression.mathSymbols.keys).union(Expression.boolSymbols.keys).union([
+    .infix("??"),
+    .postfix("%"),
+    .function("rgb", arity: 3),
+    .function("rgba", arity: 4),
+])
+
+func clearParsedExpressionCache() {
+    _expressionCache.removeAll()
+    _stringExpressionCache.removeAll()
+}
 
 struct ParsedLayoutExpression: CustomStringConvertible {
     var expression: ParsedExpression
@@ -30,10 +40,27 @@ struct ParsedLayoutExpression: CustomStringConvertible {
     var error: Expression.Error? { return expression.error }
 }
 
-enum ParsedExpressionPart {
+enum ParsedExpressionPart: CustomStringConvertible {
     case string(String)
-    case comment(String)
+    case comment(String) // Should only ever appear as the first part
     case expression(ParsedLayoutExpression)
+
+    var description: String {
+        switch self {
+        case let .string(string):
+            return string
+        case let .comment(comment):
+            return "// \(comment)"
+        case let .expression(expression):
+            return "{\(expression)}"
+        }
+    }
+}
+
+extension Array where Element == ParsedExpressionPart {
+    var description: String {
+        return map { $0.description }.joined()
+    }
 }
 
 // NOTE: it is not safe to access this concurrently from multiple threads due to cache
@@ -55,9 +82,12 @@ func parseExpression(_ expression: String) throws -> ParsedLayoutExpression {
             throw Expression.Error.message("Missing `}`")
         }
         characters.removeFirst()
+        if let trailingComment = characters.readComment() {
+            comment = comment.map { $0 + " // " + trailingComment } ?? trailingComment
+        }
     default:
         parsedExpression = Expression.parse(&characters, upTo: "//")
-        comment = characters.readComment(upTo: nil)
+        comment = characters.readComment()
     }
     if let error = parsedExpression.error, error != .unexpectedToken("") {
         throw error
@@ -67,9 +97,7 @@ func parseExpression(_ expression: String) throws -> ParsedLayoutExpression {
         throw Expression.Error.message("Unexpected token `\(String(characters))`")
     }
     let parsedLayoutExpression = ParsedLayoutExpression(parsedExpression, comment: comment)
-    if !runningInUnitTest {
-        _expressionCache[expression] = parsedLayoutExpression
-    }
+    _expressionCache[expression] = parsedLayoutExpression
     return parsedLayoutExpression
 }
 
@@ -82,7 +110,7 @@ func parseStringExpression(_ expression: String) throws -> [ParsedExpressionPart
     var parts = [ParsedExpressionPart]()
     var string = ""
     var characters = String.UnicodeScalarView.SubSequence(expression.unicodeScalars)
-    if let comment = characters.readComment(upTo: nil) {
+    if let comment = characters.readComment() {
         return [.comment(comment)]
     } else {
         while let char = characters.first {
@@ -114,9 +142,7 @@ func parseStringExpression(_ expression: String) throws -> [ParsedExpressionPart
             parts.append(.string(string))
         }
     }
-    if !runningInUnitTest {
-        _stringExpressionCache[expression] = parts
-    }
+    _stringExpressionCache[expression] = parts
     return parts
 }
 
@@ -129,7 +155,7 @@ private extension String.UnicodeScalarView.SubSequence {
         }
     }
 
-    mutating func readComment(upTo delimiter: UnicodeScalar?) -> String? {
+    mutating func readComment(upTo delimiter: UnicodeScalar? = nil) -> String? {
         let start = self
         skipWhitespace()
         guard popFirst() == "/", popFirst() == "/" else {
